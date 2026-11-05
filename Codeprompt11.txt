@@ -1,0 +1,759 @@
+# PROMPT 11 — CivicX Doorstep Pickup, Scrap Collection & Local Services
+
+You are a senior full-stack engineer working on my existing CivicX project.
+
+Your task is to inspect the actual repository and implement a new independent module called:
+
+**CivicX Doorstep Pickup & Local Services**
+
+Do not assume anything about the existing code. Read the actual backend, frontend, database schema, authentication, authorization, locality system, file upload system and existing modules before making changes.
+
+The purpose of this module is to connect local residents with nearby businesses and service providers who can collect items from their homes or provide local services.
+
+# 1. Product Vision
+
+Imagine a person has old newspapers, cardboard boxes, plastic bottles, iron items and unused household materials stored at home.
+
+Normally, the person must search for a scrap dealer, contact them and arrange transportation.
+
+CivicX should make this easier.
+
+The customer opens CivicX, selects Doorstep Pickup, uploads photos of the materials, enters a description and submits a pickup request.
+
+Nearby verified scrap dealers receive or discover the request.
+
+They can:
+- View the requested materials.
+- Check the customer's locality.
+- Offer an estimated price.
+- Accept or negotiate the request.
+- Select a convenient pickup time.
+- Visit the customer's house.
+- Inspect and weigh the materials.
+- Pay the customer.
+- Complete the pickup.
+
+The customer does not need to carry the scrap to the shop.
+
+The same concept should eventually support other local pickup and doorstep services.
+
+# 2. Keep This Module Separate
+
+CivicX already has or plans to have:
+
+- Civic Complaints
+- CivicX Moments
+- CivicX Local News
+- CivicX Local Shops
+- CivicX Local Ads
+
+Create Doorstep Pickup & Local Services as a separate module.
+
+Reuse shared infrastructure such as:
+- Authentication
+- User accounts
+- Locality and ward information
+- Notifications
+- Image uploads
+- Admin permissions
+
+Do not mix its business logic with normal product ordering from Local Shops.
+
+# 3. Service Categories
+
+Design a configurable category system.
+
+Initially support these categories:
+
+### A. Scrap Collection
+
+- Old newspapers
+- Cardboard
+- Iron
+- Steel
+- Aluminium
+- Copper
+- Plastic bottles
+- Plastic materials
+- Metal waste
+- Old books
+- Other recyclable household materials
+
+### B. E-Waste Collection
+
+- Old mobile phones
+- Chargers
+- Cables
+- Computers
+- Keyboards
+- Monitors
+- Printers
+- Other electronic waste
+
+Only allow verified and appropriately authorized providers to collect regulated or sensitive electronic waste.
+
+### C. Old Household Items
+
+- Old furniture
+- Tables
+- Chairs
+- Beds
+- Mattresses
+- Old appliances
+- Washing machines
+- Refrigerators
+- Fans
+- Other reusable household items
+
+### D. Other Local Services — Future-ready
+
+Design the category system so additional services can be introduced:
+
+- Laundry pickup and delivery
+- Water can delivery
+- Tailoring pickup
+- Shoe repair pickup
+- Appliance repair
+- Furniture repair
+- Local recycling services
+- Other verified doorstep services
+
+Do not implement every future service immediately.
+
+First complete the scrap collection workflow properly.
+
+# 4. Customer Flow — Scrap Pickup
+
+Example:
+
+A customer has old newspapers, iron pieces and cardboard at home.
+
+The customer should be able to:
+
+1. Open CivicX.
+2. Select Doorstep Pickup.
+3. Select Scrap Collection.
+4. Choose the materials available at home.
+5. Upload one or more photos.
+6. Enter an approximate quantity.
+7. Select a pickup address or locality.
+8. Add a description.
+9. Select a preferred pickup date and time.
+10. Submit the request.
+
+Example request:
+
+Category: Scrap Collection
+
+Materials:
+- Old newspapers
+- Cardboard
+- Iron
+
+Approximate quantity:
+- Newspapers: 10 kg
+- Cardboard: 5 kg
+- Iron: 3 kg
+
+Description:
+"Old newspapers, cardboard boxes and some iron items are available at my house. Please arrange doorstep pickup."
+
+Location:
+Street 9, selected locality.
+
+Pickup preference:
+Tomorrow, 10 AM to 1 PM.
+
+These are illustrative details.
+
+# 5. Nearby Scrap Dealer Discovery
+
+When the customer submits a request, eligible nearby scrap dealers should be able to discover it.
+
+The system should match requests using:
+
+- Service category
+- Provider's selected service localities
+- Delivery/pickup coverage radius
+- Provider availability
+- Request status
+
+Example:
+
+Customer submits a scrap pickup request in Street 9.
+
+Nearby verified providers:
+
+1. Sri Sai Scrap Traders — 1 km
+2. Local Recycling Centre — 2 km
+3. Green Scrap Collection — 3 km
+
+These providers should see the request without receiving the customer's full home address.
+
+Only show approximate locality information until a provider is selected and the customer confirms the arrangement.
+
+# 6. Scrap Dealer Registration
+
+Allow scrap dealers and other local service providers to register.
+
+Collect:
+
+- Business name
+- Owner name
+- Mobile number
+- Business category
+- Business description
+- Business address
+- Service localities
+- Service radius
+- Business photos
+- Available pickup timings
+- Contact details
+- Required verification documents
+
+Provider approval statuses:
+
+- PENDING_APPROVAL
+- APPROVED
+- REJECTED
+- SUSPENDED
+
+Only approved providers should be visible to customers and eligible to receive requests.
+
+A provider must only manage their own business profile and service requests.
+
+# 7. Provider Dashboard
+
+Create a simple dashboard for scrap dealers.
+
+Example:
+
+Business: Sri Sai Scrap Traders
+
+Availability: ON / OFF
+
+Accepting Requests: ON / OFF
+
+Service Area:
+- Street 9
+- Street 10
+- Nearby localities
+
+Available Categories:
+- Newspapers
+- Cardboard
+- Iron
+- Plastic
+- Aluminium
+
+The provider should be able to:
+
+- Turn availability ON/OFF.
+- Temporarily stop receiving requests.
+- Update service localities.
+- Update pickup timings.
+- View new requests.
+- View accepted requests.
+- Submit price estimates.
+- View completed collections.
+- View customer ratings.
+
+When availability is OFF, do not send new requests to the provider.
+
+# 8. Price Offers and Negotiation
+
+This is an important feature.
+
+Scrap dealers should be able to submit an estimated offer.
+
+Example:
+
+Customer request:
+- Newspapers: 10 kg
+- Cardboard: 5 kg
+- Iron: 3 kg
+
+Provider offer:
+
+- Newspapers: ₹12/kg
+- Cardboard: ₹5/kg
+- Iron: ₹25/kg
+
+Estimated total: ₹220.
+
+These prices are examples only. Do not hardcode them.
+
+The customer should be able to:
+
+- View provider offers.
+- Compare offers.
+- Accept one offer.
+- Reject an offer.
+- Request a revised offer.
+- Cancel the request before collection.
+
+The provider should be able to:
+
+- Submit an estimated offer.
+- Update an offer before customer acceptance.
+- Withdraw an offer if it has not been accepted.
+
+Only one provider should be assigned to a request at a time.
+
+Once the customer accepts an offer, other providers must not be allowed to accept the same request.
+
+Use proper database transactions and concurrency protection.
+
+# 9. Final Weighing and Payment
+
+Important real-world situation:
+
+The estimated weight and actual weight may differ.
+
+For example:
+
+Estimated:
+- Newspaper: 10 kg
+
+Actual:
+- Newspaper: 8.5 kg
+
+The provider must enter the actual weight and final amount after inspecting the materials.
+
+The customer should be shown:
+
+- Original estimated weight.
+- Actual measured weight.
+- Agreed rate per unit.
+- Final amount.
+- Any deductions, if applicable.
+- Total amount payable.
+
+If the final amount differs from the accepted estimate, require customer approval before completing the transaction.
+
+Payment methods initially:
+
+- Cash
+- UPI paid directly to the customer
+
+Do not integrate a payment gateway in this phase.
+
+Payment statuses:
+
+- PENDING
+- PAID
+- DISPUTED
+
+Store payment confirmation details and timestamps.
+
+Do not mark an order paid merely because the provider clicks a button. Require the appropriate confirmation workflow from both parties.
+
+# 10. Pickup Workflow
+
+Use a clear request lifecycle.
+
+Suggested statuses:
+
+- REQUESTED
+- OFFERS_RECEIVED
+- OFFER_ACCEPTED
+- PICKUP_SCHEDULED
+- PROVIDER_ON_THE_WAY
+- ARRIVED
+- MATERIAL_INSPECTED
+- AWAITING_CUSTOMER_APPROVAL
+- COLLECTED
+- COMPLETED
+- CANCELLED
+- DISPUTED
+
+The customer should see the latest status.
+
+The provider should be able to update statuses only when allowed by the workflow.
+
+Maintain complete status history.
+
+Do not allow providers to mark requests completed without the required collection and payment confirmations.
+
+# 11. Customer Privacy and Safety
+
+This is critical.
+
+1. Never publicly display the customer's complete home address.
+2. Show only approximate locality information to providers before acceptance.
+3. Reveal the necessary pickup address only after the customer accepts a provider's offer and confirms the appointment.
+4. Never expose a customer's private address to unrelated providers.
+5. Allow customers to cancel before pickup under defined rules.
+6. Allow customers to report suspicious providers.
+7. Allow providers to report suspicious requests.
+8. Verify providers before allowing them to accept requests.
+9. Maintain records of important actions.
+10. Do not expose customer mobile numbers publicly.
+11. Do not implement continuous tracking of the customer's home location.
+12. Do not permit unauthorized or unsolicited visits.
+
+For customer safety, show the provider's verified business name and relevant contact information before confirming a pickup.
+
+# 12. Other Doorstep Pickup Opportunities
+
+After scrap collection works, extend the same infrastructure to other services.
+
+Examples:
+
+### E-Waste Pickup
+
+A customer has an old mobile phone or computer.
+
+They upload a photo and request collection.
+
+A verified e-waste collector offers a price or collection service.
+
+### Old Furniture Pickup
+
+A customer wants to sell an old table.
+
+They upload photos and enter the condition.
+
+Nearby second-hand furniture dealers can offer prices and arrange pickup.
+
+### Old Appliance Pickup
+
+A customer wants to sell an old refrigerator.
+
+Nearby verified second-hand appliance buyers can inspect it and arrange collection.
+
+### Laundry Pickup
+
+A customer requests laundry pickup.
+
+A local laundry business accepts the request, collects clothes and returns them according to the agreed service.
+
+### Water Can Delivery
+
+A customer orders water cans from a nearby provider.
+
+The provider accepts the request and arranges delivery.
+
+These should be separate service categories with appropriate workflows, not forced into the scrap pricing workflow.
+
+For the initial implementation, prioritize:
+1. Scrap Collection.
+2. E-Waste Collection.
+3. Old Furniture and Appliance Pickup.
+
+Keep other services future-ready.
+
+# 13. Customer Dashboard
+
+Create:
+
+- My Pickup Requests
+- New Requests
+- Offers Received
+- Accepted Offers
+- Scheduled Pickups
+- Completed Pickups
+- Cancelled Requests
+- Disputes
+- Provider Ratings
+
+A customer should be able to open any request and see its complete history.
+
+# 14. Provider Dashboard
+
+Create:
+
+- Business Profile
+- Availability Controls
+- Service Categories
+- Service Localities
+- New Nearby Requests
+- Offers Submitted
+- Accepted Requests
+- Scheduled Pickups
+- Completed Collections
+- Earnings/Collection History
+- Customer Ratings
+
+Do not claim that estimated earnings are actual received payments.
+
+# 15. Admin Dashboard
+
+Admins should be able to:
+
+- View provider registrations.
+- Verify providers.
+- Approve or reject businesses.
+- Suspend providers.
+- Manage service categories.
+- View pickup requests.
+- Investigate reports.
+- Handle disputes.
+- Review suspicious transactions.
+- View provider and customer activity.
+- Review audit history.
+
+All important admin actions must be recorded.
+
+# 16. Notifications
+
+Reuse CivicX's existing notification system.
+
+Notify customers when:
+
+- A provider submits an offer.
+- An offer is updated.
+- A pickup is scheduled.
+- The provider is on the way.
+- The provider arrives.
+- Final weight and amount are submitted.
+- The pickup is completed.
+- A request is cancelled.
+
+Notify providers when:
+
+- A new matching request is available.
+- Their offer is accepted.
+- Their offer is rejected.
+- A pickup is cancelled.
+- A customer approves the final amount.
+
+Avoid duplicate notifications.
+
+Allow customers to control relevant notification preferences.
+
+# 17. Suggested Database Design
+
+Inspect the existing schema before implementing.
+
+Possible new tables:
+
+- doorstep_service_categories
+- doorstep_providers
+- doorstep_provider_categories
+- doorstep_provider_service_areas
+- doorstep_provider_availability
+- doorstep_pickup_requests
+- doorstep_pickup_request_items
+- doorstep_pickup_images
+- doorstep_pickup_offers
+- doorstep_pickup_offer_items
+- doorstep_pickup_status_history
+- doorstep_pickup_measurements
+- doorstep_pickup_payments
+- doorstep_pickup_reports
+- doorstep_pickup_ratings
+
+These are suggested names only.
+
+Follow existing database naming conventions.
+
+Requirements:
+- Foreign keys.
+- Correct indexes.
+- Ownership constraints.
+- Created and updated timestamps.
+- Status history.
+- Auditability.
+- Appropriate soft deletion.
+- Transaction safety.
+
+Use existing file/object storage for images. Store references in the database, not large binary files.
+
+Never modify previously applied Flyway migrations. Create new migrations.
+
+# 18. Suggested API Design
+
+Adapt these to the actual project's conventions.
+
+Customer APIs:
+
+- POST /api/v1/doorstep/requests
+- GET /api/v1/doorstep/requests/my-requests
+- GET /api/v1/doorstep/requests/{requestId}
+- GET /api/v1/doorstep/requests/{requestId}/offers
+- POST /api/v1/doorstep/requests/{requestId}/offers/{offerId}/accept
+- POST /api/v1/doorstep/requests/{requestId}/cancel
+- POST /api/v1/doorstep/requests/{requestId}/report
+- POST /api/v1/doorstep/requests/{requestId}/approve-final-amount
+
+Provider APIs:
+
+- POST /api/v1/doorstep/providers/register
+- GET /api/v1/doorstep/providers/my-business
+- PUT /api/v1/doorstep/providers/my-business
+- PATCH /api/v1/doorstep/providers/availability
+- GET /api/v1/doorstep/providers/nearby-requests
+- POST /api/v1/doorstep/requests/{requestId}/offers
+- PUT /api/v1/doorstep/offers/{offerId}
+- PATCH /api/v1/doorstep/requests/{requestId}/status
+- POST /api/v1/doorstep/requests/{requestId}/measurements
+- POST /api/v1/doorstep/requests/{requestId}/payment-confirmation
+
+Admin APIs:
+
+- GET /api/v1/admin/doorstep/providers
+- PATCH /api/v1/admin/doorstep/providers/{providerId}/approve
+- PATCH /api/v1/admin/doorstep/providers/{providerId}/reject
+- PATCH /api/v1/admin/doorstep/providers/{providerId}/suspend
+- GET /api/v1/admin/doorstep/requests
+- GET /api/v1/admin/doorstep/reports
+
+Document implemented APIs in Swagger/OpenAPI.
+
+# 19. Frontend Screens
+
+Customer:
+
+- Doorstep Pickup landing page.
+- Service category selection.
+- Create pickup request.
+- Photo upload.
+- Select locality/address.
+- Select pickup date and time.
+- Nearby provider list.
+- Compare provider offers.
+- Offer details.
+- Confirm pickup.
+- Track pickup.
+- Review and rating.
+- Report/dispute screen.
+
+Provider:
+
+- Provider registration.
+- Business verification status.
+- Provider dashboard.
+- Availability ON/OFF.
+- Service category management.
+- Service locality management.
+- Nearby request feed.
+- Submit and update offers.
+- Manage accepted pickups.
+- Enter actual measurements.
+- Submit final amount.
+- Complete collection.
+
+Admin:
+
+- Provider verification.
+- Request monitoring.
+- Reports and disputes.
+- Provider management.
+
+Use the existing CivicX design system and frontend framework.
+
+Make all screens mobile-friendly.
+
+Do not replace real API integration with hardcoded demo data.
+
+# 20. Testing Requirements
+
+Write tests for:
+
+1. Provider registration.
+2. Provider admin approval.
+3. Unapproved providers cannot accept requests.
+4. Provider availability OFF prevents new request acceptance.
+5. Service locality matching.
+6. Customer can create a pickup request.
+7. Nearby providers can discover eligible requests.
+8. Customer address is hidden before confirmation.
+9. Provider cannot access another provider's requests.
+10. Customer cannot access another customer's private requests.
+11. Customer can compare multiple offers.
+12. Only one offer can be accepted for a request.
+13. Concurrent offer acceptance is handled safely.
+14. Customer can cancel under permitted conditions.
+15. Actual weight and final amount are recorded correctly.
+16. Customer approval is required when the final amount changes.
+17. Payment confirmation is properly recorded.
+18. Completed requests cannot be arbitrarily modified.
+19. Admin-only operations are protected.
+20. Suspended providers cannot accept new requests.
+
+Run all relevant existing tests too.
+
+# 21. Implementation Phases
+
+Do not attempt to build every future service at once.
+
+Implement in this order:
+
+Phase A:
+- Provider registration.
+- Admin verification.
+- Scrap collection categories.
+- Customer pickup request.
+- Photo upload.
+- Locality-based provider discovery.
+- Provider availability ON/OFF.
+
+Phase B:
+- Provider price offers.
+- Customer offer comparison.
+- Offer acceptance.
+- Pickup scheduling.
+- Notifications.
+
+Phase C:
+- Actual weight and final price.
+- Customer approval.
+- Cash/UPI payment confirmation.
+- Pickup completion.
+- Ratings and reports.
+
+Phase D:
+- E-waste.
+- Old furniture.
+- Old appliances.
+- Architecture for additional doorstep services.
+
+If the work is too large for one safe implementation, complete Phase A first and provide a clear report before proceeding.
+
+# 22. Security and Business Rules
+
+- Use existing CivicX authentication.
+- Enforce role-based permissions.
+- Verify business ownership on the backend.
+- Validate all prices and quantities.
+- Validate uploaded images.
+- Protect customer addresses.
+- Prevent duplicate requests and duplicate offer acceptance.
+- Protect against unauthorized status changes.
+- Keep audit records.
+- Do not allow unapproved providers to collect customer information.
+- Do not create fake provider profiles or fake prices.
+- Do not introduce a payment gateway without a separate review.
+- Apply appropriate safety and legal restrictions to regulated waste categories.
+
+# 23. Final Report
+
+After implementation, provide:
+
+1. Existing architecture discovered.
+2. Files created and modified.
+3. Database migrations added.
+4. APIs implemented.
+5. Frontend screens implemented.
+6. Customer workflow completed.
+7. Provider workflow completed.
+8. Admin workflow completed.
+9. Security measures implemented.
+10. Tests executed and actual results.
+11. Features not implemented.
+12. Known limitations.
+13. Commands to run the application.
+14. Manual testing steps for a junior developer.
+
+Important:
+- Read the actual source code first.
+- Do not guess.
+- Do not rewrite the whole project.
+- Do not break existing modules.
+- Do not modify applied migrations.
+- Do not hardcode secrets.
+- Do not push to GitHub automatically.
+- Do not claim incomplete features are finished.
+
+**Final goal:** A resident should be able to request doorstep scrap collection, receive offers from nearby verified scrap dealers, choose a provider, arrange pickup, confirm the final price and complete the transaction safely — all through CivicX.

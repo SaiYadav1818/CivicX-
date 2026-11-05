@@ -1,0 +1,217 @@
+# CIVICX — PHASE 5: ADMIN DASHBOARD AND COMPLAINT MANAGEMENT
+
+You are a Senior Backend Architect implementing the administrative management system for CivicX.
+
+Repository:
+https://github.com/SaiYadav1818/CivicX-
+
+## 1. Context
+
+Inspect and verify Phases 1–4 before implementation.
+
+Expected existing features:
+- Authentication and RBAC.
+- Citizen complaint submission.
+- Complaint image management.
+- GPS and location.
+- AI-assisted classification.
+- Duplicate detection.
+- Authority and department mapping.
+- Complaint status history.
+- Audit logs.
+
+Do not recreate existing functionality.
+
+## 2. Objective
+
+Build a complete admin management backend that allows authorized CivicX administrators to operate the platform.
+
+Administrators must be able to:
+- View all complaints.
+- Verify complaints.
+- Reject invalid complaints.
+- Identify duplicate reports.
+- Assign complaints to departments.
+- Track progress.
+- Manage supervisors and department users.
+- Review complaint history.
+- Generate operational reports.
+
+## 3. Complaint management APIs
+
+Implement or extend:
+
+GET /api/v1/admin/dashboard/summary
+
+GET /api/v1/admin/complaints
+
+GET /api/v1/admin/complaints/{id}
+
+PATCH /api/v1/admin/complaints/{id}/status
+
+POST /api/v1/admin/complaints/{id}/assign
+
+POST /api/v1/admin/complaints/{id}/notes
+
+GET /api/v1/admin/complaints/{id}/history
+
+GET /api/v1/admin/complaints/{id}/duplicates
+
+Support:
+- Pagination.
+- Sorting.
+- Date filters.
+- Category filters.
+- Status filters.
+- Department filters.
+- Ward and zone filters.
+- Search by complaint reference.
+
+## 4. Department assignment
+
+Implement a controlled assignment workflow.
+
+A complaint may be assigned to:
+- A department.
+- A department supervisor.
+- An authorized department user.
+
+Record:
+- Complaint ID.
+- Department ID.
+- Assigned user.
+- Assigned by.
+- Assignment date.
+- Assignment reason.
+- Due date, if configured.
+- Assignment history.
+
+Do not assume a government department has accepted a complaint merely because CivicX assigned it internally.
+
+Distinguish:
+CIVICX_ASSIGNED from OFFICIALLY_SUBMITTED and OFFICIALLY_ACKNOWLEDGED.
+
+## 5. Internal notes and communication
+
+Allow authorized administrators to add internal notes.
+
+Requirements:
+- Store author and timestamp.
+- Preserve note history.
+- Keep internal notes private.
+- Never expose internal notes through public complaint APIs.
+- Record important administrative actions in audit logs.
+
+## 6. Dashboard statistics
+
+Implement accurate database-driven statistics:
+
+- Total complaints.
+- Newly submitted complaints.
+- Awaiting verification.
+- Verified complaints.
+- Rejected complaints.
+- Possible duplicates.
+- Assigned complaints.
+- In-progress complaints.
+- Resolved complaints.
+- Complaints by category.
+- Complaints by ward.
+- Complaints by department.
+- Average resolution time, where sufficient data exists.
+
+Do not invent analytics or use sample numbers in production responses.
+
+Clearly distinguish:
+- Resolved by CivicX/community action.
+- Reported resolved by an authority.
+- Independently verified resolved.
+
+## 7. Reports and exports
+
+Implement:
+
+GET /api/v1/admin/reports/complaints
+
+GET /api/v1/admin/reports/complaints/export
+
+Support CSV or Excel export.
+
+Include:
+- Complaint reference.
+- Category.
+- Ward and zone.
+- Authority.
+- Department.
+- Status.
+- Submission date.
+- Official reference number, if available.
+- Resolution date, if available.
+
+Do not export private information unless explicitly authorized.
+
+Prevent spreadsheet formula injection in exported files.
+
+## 8. RBAC
+
+ADMIN:
+- Full permitted platform management.
+
+SUPERVISOR:
+- Manage complaints within assigned scope.
+
+DEPARTMENT:
+- View and update complaints assigned to their department.
+
+CITIZEN:
+- No admin access.
+
+Enforce authorization at service and API levels.
+
+Do not grant unrestricted access to every supervisor or department user.
+
+## 9. Audit and accountability
+
+Every important action must record:
+- Actor.
+- Action.
+- Entity.
+- Timestamp.
+- Previous value where applicable.
+- New value where applicable.
+- Reason where required.
+
+Never silently overwrite administrative history.
+
+## 10. Testing
+
+Test:
+- Dashboard statistics against actual database records.
+- Filtering and pagination.
+- Department assignment.
+- Supervisor access restrictions.
+- Internal notes privacy.
+- Report exports.
+- Formula injection protection.
+- Audit history.
+- Unauthorized access.
+- All previous phase regression tests.
+
+## 11. Definition of done
+
+- Admin complaint management works.
+- Department assignment works.
+- Supervisor permissions work.
+- Dashboard statistics are accurate.
+- Reports can be exported.
+- Audit records are preserved.
+- Swagger is updated.
+- README is updated.
+- All tests pass.
+- Application builds successfully.
+
+Do not start Phase 6.
+
+Do not push to GitHub automatically.
+
+Provide implementation details, API examples, test results and known limitations.

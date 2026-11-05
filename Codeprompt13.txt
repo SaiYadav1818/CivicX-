@@ -1,0 +1,581 @@
+# PROMPT 13 — CivicX Smart Product Finder: Ask Nearby Shops
+
+You are a senior full-stack engineer working on my existing CivicX project.
+
+Implement a new independent feature called **CivicX Ask Nearby Shops**.
+
+First inspect the actual repository, frontend, backend, database schema, authentication, shop registration, product catalogue, locality system, notification infrastructure and existing CivicX Local Shops module.
+
+Do not guess or rewrite existing functionality.
+
+## 1. Product Vision
+
+The purpose of this feature is to help customers find products when they do not know which nearby shop sells them.
+
+Example:
+
+A customer needs a particular mobile charger but does not know which local shop has it.
+
+Instead of visiting multiple shops, the customer opens CivicX, uploads a photo of the charger or types its name, and sends one request to nearby relevant shop owners.
+
+Nearby shops receive the request and can respond:
+
+- YES, AVAILABLE.
+- AVAILABLE IN ANOTHER BRAND.
+- OUT OF STOCK.
+- CAN ARRANGE IT.
+- NOT AVAILABLE.
+
+The customer can compare responses, see shop details and visit the shop.
+
+The feature should connect customers with existing approved CivicX Local Shops.
+
+Do not create duplicate shop registration or authentication systems.
+
+## 2. Customer Request Creation
+
+Create an Ask Nearby Shops section.
+
+Customers should be able to:
+
+1. Open CivicX.
+2. Select Ask Nearby Shops.
+3. Upload a product photo OR enter the product name.
+4. Add a description.
+5. Select a product category.
+6. Enter brand or model, if known.
+7. Enter quantity required.
+8. Select locality.
+9. Select search radius.
+10. Submit the request.
+
+Example:
+
+Product: Mobile Charger
+
+Photo: Uploaded charger image.
+
+Brand: Samsung
+
+Description: "I need a Samsung 25W Type-C charger."
+
+Quantity: 1
+
+Locality: Street 9
+
+Search radius: 1 km or 3 km.
+
+The customer must be able to submit a request using text alone, a photo alone, or both.
+
+Photo upload must be optional.
+
+## 3. Product Categories
+
+Use existing shop categories and product categories wherever possible.
+
+Support:
+- Groceries
+- Mobile phones and accessories
+- Electronics
+- Hardware
+- Electrical items
+- Plumbing materials
+- Building materials
+- Clothing
+- Footwear
+- Stationery
+- Medicines and pharmacy products, subject to applicable regulations
+- Household products
+- Kitchen items
+- Other products
+
+Allow admins to manage categories.
+
+Do not create duplicate category systems if the existing Local Shops module already provides them.
+
+## 4. Nearby Shop Matching
+
+When a customer submits a request, identify relevant approved shops.
+
+Match using:
+
+- Customer locality.
+- Search radius.
+- Shop service area.
+- Shop category.
+- Product category.
+- Shop approval status.
+- Shop active status.
+
+Example:
+
+A customer requests a Samsung charger in Street 9.
+
+Eligible nearby shops:
+
+- Sai Mobile Store — 500 metres.
+- Sri Electronics — 1 km.
+- Kumar Mobile Accessories — 2 km.
+
+Send the request only to relevant shops.
+
+Do not send a mobile charger request to unrelated grocery stores.
+
+Do not send requests to suspended or unapproved shops.
+
+Do not send new requests to shops that have disabled request notifications.
+
+Avoid duplicate delivery of the same request to the same shop.
+
+## 5. Shop Owner Notifications
+
+Shop owners should receive notifications when a matching customer request is available.
+
+Example:
+
+"New customer request near Street 9."
+
+Product: Samsung 25W Type-C Charger.
+
+Quantity: 1.
+
+The shop owner can open the request and respond.
+
+Allow shop owners to control whether they want to receive nearby product requests.
+
+Do not reveal the customer's full home address or personal contact details to shops.
+
+Show approximate locality only.
+
+## 6. Shop Owner Responses
+
+Provide simple response buttons.
+
+### Option A — Available
+
+Shop owner selects YES, AVAILABLE.
+
+They must enter:
+
+- Product brand.
+- Product model, if applicable.
+- Available quantity.
+- Price.
+- Optional product photo.
+- Stock confirmation time.
+
+### Option B — Alternative Available
+
+Shop owner selects AVAILABLE IN ANOTHER BRAND.
+
+They provide:
+
+- Available brand.
+- Model.
+- Price.
+- Description.
+- Optional photo.
+
+### Option C — Out of Stock
+
+Shop owner selects OUT OF STOCK.
+
+### Option D — Can Arrange
+
+Shop owner selects CAN ARRANGE.
+
+They provide an estimated time when the product can be arranged.
+
+### Option E — Not Available
+
+Shop owner selects NOT AVAILABLE.
+
+All responses should be associated with the original customer request.
+
+## 7. Customer Response Comparison
+
+This is the most important customer screen.
+
+When shops respond, show a list of responses.
+
+Example:
+
+Customer request: Samsung 25W Type-C Charger.
+
+Responses:
+
+Shop 1:
+- Sai Mobile Store.
+- 500 metres away.
+- Available.
+- Samsung 25W charger.
+- ₹450.
+- Confirmed 5 minutes ago.
+
+Shop 2:
+- Sri Electronics.
+- 1 km away.
+- Available.
+- Samsung 25W charger.
+- ₹420.
+- Confirmed 10 minutes ago.
+
+Shop 3:
+- Kumar Mobile Accessories.
+- 2 km away.
+- Alternative available.
+- Other brand.
+- ₹350.
+
+The customer should be able to:
+
+- Compare prices.
+- Compare brands.
+- View product photos.
+- See shop distance.
+- See response time.
+- View shop opening status.
+- Open the shop profile.
+- Call the shop.
+- Get directions to the shop.
+- Mark a shop as selected.
+
+These prices and shop names are illustrative examples only.
+
+Never display fake availability or fake shop responses.
+
+## 8. Stock Confirmation and Expiry
+
+A shop owner clicking YES must not mean that stock is guaranteed indefinitely.
+
+Implement:
+
+- Response timestamp.
+- Stock confirmation timestamp.
+- Configurable response validity.
+- Expired response status.
+- Shop owner ability to withdraw an offer.
+- Customer visibility into how recently stock was confirmed.
+
+Example:
+
+"Available — confirmed 5 minutes ago."
+
+If the response is old:
+
+"Availability not recently confirmed. Contact the shop before visiting."
+
+When a response expires, do not show it as currently confirmed.
+
+Do not automatically reserve stock just because a shop responded YES.
+
+Optionally support a future feature where shops can reserve an item for a customer.
+
+## 9. Customer and Shop Contact
+
+Customers should be able to:
+
+- Call a responding shop.
+- Open its profile.
+- Use supported messaging/contact options.
+- View directions.
+- Mark the request as resolved.
+
+Do not publicly expose phone numbers in search responses.
+
+Only reveal contact information through the approved contact flow and according to shop-owner consent.
+
+## 10. Request Lifecycle
+
+Suggested request statuses:
+
+- DRAFT
+- OPEN
+- RESPONSES_RECEIVED
+- CUSTOMER_SELECTED_SHOP
+- RESOLVED
+- EXPIRED
+- CANCELLED
+
+Suggested shop response statuses:
+
+- AVAILABLE
+- ALTERNATIVE_AVAILABLE
+- OUT_OF_STOCK
+- CAN_ARRANGE
+- NOT_AVAILABLE
+- WITHDRAWN
+- EXPIRED
+
+Maintain request and response history.
+
+Allow the customer to close or cancel a request.
+
+Prevent shops from responding to expired or cancelled requests.
+
+## 11. Optional AI Product Recognition
+
+Make the feature future-ready for AI.
+
+Possible future flow:
+
+1. Customer uploads a product image.
+2. AI suggests the likely product name and category.
+3. Customer reviews and edits the suggestion.
+4. Customer confirms the request.
+5. CivicX sends the request to relevant shops.
+
+Important:
+- Do not claim AI has identified a product with certainty.
+- Do not invent brand, model or specifications.
+- Always allow manual text entry.
+- Do not block request creation if AI recognition is unavailable.
+
+Do not introduce an expensive AI service in the initial implementation unless the existing project already has a suitable integration.
+
+## 12. Shop Owner Dashboard
+
+Add a separate section:
+
+**Customer Product Requests**
+
+Shop owners should be able to:
+
+- View matching nearby requests.
+- Filter by product category.
+- Filter by locality.
+- Respond to requests.
+- Update their response.
+- Withdraw their response.
+- View customer request history.
+- Manage request notification preferences.
+
+Only show requests relevant to the shop's selected categories and service areas.
+
+## 13. Customer Dashboard
+
+Create:
+
+- Create Product Request.
+- My Product Requests.
+- Responses Received.
+- Compare Shops.
+- Selected Shop.
+- Expired Requests.
+- Resolved Requests.
+
+Customers should be able to reopen a request by creating a new request if needed.
+
+## 14. Admin Dashboard
+
+Admins should be able to:
+
+- View customer requests.
+- Review reported responses.
+- Manage product categories.
+- Investigate suspicious shop responses.
+- Suspend abusive shops.
+- Monitor request activity.
+- Review fake availability reports.
+
+Maintain audit logs.
+
+## 15. Notifications
+
+Reuse CivicX notification infrastructure.
+
+Shop owners:
+- New matching product request.
+- Customer selected their shop.
+- Customer cancelled the request.
+- Request expired.
+
+Customers:
+- New shop response.
+- Shop updated availability.
+- Shop withdrew a response.
+- Response expired.
+
+Avoid duplicate notifications.
+
+Do not notify shops outside the matching category or locality.
+
+## 16. Database Design
+
+Inspect the existing database first.
+
+Possible tables:
+
+- product_search_requests
+- product_search_request_images
+- product_search_request_categories
+- product_search_shop_targets
+- product_search_shop_responses
+- product_search_response_history
+- product_search_request_history
+
+These are suggested names only.
+
+Reuse existing:
+- Users.
+- Local shops.
+- Shop categories.
+- Product categories.
+- Locality tables.
+- Notifications.
+- File storage.
+
+Requirements:
+- Foreign keys.
+- Correct ownership.
+- Indexes for locality and category matching.
+- Timestamps.
+- Request expiry.
+- Response expiry.
+- Audit history.
+- Concurrency-safe response handling.
+
+Never modify previously applied Flyway migrations. Create new migrations.
+
+## 17. API Design
+
+Adapt these endpoints to actual project conventions.
+
+Customer:
+
+- POST /api/v1/product-finder/requests
+- GET /api/v1/product-finder/requests/my-requests
+- GET /api/v1/product-finder/requests/{requestId}
+- GET /api/v1/product-finder/requests/{requestId}/responses
+- PATCH /api/v1/product-finder/requests/{requestId}/select-shop
+- PATCH /api/v1/product-finder/requests/{requestId}/cancel
+
+Shop owner:
+
+- GET /api/v1/product-finder/shop/requests
+- POST /api/v1/product-finder/shop/requests/{requestId}/responses
+- PUT /api/v1/product-finder/shop/responses/{responseId}
+- PATCH /api/v1/product-finder/shop/responses/{responseId}/withdraw
+- PATCH /api/v1/product-finder/shop/notification-preferences
+
+Admin:
+
+- GET /api/v1/admin/product-finder/requests
+- GET /api/v1/admin/product-finder/responses
+
+Document all implemented APIs in Swagger/OpenAPI.
+
+## 18. Frontend Screens
+
+Customer:
+- Ask Nearby Shops landing page.
+- Product name and photo submission.
+- Category selection.
+- Locality and radius selection.
+- Request details.
+- Responses list.
+- Compare shop offers.
+- Shop profile.
+- Contact shop.
+- My requests.
+
+Shop owner:
+- Nearby product requests.
+- Request details.
+- Availability response form.
+- Alternative product response form.
+- Response history.
+- Notification preferences.
+
+Admin:
+- Request monitoring.
+- Response moderation.
+- Category management.
+
+Follow the existing CivicX frontend framework and design system.
+
+Do not use fake frontend data instead of actual API integration.
+
+## 19. Testing Requirements
+
+Test:
+
+1. Customer can create a text-based request.
+2. Customer can create an image-based request.
+3. Customer can create a request with both.
+4. Only relevant nearby shops receive requests.
+5. Unapproved shops do not receive requests.
+6. Suspended shops cannot respond.
+7. Shop owners can respond only once per request unless updating their response.
+8. Shops cannot access private customer details.
+9. Customers can see responses to their own requests only.
+10. Customers can compare available offers.
+11. Expired responses are not shown as currently confirmed.
+12. Shops can withdraw responses.
+13. Customers can cancel requests.
+14. Cancelled requests cannot receive new responses.
+15. Duplicate notifications are prevented.
+16. Admin-only operations are protected.
+
+Run all existing tests too.
+
+## 20. Implementation Phases
+
+Phase A:
+- Customer text/photo request creation.
+- Locality and category matching.
+- Notify relevant approved shops.
+- Shop owner availability response.
+- Customer response list.
+- Shop contact and profile links.
+
+Phase B:
+- Price comparison.
+- Alternative products.
+- Response expiry.
+- Request history.
+- Notifications and admin monitoring.
+
+Phase C:
+- AI image-based product suggestions.
+- Product reservation.
+- Advanced shop matching.
+- Analytics.
+
+Complete Phase A first if the full implementation is too large.
+
+## 21. Implementation Rules
+
+- Inspect the actual code first.
+- Reuse the existing Local Shops module.
+- Do not create duplicate shop or user tables.
+- Do not break existing modules.
+- Do not modify applied migrations.
+- Do not hardcode product availability.
+- Do not expose private customer information.
+- Do not claim stock is guaranteed without a valid confirmation.
+- Do not introduce unnecessary external services.
+- Run relevant tests.
+- Update documentation.
+- Do not push to GitHub automatically.
+
+## 22. Final Report
+
+Provide:
+
+1. Existing architecture discovered.
+2. Files created and modified.
+3. Database migrations added.
+4. APIs implemented.
+5. Frontend screens implemented.
+6. Customer workflow completed.
+7. Shop owner workflow completed.
+8. Admin functionality completed.
+9. Security measures.
+10. Tests executed and actual results.
+11. Incomplete features.
+12. Known limitations.
+13. Commands to run the application.
+14. Manual testing guide.
+
+**Final goal:** A customer should be able to upload a photo or type a product name once, send the request to relevant nearby approved shops, receive real availability and price responses, compare shops, and visit the shop that has the required product.

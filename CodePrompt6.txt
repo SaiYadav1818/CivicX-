@@ -1,0 +1,205 @@
+# CIVICX — PHASE 6: NOTIFICATIONS AND PUBLIC COMPLAINT TRACKING
+
+You are a Senior Backend Engineer implementing notification and transparency features for CivicX.
+
+Repository:
+https://github.com/SaiYadav1818/CivicX-
+
+## 1. Context
+
+First inspect the actual repository and verify Phases 1–5.
+
+Expected existing functionality:
+- Citizen authentication.
+- Complaint management.
+- Image uploads.
+- AI and duplicate detection.
+- Authority mapping.
+- Admin management.
+- Department assignments.
+- Complaint status history.
+- RabbitMQ and Redis infrastructure.
+
+Reuse existing modules.
+
+Do not recreate notification infrastructure if it already exists.
+
+## 2. Objective
+
+Citizens should receive useful updates whenever meaningful changes happen to their complaints.
+
+Citizens should also be able to track complaints through a public, privacy-safe tracking page.
+
+## 3. Notification events
+
+Implement notifications for:
+
+- Complaint successfully submitted.
+- Complaint verified.
+- Complaint rejected.
+- Rejection reason provided.
+- Possible duplicate identified, where appropriate.
+- Complaint assigned internally.
+- Official complaint submitted.
+- Official acknowledgement received.
+- Work started.
+- Complaint marked resolved.
+- Complaint reopened.
+
+Do not send misleading notifications.
+
+For example, internal CivicX assignment must not be described as official government acceptance.
+
+## 4. Notification channels
+
+Create a provider-based notification architecture.
+
+Support:
+
+A. In-app notifications.
+
+B. Email notifications, if SMTP configuration is available.
+
+C. SMS notifications through a configurable provider.
+
+D. Push notifications through Firebase Cloud Messaging when configured.
+
+Use interfaces such as:
+
+NotificationProvider
+EmailNotificationProvider
+SmsNotificationProvider
+PushNotificationProvider
+
+Do not claim an external provider is integrated without credentials and successful testing.
+
+If a provider is not configured, mark it as disabled rather than pretending delivery succeeded.
+
+## 5. Notification database
+
+Inspect existing schema first.
+
+Store:
+- Notification ID.
+- User ID.
+- Complaint ID.
+- Notification type.
+- Title.
+- Message.
+- Channel.
+- Delivery status.
+- Created timestamp.
+- Sent timestamp.
+- Read timestamp.
+- Retry count.
+- Provider reference, if available.
+
+Use appropriate indexes.
+
+## 6. Notification APIs
+
+Citizen:
+
+GET /api/v1/notifications
+
+GET /api/v1/notifications/unread-count
+
+PATCH /api/v1/notifications/{id}/read
+
+PATCH /api/v1/notifications/read-all
+
+GET /api/v1/complaints/{complaintId}/timeline
+
+Verify that citizens can only access their own notifications.
+
+## 7. Public complaint tracking
+
+Implement:
+
+GET /api/v1/public/complaints/{complaintReference}
+
+Public tracking should show only approved information:
+
+- Complaint reference.
+- Category.
+- Generalized location.
+- Submission date.
+- Current public status.
+- Public status history.
+- Official complaint reference, if safe to disclose.
+- Resolution information.
+- Before-and-after images, only when approved for public access.
+
+Never expose:
+- Citizen phone number.
+- Email address.
+- Full private address.
+- Internal administrative notes.
+- JWTs or authentication data.
+- Private uploaded documents.
+- Internal AI or security metadata.
+
+Consider an unpredictable public tracking token if complaint reference enumeration could expose information.
+
+Add rate limiting.
+
+## 8. Citizen privacy controls
+
+Implement:
+- Notification preferences.
+- Email consent.
+- SMS consent.
+- Push notification consent.
+- Opt-out functionality.
+- Appropriate data retention rules.
+
+Do not send marketing messages without proper consent.
+
+Do not automatically subscribe citizens to unrelated campaign notifications.
+
+## 9. Reliable asynchronous processing
+
+Use RabbitMQ where appropriate.
+
+Requirements:
+- Retry temporary delivery failures.
+- Prevent duplicate notifications.
+- Record delivery attempts.
+- Handle invalid contact details.
+- Support dead-letter processing.
+- Do not block complaint submission because an external notification provider is unavailable.
+
+Use reliable event publishing, considering a transactional outbox if needed.
+
+## 10. Testing
+
+Test:
+- Correct notification generated after status changes.
+- No notification for unauthorized or invalid transitions.
+- Citizens cannot view other users' notifications.
+- Read/unread functionality.
+- Public endpoint privacy.
+- Rate limiting.
+- Provider unavailable.
+- Retry and duplicate prevention.
+- Consent and opt-out.
+- All previous phase regression tests.
+
+## 11. Definition of done
+
+- In-app notifications work.
+- Configured notification providers work.
+- Public complaint tracking works.
+- Private information is protected.
+- Notification delivery history is persisted.
+- Retries work.
+- Swagger is updated.
+- README is updated.
+- All tests pass.
+- Application builds successfully.
+
+Do not start Phase 7.
+
+Do not push to GitHub automatically.
+
+Provide implementation details, sample API responses, security review, test results and known limitations.

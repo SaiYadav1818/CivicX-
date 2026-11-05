@@ -1,0 +1,156 @@
+# NEW MODULE — CIVICX EMERGENCY RESPONSE & AMBULANCE CONNECTION
+
+Build a complete Emergency Response feature inside CivicX.
+
+## Objective
+
+Allow residents to request urgent medical assistance and connect with nearby participating hospitals, verified ambulance providers and supported transportation services.
+
+This must be a real emergency coordination feature, not just a page displaying hospital phone numbers.
+
+## 1. Emergency SOS
+
+Create a prominent Emergency SOS button.
+
+When activated:
+- Request location permission if not already granted.
+- Capture the user's current location with consent.
+- Allow the user to select the emergency type.
+- Allow the user to enter a short description.
+- Allow the user to specify whether the emergency is for themselves or another person.
+- Allow optional patient details.
+- Allow the user to notify emergency contacts.
+- Create a unique emergency request ID.
+
+Provide a clear confirmation before submitting an emergency request, except for any explicitly designed emergency shortcut that has been safely tested.
+
+## 2. Nearby Hospital Discovery
+
+Find nearby participating hospitals using actual location data.
+
+Display:
+- Hospital name.
+- Distance.
+- Address.
+- Contact number.
+- Emergency department availability, only when verified.
+- Ambulance availability, only when updated by the provider.
+- Directions.
+- Call Hospital option.
+
+Do not invent hospital availability or claim that a hospital has accepted a patient without confirmation.
+
+## 3. Hospital Emergency Dashboard
+
+Create a separate dashboard for registered and verified hospital partners.
+
+Hospital staff should be able to:
+- Receive nearby emergency requests.
+- View shared patient location.
+- View emergency category and description.
+- Accept or reject requests.
+- Indicate whether ambulance support is available.
+- Assign an ambulance.
+- Provide an estimated arrival time.
+- Contact the requester.
+- Update emergency status.
+
+Only authorized hospital personnel should access emergency patient information.
+
+## 4. Ambulance Dispatch and Tracking
+
+Allow participating hospitals and verified ambulance providers to accept ambulance requests.
+
+Statuses:
+- REQUESTED.
+- ACCEPTED.
+- AMBULANCE_ASSIGNED.
+- DISPATCHED.
+- ON_THE_WAY.
+- ARRIVED.
+- COMPLETED.
+- CANCELLED.
+
+Display:
+- Ambulance provider.
+- Driver contact, where authorized.
+- Vehicle details.
+- Estimated arrival time.
+- Live location only when supported.
+- Emergency request status.
+
+Send notifications when status changes.
+
+Prevent multiple providers from independently dispatching vehicles for the same active request without coordination.
+
+## 5. Uber and Other Transport Integrations
+
+Provide an optional transport connection for situations where ordinary transport is appropriate.
+
+- Integrate with supported ride-hailing deep links or official APIs.
+- Pass pickup location and selected hospital destination when supported.
+- Allow the user to review and confirm the booking in the external transport application.
+- Do not claim a ride has been booked until the provider confirms it.
+- Provide alternatives if the integration is unavailable.
+
+IMPORTANT:
+Ordinary Uber or other passenger transport must never be presented as an ambulance replacement. For life-threatening emergencies, prioritize appropriate emergency services and ambulance dispatch.
+
+## 6. Emergency Contacts
+
+Allow residents to configure trusted emergency contacts.
+
+Provide:
+- Contact notification.
+- Emergency request summary.
+- Shared location, with consent.
+- Status updates.
+
+Do not expose emergency contact information publicly.
+
+## 7. Emergency Admin Dashboard
+
+Administrators should be able to:
+- Verify hospital partners.
+- Verify ambulance providers.
+- Manage hospital locations.
+- Manage service areas.
+- Monitor emergency requests.
+- Review provider responses.
+- Investigate misuse.
+- View response-time analytics using actual recorded data.
+
+## 8. Privacy and Security
+
+- Use strict role-based access.
+- Encrypt sensitive information in transit and at rest.
+- Restrict patient location and emergency details to authorized recipients.
+- Maintain access audit logs.
+- Automatically expire access to completed emergency requests according to the retention policy.
+- Do not publicly expose emergency request details.
+- Obtain user consent for location and data sharing.
+
+## 9. Reliability and Safety
+
+- Provide direct emergency calling options.
+- Do not make CivicX the only route to emergency assistance.
+- Show clear fallback instructions if no provider responds.
+- Do not claim ambulance availability without provider confirmation.
+- Do not guarantee arrival times.
+- Clearly distinguish a hospital contact from a confirmed ambulance dispatch.
+- Do not delay emergency calling while waiting for CivicX providers.
+
+## 10. Implementation
+
+Inspect the existing CivicX architecture before implementation.
+
+Reuse existing authentication, user roles, maps, notifications, APIs and database structures.
+
+Build this as a separate but integrated module.
+
+Test the complete flow:
+Resident → Emergency SOS → Nearby Hospital → Hospital Accepts → Ambulance Assigned → Dispatch → Arrival → Completion.
+
+Also test rejection, cancellation, no provider response, unavailable location permission and failed notification scenarios.
+
+Do not use mock hospital responses in production.

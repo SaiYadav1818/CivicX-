@@ -1,0 +1,618 @@
+# PROMPT 12 — CivicX Local Workers, Job Availability & On-Demand Services
+
+You are a senior full-stack engineer working on my existing CivicX project.
+
+Implement a new independent module called **CivicX Local Workers & Services**.
+
+First inspect the actual repository, backend, frontend, database, authentication, authorization, locality system, notifications and existing modules.
+
+Do not assume the existing implementation. Reuse existing infrastructure and follow existing coding conventions.
+
+## 1. Product Vision
+
+CivicX should help local residents find nearby workers and service providers.
+
+Many local workers are available for work but do not have an easy way to tell nearby residents that they are free.
+
+For example:
+- A plumber is free today from 2 PM to 7 PM.
+- An electrician is available tomorrow.
+- An auto driver is available for local trips.
+- Construction labourers are looking for work.
+- A carpenter is available for furniture repairs.
+- A painter is available for house painting.
+
+Workers should be able to publish their availability. Residents should be able to discover workers in their locality and contact them directly.
+
+The platform should support both:
+1. Workers announcing their availability.
+2. Residents posting a request when they need a worker.
+
+## 2. Worker Categories
+
+Create configurable categories.
+
+Initially support:
+
+### Home repair
+- Plumber
+- Electrician
+- Carpenter
+- Painter
+- AC technician
+- Refrigerator repair
+- Washing machine repair
+- General home maintenance
+
+### Construction and labour
+- Construction labourer
+- Mason
+- Tiles worker
+- House construction worker
+- Helper
+- Welder
+- Plastering worker
+- Roofing worker
+- Cleaning worker
+
+### Transport
+- Auto driver
+- Local taxi driver
+- Goods vehicle driver
+- Mini truck driver
+- Packers and movers
+
+### Household services
+- House cleaner
+- Cook
+- Gardener
+- Laundry service
+- Pest control
+- Other household workers
+
+Allow admins to add new categories without requiring code changes.
+
+## 3. Worker Registration
+
+Allow workers to register using the existing CivicX authentication system.
+
+Worker profile fields:
+
+- Worker name
+- Profile photo
+- Mobile number
+- Optional email
+- Primary profession
+- Additional skills
+- Experience
+- Languages spoken
+- Locality
+- Service areas
+- Short description
+- Optional expected rate
+- Available work types
+- Verification status
+
+Allow individual workers and registered local service businesses.
+
+A worker should be able to register independently without needing a company.
+
+Verification statuses:
+- PENDING
+- VERIFIED
+- REJECTED
+- SUSPENDED
+
+Do not display a verified badge unless verification is actually completed.
+
+## 4. Worker Availability Posting
+
+This is the most important functionality.
+
+Workers should be able to publish availability announcements.
+
+Example:
+
+Name: Ramesh
+
+Profession: Plumber
+
+Locality: Street 9
+
+Availability date: November 6
+
+Available from: 2 PM
+
+Available until: 7 PM
+
+Work accepted:
+- Tap repair
+- Pipe leakage
+- Bathroom plumbing
+- Water connection repair
+
+Expected charge: Contact for price.
+
+Announcement:
+
+"Available for plumbing work in Street 9 and nearby areas today from 2 PM to 7 PM."
+
+Workers should be able to:
+- Publish availability.
+- Edit availability.
+- Change availability timings.
+- Mark themselves busy.
+- Mark themselves unavailable.
+- Cancel an announcement.
+- Publish availability for another day.
+- Set recurring availability if desired.
+
+Availability statuses:
+- AVAILABLE
+- BUSY
+- UNAVAILABLE
+- EXPIRED
+
+Every availability announcement must have a date and time range.
+
+Automatically expire old announcements.
+
+Never display an expired announcement as current availability.
+
+## 5. Customer Discovery
+
+Create a separate Local Workers section in CivicX.
+
+Residents should be able to:
+
+1. Select their locality.
+2. Browse available workers.
+3. Search by profession.
+4. Filter by nearby locality.
+5. Filter by availability date.
+6. Filter by time.
+7. View worker profiles.
+8. View experience and skills.
+9. View expected charges if provided.
+10. Call or message a worker.
+
+Example:
+
+A customer needs a plumber.
+
+They open CivicX and select:
+- Category: Plumber
+- Locality: Street 9
+- Date: Today
+- Time: 4 PM
+
+CivicX displays workers who have matching availability.
+
+Show:
+- Worker name
+- Profession
+- Profile photo
+- Locality
+- Available time
+- Skills
+- Experience
+- Expected price, if provided
+- Verification status
+
+Do not display workers who are unavailable or whose announcements have expired.
+
+## 6. Call and Message Functionality
+
+Users should be able to contact workers.
+
+Provide:
+- Call button.
+- WhatsApp contact option where supported.
+- In-app messaging as a future-ready feature.
+
+For direct contact:
+- Show the contact number only when the user intentionally selects the contact option and the worker has consented.
+- Never expose phone numbers in public API responses or public listings.
+- Apply appropriate abuse prevention and rate limiting.
+
+If in-app chat already exists, reuse it. Otherwise, do not introduce an unnecessarily complicated messaging system in this phase.
+
+## 7. Customer Job Request
+
+Allow residents to post a request when they cannot find an available worker.
+
+Example:
+
+"I need a plumber for a water leakage problem at my house in Street 9 tomorrow morning."
+
+Request details:
+- Required profession
+- Description of work
+- Optional images
+- Locality
+- Preferred date
+- Preferred time
+- Expected budget (optional)
+
+Matching workers in the selected service area should be able to discover the request.
+
+Workers can respond:
+- I am available.
+- I am interested.
+- Contact me.
+- I can do this work for an estimated price.
+
+The customer can contact a suitable worker.
+
+Do not automatically assign a worker without the customer's confirmation.
+
+## 8. Profession-Specific Features
+
+Do not force every profession into the same workflow.
+
+### A. Plumber and Electrician
+Support:
+- Repair type
+- Service locality
+- Available appointment slots
+- Optional visit charge
+- Estimated service price
+
+### B. Construction Labourers
+Support:
+- Daily availability
+- Number of workers available
+- Skills
+- Daily wage or expected rate
+- Work duration
+- Job location
+- Short-term or long-term work
+
+Example:
+"Two construction labourers available this week in Street 9."
+
+Do not represent a single worker as a group of workers.
+
+### C. Auto Drivers
+Support:
+- Available time
+- Starting locality
+- Service area
+- Local trips
+- Station drops
+- Airport trips
+- Optional vehicle details
+- Contact option
+
+Do not expose continuous live vehicle location.
+
+### D. Carpenters and Painters
+Support:
+- Work categories
+- Previous work photos
+- Experience
+- Available appointment slots
+- Estimated charges
+
+### E. Household Services
+Support:
+- Service category
+- Availability
+- Service area
+- One-time or recurring service
+- Estimated charges
+
+Keep profession-specific information configurable.
+
+## 9. Availability and Booking Workflow
+
+Initially support direct contact and optional appointment confirmation.
+
+Suggested workflow:
+
+- AVAILABLE
+- CUSTOMER_INTERESTED
+- CONTACTED
+- APPOINTMENT_REQUESTED
+- APPOINTMENT_CONFIRMED
+- WORK_STARTED
+- WORK_COMPLETED
+- CANCELLED
+
+Do not force users to make a booking through CivicX when they only want to call a worker.
+
+The platform should support discovery and direct contact even without an in-app booking.
+
+For bookings, both customer and worker should be able to see the confirmed appointment details.
+
+Prevent duplicate or conflicting confirmed appointments where appointment booking is enabled.
+
+## 10. Worker Dashboard
+
+Create a simple worker dashboard.
+
+Sections:
+- My Profile
+- My Skills
+- My Service Areas
+- Availability ON/OFF
+- Publish Availability
+- My Availability Announcements
+- Customer Requests
+- Interested Customers
+- My Appointments
+- Work History
+
+Example controls:
+
+Available for Work: ON
+
+Today's Timing: 2 PM – 7 PM
+
+Service Area: Street 9, Street 10
+
+Accepting Requests: ON
+
+Workers should be able to quickly update their status from a mobile phone.
+
+## 11. Customer Dashboard
+
+Provide:
+- Find Local Workers
+- Search by Profession
+- Nearby Availability
+- Post a Job Request
+- My Job Requests
+- My Appointments
+- Recently Contacted Workers
+- Report a Worker
+
+## 12. Admin Dashboard
+
+Admins should be able to:
+
+- View worker registrations.
+- Verify worker profiles.
+- Approve or reject registrations.
+- Suspend accounts.
+- Manage worker categories.
+- Review reported workers.
+- Review suspicious availability posts.
+- Review job requests.
+- View activity history.
+
+Keep admin actions in audit logs.
+
+## 13. Notifications
+
+Reuse CivicX notification infrastructure.
+
+Notify workers about:
+- New matching customer requests.
+- Appointment requests.
+- Appointment cancellations.
+- Confirmed appointments.
+
+Notify customers about:
+- Responses from workers.
+- Appointment confirmations.
+- Appointment changes.
+
+Allow users to control notification preferences.
+
+Do not send unnecessary notifications to every worker in the city.
+
+Send only relevant notifications based on selected profession, locality and availability.
+
+## 14. Privacy and Safety
+
+This module involves direct interaction between residents and workers.
+
+Implement:
+
+- Phone number privacy.
+- Optional public profile visibility.
+- Consent before revealing contact information.
+- Report and block functionality.
+- Admin verification.
+- Abuse prevention.
+- Rate limiting.
+- Safe handling of profile photos and documents.
+- Approximate location in public listings.
+- No public display of home addresses.
+- No continuous location tracking.
+
+For jobs at private residences, share the full service address only through a controlled customer-worker interaction after the customer chooses to contact or book the worker.
+
+Do not claim that every worker is background-checked unless that process actually exists.
+
+## 15. Database Design
+
+Inspect the existing schema before implementing.
+
+Possible tables:
+
+- local_worker_profiles
+- local_worker_categories
+- local_worker_skills
+- local_worker_service_areas
+- local_worker_availability
+- local_worker_availability_history
+- local_worker_job_requests
+- local_worker_job_responses
+- local_worker_appointments
+- local_worker_ratings
+- local_worker_reports
+
+These are proposed names only.
+
+Use existing users, locality and notification tables where appropriate.
+
+Requirements:
+- Foreign keys.
+- Proper indexes.
+- Ownership validation.
+- Created and updated timestamps.
+- Availability expiry.
+- Status history.
+- Auditability.
+
+Do not modify existing applied Flyway migrations. Add new migrations.
+
+## 16. API Design
+
+Adapt endpoints to the actual project conventions.
+
+Worker:
+- POST /api/v1/local-workers/register
+- GET /api/v1/local-workers/my-profile
+- PUT /api/v1/local-workers/my-profile
+- POST /api/v1/local-workers/availability
+- GET /api/v1/local-workers/my-availability
+- PATCH /api/v1/local-workers/availability/{id}
+- PATCH /api/v1/local-workers/status
+
+Customer:
+- GET /api/v1/local-workers
+- GET /api/v1/local-workers/{workerId}
+- GET /api/v1/local-workers/categories
+- GET /api/v1/local-workers/nearby
+- POST /api/v1/local-workers/job-requests
+- GET /api/v1/local-workers/job-requests/my-requests
+- GET /api/v1/local-workers/job-requests/{requestId}
+
+Worker responses:
+- GET /api/v1/local-workers/job-requests/nearby
+- POST /api/v1/local-workers/job-requests/{requestId}/respond
+
+Appointments:
+- POST /api/v1/local-workers/appointments
+- GET /api/v1/local-workers/appointments
+- PATCH /api/v1/local-workers/appointments/{appointmentId}/status
+
+Admin:
+- GET /api/v1/admin/local-workers
+- PATCH /api/v1/admin/local-workers/{workerId}/verify
+- PATCH /api/v1/admin/local-workers/{workerId}/suspend
+
+Document all implemented APIs in Swagger/OpenAPI.
+
+## 17. Frontend Screens
+
+Customer:
+- Local Workers landing page.
+- Profession categories.
+- Locality selector.
+- Search and filters.
+- Worker listing.
+- Worker profile.
+- Call and contact actions.
+- Post a job request.
+- My job requests.
+- Appointment details.
+
+Worker:
+- Registration.
+- Profile management.
+- Skills and service area management.
+- Availability ON/OFF.
+- Publish availability.
+- Edit availability.
+- Customer request feed.
+- Appointment management.
+
+Admin:
+- Worker verification.
+- Worker management.
+- Reports and moderation.
+
+Use the existing frontend framework and CivicX design system.
+
+Make the interface simple and mobile-friendly.
+
+Do not use hardcoded fake data in place of real API integration.
+
+## 18. Testing Requirements
+
+Test:
+
+1. Worker registration.
+2. Admin verification.
+3. Unverified workers cannot claim verified status.
+4. Worker can manage only their own profile.
+5. Worker can publish availability.
+6. Worker can update availability.
+7. Expired availability is not displayed.
+8. Unavailable workers do not appear in available search results.
+9. Locality filtering works.
+10. Profession filtering works.
+11. Time-range filtering works.
+12. Phone numbers are not publicly exposed.
+13. Job requests are visible only to eligible workers.
+14. Worker cannot access unauthorized customer data.
+15. Appointment confirmation works correctly.
+16. Conflicting appointment rules are enforced.
+17. Admin-only actions are protected.
+18. Suspended workers cannot publish new availability.
+
+Run all existing tests too.
+
+## 19. Implementation Phases
+
+Do not build everything at once.
+
+Phase A:
+- Worker registration.
+- Admin verification.
+- Profession categories.
+- Worker profiles.
+- Availability ON/OFF.
+- Date and time availability announcements.
+- Customer search and discovery.
+- Call/contact functionality.
+
+Phase B:
+- Customer job requests.
+- Worker responses.
+- Appointment requests.
+- Appointment confirmation.
+- Notifications.
+
+Phase C:
+- Ratings and reviews.
+- Reports and blocking.
+- Profession-specific fields.
+- Better search and matching.
+
+If the implementation is too large, complete Phase A first and provide a report before proceeding.
+
+## 20. Final Report
+
+Provide:
+
+1. Existing architecture discovered.
+2. Files created and modified.
+3. Database migrations added.
+4. APIs implemented.
+5. Frontend screens implemented.
+6. Worker workflow completed.
+7. Customer workflow completed.
+8. Admin workflow completed.
+9. Security measures implemented.
+10. Tests executed and actual results.
+11. Incomplete features.
+12. Known limitations.
+13. Commands to run the application.
+14. Manual testing guide.
+
+Strict rules:
+- Read actual code before changing it.
+- Do not guess.
+- Do not rewrite the entire project.
+- Do not break existing modules.
+- Do not modify applied migrations.
+- Do not hardcode secrets.
+- Do not push to GitHub automatically.
+- Never claim an incomplete feature is finished.
+
+**Final goal:** A local resident should be able to open CivicX, find an available plumber, electrician, auto driver, construction labourer or other worker in their area, check when they are available, and contact them directly when they need help.

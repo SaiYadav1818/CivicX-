@@ -1,0 +1,378 @@
+# CIVICX — PREMIUM COLOURFUL UI/UX MASTER DESIGN PROMPT
+
+## PRODUCT IDENTITY
+
+Product: CivicX  
+Tagline: Your Neighbourhood, Connected.
+
+Design CivicX as a premium, colourful, modern neighbourhood super app.
+
+The application should combine local news, events, civic complaints, shops, product discovery, workers, doorstep services, advertisements and community announcements into one unified experience.
+
+The UI must be visually impressive, easy to use and mobile-first.
+
+## 1. BRAND COLOUR SYSTEM
+
+Use this exact starting colour palette consistently.
+
+| Purpose | Colour | Hex |
+|---|---|---|
+| Primary Navy | Deep Navy | #142B55 |
+| Primary Blue | Electric Blue | #2878F0 |
+| Secondary | Teal | #13B8A6 |
+| Accent | Coral | #FF765E |
+| Events | Purple | #8B5CF6 |
+| Complaints | Red | #EF5350 |
+| Shops | Green | #13A889 |
+| Product Finder | Amber | #F5A623 |
+| Workers | Dark Teal | #0D9488 |
+| Advertisements | Pink | #E85D91 |
+| Background | Light Grey | #F3F6FB |
+| Card Background | White | #FFFFFF |
+| Main Text | Charcoal | #202B3C |
+
+Use light tinted backgrounds behind coloured feature icons.
+
+Use gradients selectively:
+- Navy to Electric Blue for hero sections.
+- Teal to Green for local discovery highlights.
+- Purple to Pink for event highlights.
+
+Do not use gradients everywhere. Maintain a clean and premium appearance.
+
+## 2. MAIN APPLICATION NAVIGATION
+
+Mobile bottom navigation:
+
+- Home
+- Explore
+- Create (+)
+- Nearby
+- Profile
+
+Use navy icons and an electric-blue active state. Make the Create button visually prominent with a colourful circular treatment.
+
+Desktop:
+- Left navigation sidebar.
+- Main content feed.
+- Right information panel.
+- Top search and location bar.
+
+## 3. HOME SCREEN
+
+Create a beautiful home dashboard.
+
+Header:
+- CivicX logo.
+- Location selector.
+- Search.
+- Notifications.
+- Profile image.
+
+Create colourful quick-access cards for:
+- Local News.
+- Events.
+- Report Problem.
+- Find Shops.
+- Find Workers.
+- Find Products.
+
+Below them display:
+- Trending local news.
+- Upcoming events.
+- Nearby shops.
+- New shop arrivals.
+- Available workers.
+- Local announcements.
+- Sponsored promotions.
+
+Use different feature colours while maintaining consistent card styling.
+
+## 4. LOCAL NEWS
+
+Use blue as the main colour.
+
+Design:
+- News feed cards.
+- Large image previews.
+- Headlines.
+- Locality labels.
+- Contributor details.
+- Published time.
+- Share, comment and like actions.
+
+Categories include traffic, roads, water, electricity, sanitation, public safety and community announcements.
+
+AI-generated content must be reviewed and approved by the user before publication.
+
+## 5. EVENTS & CIVICX MOMENTS
+
+Use purple as the main colour.
+
+Design:
+- Event discovery cards.
+- Large event cover images.
+- Date and location badges.
+- Event categories.
+- Photo/video galleries.
+- Event detail pages.
+- Join/follow buttons.
+
+Include festivals, concerts, rallies, sports, movie celebrations and community gatherings.
+
+## 6. CIVIC COMPLAINTS
+
+Use red as the main accent colour.
+
+Design:
+- Complaint submission screen.
+- Complaint category cards.
+- Photo upload.
+- Location selection.
+- Complaint reference number.
+- My Complaints dashboard.
+- Complaint status timeline.
+
+Use clear status indicators:
+- Submitted.
+- Under Review.
+- Assigned.
+- In Progress.
+- Resolved.
+
+Only show statuses supported by actual backend information.
+
+## 7. LOCAL SHOPS
+
+Use green as the main accent colour.
+
+Design:
+- Nearby shop cards.
+- Shop search.
+- Category filters.
+- Shop profile pages.
+- Shop photo galleries.
+- Shop cover images.
+- Product showcase.
+- Unique items.
+- New arrivals.
+- Directions and contact buttons.
+- External website links.
+
+CivicX is a local shop discovery and digital listing platform, not an e-commerce application.
+
+Do not implement shopping carts, checkout, payments, inventory management or delivery management in this module.
+
+## 8. SMART PRODUCT FINDER
+
+Use amber as the main accent colour.
+
+Design:
+- Product search bar.
+- Image upload.
+- Category selector.
+- Locality and radius selection.
+- Shop response cards.
+- Reported prices.
+- Availability timestamps.
+- Contact shop buttons.
+
+## 9. LOCAL WORKERS
+
+Use dark teal as the main accent colour.
+
+Design:
+- Worker profile cards.
+- Profession categories.
+- Profile images.
+- Availability badges.
+- Experience.
+- Service area.
+- Contact actions.
+- Worker profile details.
+- Availability management.
+
+## 10. DOORSTEP PICKUP
+
+Use green and nature-inspired colours.
+
+Design:
+- Scrap category cards.
+- Pickup request form.
+- Image upload.
+- Estimated quantity.
+- Preferred pickup time.
+- Provider offer cards.
+- Request tracking timeline.
+
+Protect customer address information.
+
+## 11. LOCAL ADVERTISEMENTS
+
+Use pink as the main accent colour.
+
+Design:
+- Sponsored business cards.
+- Promotional banners.
+- Offer details.
+- Business images.
+- Locality labels.
+- Validity dates.
+- Advertiser dashboard.
+
+Always display a clear Sponsored label.
+
+## 12. NEARBY ANNOUNCEMENTS
+
+Use blue and teal.
+
+Design:
+- Nearby announcement cards.
+- Local events.
+- Annadanam information.
+- Traffic updates.
+- Community announcements.
+- Locality filters.
+- Expiry information.
+- Notification preferences.
+
+## 13. EXPLORE PAGE
+
+Create a visually attractive discovery grid with colourful category icons.
+
+Include:
+- News.
+- Events.
+- Complaints.
+- Shops.
+- Products.
+- Workers.
+- Pickup Services.
+- Advertisements.
+- Nearby Announcements.
+
+## 14. CREATE BUTTON
+
+Create a central action sheet with colourful options:
+
+- Post Local News.
+- Upload Event Moment.
+- Report Civic Problem.
+- Add Announcement.
+- Register Shop.
+- Upload Shop Gallery.
+- Showcase Product.
+- Post Worker Availability.
+- Request Pickup.
+- Ask Nearby Shops.
+
+Each option must open its own dedicated form.
+
+## 15. NOTIFICATIONS
+
+Create a clean notification centre with feature-specific icons and colours.
+
+Examples:
+- Complaint status update.
+- New event near you.
+- Shop uploaded new photos.
+- New worker availability.
+- Shop responded to product request.
+- New community announcement.
+
+## 16. USER PROFILE
+
+Design:
+- Profile photo.
+- Name and locality.
+- My Posts.
+- My Complaints.
+- My Events.
+- Saved Shops.
+- Product Requests.
+- Notification Preferences.
+- Privacy Settings.
+
+Support appropriate role-based dashboards for citizens, shop owners, workers and admins.
+
+## 17. ADMIN DASHBOARD
+
+Use a professional navy and white theme with colourful status indicators.
+
+Include:
+- Overview.
+- Users.
+- Complaints.
+- News Moderation.
+- Events.
+- Shop Verification.
+- Gallery Moderation.
+- Workers.
+- Service Requests.
+- Advertisements.
+- Reports.
+- Audit Logs.
+
+## 18. DESIGN COMPONENTS
+
+Build reusable components:
+- Navigation.
+- Search.
+- Location selector.
+- Feature cards.
+- News cards.
+- Event cards.
+- Shop cards.
+- Worker cards.
+- Product cards.
+- Advertisement cards.
+- Complaint cards.
+- Photo galleries.
+- Status badges.
+- Filters.
+- Dialogs.
+- Forms.
+- Loading skeletons.
+- Empty states.
+
+All components must follow the same colour and spacing system.
+
+## 19. VISUAL QUALITY
+
+The interface must have:
+
+- Premium modern design.
+- Beautiful colourful feature cards.
+- Consistent colour coding.
+- High-quality local imagery.
+- Clear typography.
+- Soft shadows.
+- Rounded corners.
+- Balanced whitespace.
+- Smooth interactions.
+- Responsive layouts.
+- Light theme initially, with dark theme support where practical.
+
+Avoid excessive gradients, random colours, overcrowded layouts and inconsistent components.
+
+## 20. DEVELOPMENT RULES
+
+Before implementation, inspect the existing CivicX frontend, framework, routes, components, styling system and available APIs.
+
+Reuse the existing architecture.
+
+Do not rewrite the entire project.
+
+Do not invent working APIs.
+
+Use mock data only where backend APIs are unavailable, and clearly separate it from real API integration.
+
+Do not break existing functionality.
+
+## FINAL EXPECTATION
+
+Deliver a complete, colourful, premium and responsive CivicX interface.
+
+The final experience should look like one unified neighbourhood super app, not separate disconnected applications.
+
+**CIVICX — Your Neighbourhood, Connected.**

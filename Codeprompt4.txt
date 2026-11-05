@@ -1,0 +1,187 @@
+# CIVICX — PHASE 4: GOVERNMENT AUTHORITY AND DEPARTMENT MAPPING
+
+You are a Senior Java Backend Engineer designing the authority-routing system for CivicX.
+
+Repository:
+https://github.com/SaiYadav1818/CivicX-
+
+## 1. Context
+
+Phases 1–3 are expected to provide:
+- Authentication and RBAC.
+- Citizen complaint submission.
+- Complaint images and GPS.
+- Complaint categories.
+- AI-assisted classification.
+- Duplicate detection.
+- Hyderabad wards and zones.
+
+First inspect the actual repository and verify which features are implemented.
+
+Do not assume previous phases are complete.
+
+Do not recreate existing modules or break existing functionality.
+
+## 2. Objective
+
+Build an authority-mapping system that identifies the appropriate government authority and department responsible for a reported civic issue.
+
+Examples:
+- Garbage accumulation → sanitation department.
+- Road pothole → roads engineering department.
+- Water leakage → water supply department.
+- Drainage blockage → drainage or sewerage department.
+- Broken streetlight → electrical/streetlight department.
+
+These are examples only. Actual jurisdiction and responsibility must be verified.
+
+## 3. Authority data model
+
+Inspect existing database tables first.
+
+Implement or extend entities for:
+
+- Government authority.
+- Municipal corporation.
+- Department.
+- Zone.
+- Ward.
+- Locality.
+- Complaint category mapping.
+- Authority jurisdiction.
+- Authority contact details.
+- Official grievance channel.
+- Mapping verification history.
+
+Support:
+- Authority name.
+- Authority type.
+- Jurisdiction.
+- Department.
+- Contact information.
+- Official website.
+- Official complaint portal.
+- Official WhatsApp or helpline, when verified.
+- Active/inactive status.
+- Last verification date.
+- Source of verification.
+
+Never invent official contact details.
+
+## 4. Mapping engine
+
+Implement:
+
+ComplaintAuthorityMappingService
+
+Inputs:
+- Complaint category.
+- GPS coordinates.
+- Address.
+- Ward ID.
+- Zone ID.
+
+Output:
+- Suggested authority.
+- Suggested department.
+- Ward and zone.
+- Mapping confidence or rule explanation.
+- Whether manual verification is required.
+
+Use deterministic mapping rules first.
+
+Do not allow AI to independently determine legal jurisdiction.
+
+GPS coordinates alone must not be treated as proof of municipal jurisdiction.
+
+Support:
+- Missing GPS.
+- Boundary locations.
+- Conflicting ward and address data.
+- Unknown localities.
+- Multiple potentially responsible departments.
+
+When uncertain, mark the mapping as NEEDS_REVIEW.
+
+## 5. Admin mapping management
+
+Implement APIs:
+
+GET /api/v1/admin/authorities
+
+POST /api/v1/admin/authorities
+
+PUT /api/v1/admin/authorities/{id}
+
+GET /api/v1/admin/departments
+
+POST /api/v1/admin/authority-mappings
+
+PUT /api/v1/admin/authority-mappings/{id}
+
+GET /api/v1/admin/complaints/{complaintId}/authority
+
+POST /api/v1/admin/complaints/{complaintId}/authority/confirm
+
+POST /api/v1/admin/complaints/{complaintId}/authority/correct
+
+Adapt paths to existing conventions.
+
+Require appropriate RBAC permissions.
+
+## 6. Mapping workflow
+
+1. Citizen submits a complaint.
+2. CivicX identifies the category and location.
+3. Mapping engine finds possible authority.
+4. System checks whether the mapping is verified.
+5. Uncertain cases go to admin review.
+6. Admin confirms or corrects the mapping.
+7. Mapping result is stored with its history.
+
+Do not automatically submit complaints to external government portals in this phase.
+
+## 7. Data integrity and security
+
+- Use Flyway migrations.
+- Preserve existing data.
+- Validate foreign keys.
+- Prevent unauthorized mapping changes.
+- Record mapping changes in audit logs.
+- Do not expose private citizen information.
+- Avoid hardcoded authority contact details in Java code.
+- Keep official source and verification dates.
+
+## 8. Testing
+
+Test:
+- Correct category-to-department mapping.
+- Correct ward and zone mapping.
+- Unknown jurisdiction.
+- Missing GPS.
+- Boundary conditions.
+- Conflicting location information.
+- Admin correction.
+- Unauthorized access.
+- Historical mapping preservation.
+
+All previous phase tests must continue passing.
+
+## 9. Definition of done
+
+- Authority records are stored in MySQL.
+- Department mappings work.
+- Geographic mapping works using verified data.
+- Unknown jurisdictions are handled safely.
+- Admin can correct mappings.
+- Audit history is available.
+- Swagger is updated.
+- README is updated.
+- All tests pass.
+- Application builds successfully.
+
+Do not start Phase 5.
+
+Do not push to GitHub automatically.
+
+Provide a detailed implementation and testing report.

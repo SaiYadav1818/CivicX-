@@ -46,9 +46,35 @@ app:
   rate-limit:
     auth-per-minute: 10
     complaint-per-hour: 20
+    image-upload-per-hour: 30
   admin:
     email: ${ADMIN_EMAIL:admin@janseva.local}
     password: ${ADMIN_DEFAULT_PASSWORD:Admin@123}
+  storage:
+    local-dir: ${STORAGE_DIR:./data/object-storage}
+    max-image-size-bytes: ${MAX_IMAGE_SIZE_BYTES:5242880}
+    max-images-per-complaint: ${MAX_IMAGES_PER_COMPLAINT:5}
+
+civicx:
+  ai:
+    enabled: ${CIVICX_AI_ENABLED:true}
+    provider: ${CIVICX_AI_PROVIDER:rule-based}
+  duplicate:
+    enabled: ${CIVICX_DUPLICATE_ENABLED:true}
+    location-radius-meters: ${CIVICX_DUP_RADIUS_M:100}
+    text-threshold: ${CIVICX_DUP_TEXT_THRESHOLD:0.25}
+    image-hash-threshold: ${CIVICX_DUP_IMAGE_HAMMING:10}
+    image-embedding-threshold: ${CIVICX_DUP_EMBED_THRESHOLD:0.90}
+    duplicate-threshold: ${CIVICX_DUP_SCORE_THRESHOLD:0.55}
+    review-threshold: ${CIVICX_DUP_REVIEW_THRESHOLD:0.45}
+    weights:
+      location: 0.40
+      text: 0.30
+      image: 0.20
+      category: 0.10
+  outbox:
+    poll-ms: ${CIVICX_OUTBOX_POLL_MS:5000}
+    max-attempts: ${CIVICX_OUTBOX_MAX_ATTEMPTS:10}
 
 springdoc:
   swagger-ui:

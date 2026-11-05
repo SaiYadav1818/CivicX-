@@ -1,0 +1,133 @@
+# IMPORTANT SCOPE CORRECTION — CIVICX DIGITAL SHOP DISCOVERY PLATFORM
+
+Update the previously provided Prompt 14 implementation requirements.
+
+CivicX is a **local shop discovery and digital business listing platform**, similar in concept to Google Business Profiles.
+
+CivicX is NOT an e-commerce platform.
+
+Our responsibility is to help local businesses display their shops, locations, photos, galleries and the products or services they offer so nearby customers can discover them.
+
+## 1. Core Shop Profile
+
+Every approved shop should have a public digital profile containing:
+
+- Shop name.
+- Shop category.
+- Shop description.
+- Owner-provided address.
+- Map location and directions.
+- Contact number (only with owner consent).
+- Opening hours.
+- Shop logo and cover image.
+- External website URL (optional).
+- Public shop status, if the owner updates it.
+
+## 2. Shop Photo Gallery
+
+Allow shop owners to upload multiple photos.
+
+Gallery categories can include:
+
+- Shop exterior.
+- Shop interior.
+- Products and collections.
+- New arrivals.
+- Unique or special products.
+- Shop facilities.
+- Other shop-related photos.
+
+Customers can view the gallery on the shop's public profile.
+
+Allow owners to add captions, reorder photos, replace images and delete images.
+
+Only authorized shop owners can manage their own galleries.
+
+## 3. Product Showcase — Display Only
+
+Allow shop owners to optionally showcase products they sell.
+
+Product information can include:
+
+- Product name.
+- Category.
+- Product image.
+- Short description.
+- Brand (optional).
+- Approximate price (optional).
+- New arrival label.
+- Special or unique item label.
+
+This is a public catalogue for discovery and information only.
+
+There must be NO:
+- Shopping cart.
+- Checkout.
+- Online ordering.
+- Online payments.
+- Inventory management.
+- Stock quantity tracking.
+- Delivery management.
+- Order processing.
+
+Do not build these functionalities as part of this module.
+
+Product availability and prices must be treated as owner-provided information, not guaranteed live stock.
+
+## 4. Customer Experience
+
+Customers should be able to:
+
+1. Discover nearby shops.
+2. Search by shop name.
+3. Filter by shop category.
+4. Explore shops by locality.
+5. View shop profiles.
+6. Browse shop photo galleries.
+7. Discover showcased products and new arrivals.
+8. View optional prices and descriptions.
+9. See shop locations on a map.
+10. Get directions.
+11. Call shops where contact is publicly enabled.
+12. Visit the shop's external website.
+
+## 5. Admin Responsibilities
+
+Admins should be able to:
+
+- Verify shop listings.
+- Approve or reject shop profiles.
+- Moderate shop photos.
+- Review reported content.
+- Suspend misleading or prohibited listings.
+- Manage shop categories.
+- Maintain audit logs.
+
+## 6. Technical Requirements
+
+Inspect and reuse the existing CivicX architecture.
+
+- Reuse existing authentication and role permissions.
+- Reuse existing shop registration and approval workflows.
+- Use existing image/object storage infrastructure.
+- Store image references and metadata in MySQL, not large image binaries.
+- Validate uploads and image ownership.
+- Add pagination for shop listings and galleries.
+- Protect shop-owner update operations.
+- Do not expose private owner information.
+- Add database migrations only for genuinely missing functionality.
+- Preserve all existing modules and tests.
+
+## 7. Final Scope
+
+CivicX should act as a digital discovery website for local businesses.
+
+Think of it as:
+
+**Google-style local shop discovery + shop-owned photo gallery + optional product showcase.**
+
+We display what shop owners upload. Customers discover shops, explore their photos and offerings, and contact or visit them directly.
+
+We do not manage the actual commercial transaction between the shop and the customer.
+
+Before implementation, inspect the previous Prompt 14 work and remove or avoid any unnecessary e-commerce or inventory functionality introduced by it. Do not delete existing functionality without checking whether another CivicX module depends on it.

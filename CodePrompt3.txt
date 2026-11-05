@@ -1,0 +1,560 @@
+# CIVICX — PHASE 3: AI-ASSISTED COMPLAINT CLASSIFICATION & DUPLICATE DETECTION
+
+You are a Senior AI/ML Engineer and Senior Java Backend Engineer working on the existing CivicX project.
+
+GitHub repository:
+https://github.com/SaiYadav1818/CivicX-
+
+Your task is to implement Phase 3 on top of the existing Phase 1 and Phase 2 implementation.
+
+IMPORTANT:
+First inspect the actual repository. Do not assume Phase 2 is complete merely because its prompt was provided.
+
+If Phase 2 is incomplete, identify the missing functionality and report it before implementing Phase 3.
+
+Do not recreate the project.
+Do not break existing functionality.
+Do not replace the existing architecture.
+Do not fabricate AI integrations or claim an AI model is connected when it is not.
+
+---
+
+## 1. EXISTING PROJECT CONTEXT
+
+Expected technology stack:
+
+- Java 21
+- Spring Boot 3.4
+- MySQL 8
+- Flyway
+- Spring Security
+- JWT authentication
+- Redis
+- RabbitMQ
+- Swagger / OpenAPI
+- Docker Compose
+
+Expected existing modules:
+
+- Authentication
+- Citizen management
+- Complaint management
+- Complaint image upload
+- Complaint status history
+- Admin complaint management
+- Audit logging
+
+Phase 1 already introduced database structures for:
+
+- AI results
+- Embeddings
+- Image hashes
+- Duplicate detection
+- Complaints
+- Categories
+- Departments
+- Wards and zones
+
+Inspect the actual schema and implementation before adding anything.
+
+Reuse existing tables and services where possible.
+
+---
+
+## 2. PHASE 3 OBJECTIVE
+
+Implement an intelligent complaint-processing system with four major capabilities:
+
+1. AI-assisted complaint category suggestions.
+2. Image-based similarity detection.
+3. Location-based duplicate detection.
+4. Text-based complaint similarity detection.
+
+Example:
+
+Citizen A submits:
+
+"Garbage has accumulated near the main entrance of ABC Colony."
+
+Citizen B submits:
+
+"There is a huge garbage pile near ABC Colony main gate."
+
+These may represent the same civic issue.
+
+CivicX should identify the possibility of a duplicate and show the related complaint to the admin.
+
+Important:
+
+Duplicate detection must not automatically reject a complaint.
+
+The administrator must make the final decision.
+
+---
+
+## 3. REPOSITORY AND DATABASE AUDIT
+
+Before implementation:
+
+- Inspect all existing AI-related database tables.
+- Inspect complaint and complaint-image entities.
+- Inspect existing embedding columns and data types.
+- Inspect image hash storage.
+- Inspect existing indexes.
+- Inspect RabbitMQ configuration.
+- Inspect Redis configuration.
+- Inspect current complaint creation workflow.
+
+Prepare a short implementation report.
+
+Do not create duplicate tables.
+
+If schema changes are required:
+- Use new Flyway migrations.
+- Never modify already-applied migrations.
+- Preserve existing data.
+- Add appropriate indexes.
+
+---
+
+## 4. AI-ASSISTED CATEGORY CLASSIFICATION
+
+Implement an extensible classification service.
+
+Input:
+
+- Complaint title.
+- Complaint description.
+- Existing complaint category list.
+
+Expected output:
+
+- Suggested category.
+- Confidence score.
+- Explanation.
+- Model/provider information.
+- Processing timestamp.
+
+Example:
+
+Input:
+"Water is continuously leaking from a broken pipeline."
+
+Expected suggestion:
+
+Category: WATER_LEAKAGE
+
+Confidence: 0.94
+
+Explanation:
+"The description indicates continuous water leakage from a pipeline."
+
+Important:
+
+- The example is illustrative, not a hardcoded result.
+- Never invent confidence scores.
+- Never claim an external model generated a result unless it actually did.
+- Keep citizen-selected categories unchanged unless an authorized administrator changes them.
+- Store AI suggestions separately from the citizen's original category.
+
+Implement a provider abstraction:
+
+ComplaintClassificationProvider
+
+Allow future integration with external AI services.
+
+If no API key or model is configured, implement a transparent local baseline classifier using existing category keywords or rules.
+
+Clearly identify its results as RULE_BASED, not AI-generated.
+
+Do not make external AI calls without configured credentials.
+
+---
+
+## 5. IMAGE SIMILARITY DETECTION
+
+Implement image-based duplicate detection.
+
+First inspect the existing image-hash schema.
+
+Recommended approach:
+
+A. Cryptographic hash:
+- SHA-256.
+- Detect exact duplicate files.
+
+B. Perceptual hash:
+- Implement pHash or an equivalent perceptual hashing algorithm.
+- Detect resized or slightly modified copies of an image.
+
+C. Store:
+- Image ID.
+- Complaint ID.
+- Hash algorithm.
+- Hash value.
+- Creation timestamp.
+
+Requirements:
+
+- Generate hashes after successful image upload.
+- Do not trust hashes provided by clients.
+- Compare against existing eligible complaint images.
+- Use a configurable similarity threshold.
+- Handle multiple images per complaint.
+- Avoid treating exact duplicate image uploads as proof that two reports describe the same real-world incident.
+
+If an image-processing library is required, justify and document the dependency.
+
+Do not implement fake image recognition.
+
+---
+
+## 6. LOCATION-BASED DUPLICATE DETECTION
+
+Use GPS coordinates from the complaint.
+
+Implement configurable geographic matching.
+
+Example configuration:
+
+civicx.duplicate.location-radius-meters=100
+
+This is an initial configurable value, not a universal rule.
+
+Requirements:
+
+- Compare new complaints with nearby existing complaints.
+- Use a proper geographic distance calculation.
+- Exclude complaints with missing or invalid coordinates.
+- Filter out inappropriate statuses where necessary.
+- Consider complaint category compatibility.
+- Do not compare coordinates using simplistic string equality.
+- Avoid inefficient full-table scans.
+
+Return:
+- Matching complaint reference.
+- Distance in meters.
+- Matching category.
+- Current status.
+- Similarity explanation.
+
+Use indexed queries and bounding-box filtering before precise distance calculation.
+
+---
+
+## 7. TEXT-BASED SIMILARITY DETECTION
+
+Implement an extensible text similarity engine.
+
+Recommended initial implementation:
+
+- Normalize text.
+- Convert to lowercase.
+- Remove unnecessary punctuation.
+- Normalize whitespace.
+- Compare complaint descriptions using token similarity.
+- Consider category compatibility.
+
+A baseline approach may use Jaccard similarity or another documented algorithm.
+
+Example:
+
+Complaint A:
+"Garbage is accumulating near the school entrance."
+
+Complaint B:
+"Large garbage pile near school main gate."
+
+The engine should calculate similarity using the actual algorithm.
+
+Do not hardcode the expected matching result.
+
+Keep the service interface ready for future semantic embeddings.
+
+Do not claim semantic AI or vector search is implemented unless it actually is.
+
+---
+
+## 8. COMBINED DUPLICATE DETECTION ENGINE
+
+Create a service:
+
+ComplaintDuplicateDetectionService
+
+Combine:
+
+- Location similarity.
+- Text similarity.
+- Image similarity.
+- Category compatibility.
+
+Produce a structured result.
+
+Example response:
+
+{
+  "complaintReference": "CX-000012",
+  "possibleDuplicates": [
+    {
+      "complaintReference": "CX-000008",
+      "locationDistanceMeters": 18.5,
+      "textSimilarity": 0.82,
+      "imageSimilarity": 0.91,
+      "reason": "Similar description, nearby location and similar image",
+      "status": "IN_PROGRESS"
+    }
+  ],
+  "duplicateReviewRequired": true
+}
+
+This is an illustrative response. Values must come from real calculations.
+
+Use configurable weights and thresholds.
+
+Do not treat missing image or GPS data as zero-quality evidence without considering the available signals.
+
+The engine should support:
+- POSSIBLE_DUPLICATE
+- NO_MATCH_FOUND
+- INSUFFICIENT_DATA
+- REVIEW_REQUIRED
+
+Keep duplicate detection separate from the final complaint status.
+
+---
+
+## 9. ADMIN DUPLICATE REVIEW
+
+Create admin functionality.
+
+Suggested endpoints:
+
+GET /api/v1/admin/complaints/{complaintId}/duplicates
+
+POST /api/v1/admin/complaints/{complaintId}/duplicates/{matchedComplaintId}/confirm
+
+POST /api/v1/admin/complaints/{complaintId}/duplicates/{matchedComplaintId}/dismiss
+
+Requirements:
+
+- Only authorized roles can review duplicate candidates.
+- Store reviewer ID.
+- Store decision.
+- Store decision timestamp.
+- Store optional explanation.
+- Record every decision in audit logs.
+- Prevent unauthorized users from changing decisions.
+
+If a complaint is confirmed as a duplicate:
+- Preserve the original complaint.
+- Preserve its history.
+- Link it to the canonical complaint.
+- Do not delete either complaint.
+- Do not automatically erase citizen submissions.
+- Provide a clear explanation to the citizen where appropriate.
+
+Prevent duplicate links from forming cycles.
+
+---
+
+## 10. ASYNCHRONOUS PROCESSING
+
+Avoid making complaint submission slow because of image hashing or duplicate detection.
+
+Use the existing RabbitMQ infrastructure if suitable.
+
+Suggested workflow:
+
+1. Citizen submits complaint.
+2. Complaint is saved in MySQL.
+3. An event is published after successful database persistence.
+4. Background consumer performs classification and duplicate detection.
+5. Results are saved in MySQL.
+6. Admin can view the results.
+
+Important reliability requirements:
+
+- Handle consumer failures.
+- Add retry policies.
+- Avoid processing the same event multiple times.
+- Consider a transactional outbox if required for reliable event publishing.
+- Do not lose events when database persistence succeeds but message publishing fails.
+- Provide a way to retry failed AI processing.
+
+If RabbitMQ is unavailable, complaint submission should still work.
+
+---
+
+## 11. API ENDPOINTS
+
+Adapt paths to existing conventions.
+
+Citizen:
+
+GET /api/v1/complaints/{complaintId}/ai-summary
+
+The citizen may view only the permitted information for their own complaint.
+
+Admin:
+
+GET /api/v1/admin/complaints/{complaintId}/ai-results
+
+GET /api/v1/admin/complaints/{complaintId}/duplicates
+
+POST /api/v1/admin/complaints/{complaintId}/duplicates/{matchedComplaintId}/confirm
+
+POST /api/v1/admin/complaints/{complaintId}/duplicates/{matchedComplaintId}/dismiss
+
+POST /api/v1/admin/complaints/{complaintId}/ai-processing/retry
+
+Protect all endpoints with authentication, RBAC and complaint ownership checks.
+
+Do not expose internal model credentials, private metadata or sensitive information.
+
+---
+
+## 12. TESTING REQUIREMENTS
+
+Write automated tests for:
+
+Classification:
+- Garbage complaint.
+- Pothole complaint.
+- Water leakage complaint.
+- Unknown or ambiguous description.
+- Rule-based provider clearly identifies its method.
+
+Image:
+- Exact same image generates matching SHA-256.
+- Resized or recompressed image can be detected by pHash.
+- Different images are not automatically marked duplicates.
+- Invalid images are rejected.
+
+Location:
+- Nearby complaints are identified.
+- Distant complaints are not identified.
+- Missing GPS is handled safely.
+- Invalid coordinates are rejected.
+
+Text:
+- Similar descriptions produce calculated similarity.
+- Unrelated descriptions produce lower similarity.
+- Empty text is handled safely.
+
+Duplicate engine:
+- Multiple signals are combined correctly.
+- Missing signals are handled correctly.
+- Thresholds are configurable.
+- Candidate matches are not automatically rejected.
+
+Admin:
+- Admin can confirm a duplicate.
+- Admin can dismiss a duplicate.
+- Citizen cannot confirm duplicates.
+- Duplicate links cannot form cycles.
+
+Reliability:
+- RabbitMQ failure does not prevent complaint persistence.
+- Failed events can be retried.
+- Duplicate event processing does not create duplicate records.
+
+Regression:
+- All Phase 1 and Phase 2 tests continue to pass.
+
+---
+
+## 13. CONFIGURATION
+
+Add documented configuration properties.
+
+Example:
+
+civicx:
+  ai:
+    enabled: true
+    provider: rule-based
+
+  duplicate:
+    enabled: true
+    location-radius-meters: 100
+    text-threshold: 0.70
+    image-hash-threshold: 10
+
+These values are initial examples. Validate the actual configuration against the selected algorithms.
+
+Do not store API credentials in application.yml.
+
+Use environment variables or a secure secrets manager.
+
+---
+
+## 14. DOCUMENTATION
+
+Update README with:
+
+- AI architecture.
+- Classification provider selection.
+- Rule-based versus external AI processing.
+- Image hash algorithms.
+- Geographic matching algorithm.
+- Text similarity algorithm.
+- Duplicate detection workflow.
+- RabbitMQ event processing.
+- Configuration properties.
+- Swagger endpoint documentation.
+- Local testing instructions.
+- Known limitations.
+
+Clearly distinguish implemented capabilities from future integrations.
+
+---
+
+## 15. DEFINITION OF DONE
+
+Phase 3 is complete only when:
+
+1. Existing Phase 1 and Phase 2 functionality remains operational.
+2. Complaint categories can be suggested using a real implemented classifier.
+3. Image hashes are generated and stored.
+4. Location-based matching works.
+5. Text-based similarity works.
+6. Duplicate candidates are generated from actual data.
+7. Admin can confirm or dismiss duplicate candidates.
+8. Duplicate decisions are auditable.
+9. Background processing works reliably.
+10. Failed jobs can be retried.
+11. All automated tests pass.
+12. Swagger and README are updated.
+13. The application builds successfully.
+
+---
+
+## 16. FINAL REPORT
+
+At completion, provide:
+
+1. Repository audit findings.
+2. Existing database tables reused.
+3. New Flyway migrations.
+4. Files created and modified.
+5. AI implementation details.
+6. Algorithms and similarity calculations.
+7. New API endpoints.
+8. Sample real API requests and responses.
+9. Test results.
+10. Build results.
+11. Security review.
+12. Known limitations.
+13. Manual testing commands.
+
+Do not start Phase 4.
+
+Do not automatically push changes to GitHub.
+
+First complete implementation, run all tests and present the results for review.
+
+FINAL PRINCIPLE:
+
+CivicX must use AI to assist human decision-making, not replace it.
+
+A complaint must never be automatically rejected merely because an algorithm believes it is a duplicate.

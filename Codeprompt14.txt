@@ -1,0 +1,625 @@
+# PROMPT 14 — CivicX Digital Shopfront, Product Catalogue & New Arrivals
+
+You are a senior full-stack engineer working on my existing CivicX project.
+
+Your task is to implement a **Digital Shopfront and Product Catalogue module** as part of the existing CivicX Local Shops feature.
+
+IMPORTANT: This must integrate with the existing CivicX architecture. Do not create a separate application or duplicate existing shop registration, authentication, order management, or admin functionality.
+
+## 1. First Understand the Existing Project
+
+Before writing code:
+
+1. Inspect the complete repository structure.
+2. Identify the existing backend and frontend technologies.
+3. Understand authentication, authorization, database schema, migrations, file/image upload infrastructure, and API conventions.
+4. Inspect the existing Local Shops implementation, especially the shop registration, owner dashboard, product catalogue, and order functionality.
+5. Identify what already exists and what is missing.
+6. Reuse existing entities, services, APIs, components, and infrastructure wherever possible.
+
+Do not assume that a feature exists just because it is described in this prompt.
+
+If the Local Shops module has not yet been implemented, design this feature so that it integrates cleanly with the existing CivicX architecture and the planned Local Shops module.
+
+Do not break existing modules:
+- Civic Complaints
+- CivicX Moments
+- CivicX Local
+- CivicX Local Shops
+- CivicX Doorstep Pickup
+- CivicX Local Workers
+- CivicX Smart Product Finder
+
+Keep business workflows independent while reusing common authentication and infrastructure.
+
+## 2. Main Objective
+
+Every approved shop should have its own digital shop page inside CivicX.
+
+The shop owner should be able to upload and manage products that are currently available in their shop.
+
+Examples:
+- A kirana shop uploads a new imported chocolate.
+- A clothing shop uploads a newly arrived saree design.
+- A mobile accessories shop uploads a new Bluetooth speaker.
+- A bakery uploads today's special cakes.
+- A grocery shop uploads a special rice variety.
+- A vegetable shop uploads freshly available vegetables.
+
+Customers should be able to discover these products, browse the shop catalogue, check reported prices and stock quantities, and contact the shop.
+
+The objective is to give small local shops an affordable digital presence without requiring them to build their own website.
+
+## 3. Shop Owner Dashboard
+
+Add a Product Management section to the existing approved shop owner's dashboard.
+
+The owner should be able to:
+
+- Add a new product.
+- Edit product details.
+- Delete or archive a product.
+- Upload multiple product images if supported by the existing infrastructure.
+- Set product name.
+- Select product category.
+- Add brand or manufacturer.
+- Enter product description.
+- Set selling price.
+- Enter available quantity.
+- Select quantity unit (piece, kg, gram, litre, packet, box, etc.).
+- Mark a product as a unique or special item.
+- Mark a product as a new arrival.
+- Mark a product as a featured product.
+- Set an offer price when applicable.
+- Set product availability.
+- Update stock whenever required.
+
+Create a simple, mobile-friendly interface that a small shop owner can understand without technical knowledge.
+
+### Product form example
+
+Product name: Special Basmati Rice
+
+Category: Grocery
+
+Brand: Example Brand
+
+Description: Premium quality rice.
+
+Price: ₹120 per kg
+
+Available quantity: 15 kg
+
+Product type: Unique item
+
+New arrival: Yes
+
+Availability: Available
+
+Product images: Upload images
+
+The example values are only for demonstrating the interface.
+
+## 4. Product Categories
+
+Support configurable product categories.
+
+Suggested categories:
+
+- Grocery
+- Rice and Pulses
+- Fruits and Vegetables
+- Bakery and Cakes
+- Snacks and Beverages
+- Clothing and Fashion
+- Footwear
+- Mobile Accessories
+- Electronics
+- Home and Kitchen
+- Beauty and Personal Care
+- Medical and Healthcare
+- Stationery and Books
+- Toys and Gifts
+- Furniture
+- Hardware
+- Other
+
+Do not hardcode categories throughout the application if the existing architecture supports database-driven categories.
+
+Allow admins to manage categories if appropriate.
+
+## 5. Product Quantity and Stock Management
+
+This is an important requirement.
+
+Shop owners must be able to enter the actual quantity available in their shops.
+
+Examples:
+
+| Product | Available stock |
+|---|---:|
+| Basmati Rice | 15 kg |
+| Chocolate | 20 pieces |
+| Bluetooth Speaker | 4 pieces |
+| Bedsheet | 8 pieces |
+| Cooking Oil | 12 litres |
+
+Requirements:
+
+1. Store quantity and unit correctly.
+2. Allow owners to update quantity.
+3. Support zero quantity.
+4. Mark a product as OUT_OF_STOCK when its quantity becomes zero.
+5. Do not allow negative stock.
+6. Display the last stock update time.
+7. Display the stock update timestamp to customers.
+8. Ensure only the owner of the shop can update that shop's products.
+9. Do not expose internal inventory information unnecessarily.
+
+Do not assume that displayed stock is guaranteed at the time the customer visits.
+
+Show a clear message such as:
+
+- Available — updated 5 minutes ago.
+- Stock last updated 2 hours ago.
+- Availability not recently confirmed.
+- Currently out of stock.
+
+Implement a configurable freshness period rather than assuming that old stock information is accurate.
+
+## 6. Unique Products and New Arrivals
+
+Create dedicated product discovery sections.
+
+### A. Unique Products
+
+Shop owners can mark products as UNIQUE_ITEM.
+
+Examples:
+- Special handmade products.
+- Imported products.
+- Rare grocery items.
+- Special clothing designs.
+- Local traditional products.
+- Special bakery items.
+
+Customers can browse unique products from nearby shops.
+
+### B. New Arrivals
+
+Shop owners can mark products as NEW_ARRIVAL.
+
+Customers should be able to see recently uploaded products.
+
+Requirements:
+
+- Display new arrivals separately.
+- Show the upload date.
+- Allow customers to filter by locality and category.
+- Automatically stop showing the new-arrival badge after a configurable period, unless the owner updates the designation.
+- Do not mark ordinary products as new arrivals automatically.
+
+### C. Featured Products
+
+Allow the shop owner or authorized admin to feature selected products.
+
+Clearly distinguish paid promotions from ordinary featured products if monetization is introduced later.
+
+Do not implement paid advertising unless the existing project already supports it or the task explicitly requires it.
+
+## 7. Public Digital Shopfront
+
+Every approved and active shop should have a public digital page.
+
+Example:
+
+CivicX Shop Page
+
+Shop Name: Sri Lakshmi Kirana Store
+
+Locality: Street 9
+
+Shop Category: Grocery
+
+Shop Description: Local grocery and daily essentials store.
+
+Shop Status: Open
+
+Accepting Orders: Yes
+
+Delivery: Available
+
+Pickup: Available
+
+Website: https://example.com
+
+The public shop page should include:
+
+1. Shop name and logo/photo.
+2. Shop cover image.
+3. Shop description.
+4. Locality and approximate address.
+5. Opening hours.
+6. Current shop status.
+7. Contact options based on owner consent.
+8. Product catalogue.
+9. New arrivals.
+10. Unique products.
+11. Featured products.
+12. External website link, if provided.
+13. Delivery and pickup information, if supported by the existing Local Shops module.
+
+Do not show private owner information.
+
+Only approved shops should appear publicly.
+
+## 8. External Shop Website
+
+Some shop owners already have their own websites.
+
+Allow the shop owner to add an external website URL to their shop profile.
+
+Example:
+
+Shop website: https://myshop.example.com
+
+Requirements:
+
+- Validate URL format.
+- Only allow safe HTTP/HTTPS website URLs.
+- Display a Visit Website link on the public shop page.
+- Open the external website safely.
+- Allow the owner to edit or remove the URL.
+- Do not require every shop to have a website.
+- If no website exists, customers should still be able to browse the CivicX digital shopfront.
+
+CivicX must work as the shop's basic digital presence even without an external website.
+
+## 9. Customer Product Discovery
+
+Customers should be able to:
+
+- Browse nearby approved shops.
+- Open a shop's digital page.
+- Browse its full product catalogue.
+- Search by product name.
+- Filter by category.
+- Filter by locality.
+- Filter by unique products.
+- Filter by new arrivals.
+- View prices and reported quantities.
+- View product images.
+- See the stock update time.
+- Contact the shop.
+- Visit its external website if available.
+- Open directions using the existing location infrastructure.
+
+Provide pagination or another scalable loading approach.
+
+Do not load every product from every shop in a single API request.
+
+### Example customer journey
+
+1. Customer opens CivicX.
+2. Customer selects their locality.
+3. Customer opens Local Shops.
+4. Customer selects Grocery.
+5. CivicX displays nearby approved grocery shops.
+6. Customer opens Sri Lakshmi Kirana Store.
+7. Customer browses its products.
+8. Customer discovers a new chocolate product.
+9. Customer checks the reported price and stock.
+10. Customer contacts the shop or visits it.
+
+## 10. Integration With Existing Smart Product Finder
+
+CivicX already has a planned Smart Product Finder feature called Ask Nearby Shops.
+
+Integrate the product catalogue with that feature only where appropriate.
+
+For example:
+
+- A customer searches for a Bluetooth speaker.
+- CivicX checks eligible shop catalogues.
+- If a matching product exists, show the shop and its latest reported stock.
+- The customer can still send an Ask Nearby Shops request to get a fresh confirmation.
+- Shop responses must not be replaced by stale catalogue information.
+
+Keep the two workflows separate:
+
+**Digital Catalogue:** Shop owners publish products they sell.
+
+**Ask Nearby Shops:** Customers ask shops whether a particular item is currently available.
+
+Reuse product data where practical, but do not merge their business logic into one workflow.
+
+## 11. Product Images and File Storage
+
+Use the existing file/object storage infrastructure.
+
+Requirements:
+
+- Store product images in object storage or the existing supported storage provider.
+- Store image URLs or storage references in the database.
+- Do not store large image binaries directly in MySQL.
+- Validate file type and file size.
+- Generate safe filenames.
+- Restrict upload access to authorized shop owners.
+- Prevent unauthorized file access or replacement.
+- Support image deletion when a product is removed, while respecting any existing retention requirements.
+- Avoid exposing internal storage paths.
+
+If object storage is not implemented yet, introduce a clean storage abstraction compatible with the existing project. Do not hardcode cloud-provider-specific logic throughout the application.
+
+## 12. Admin Dashboard
+
+Admins should be able to:
+
+- View registered shops.
+- Verify shop ownership and approval status.
+- View shop catalogues.
+- Review reported products.
+- Remove prohibited or misleading listings.
+- Suspend shops when necessary.
+- Manage product categories.
+- Review reported product listings.
+- View audit history.
+
+Product ownership must remain with the shop owner.
+
+Admin actions should be recorded in an audit log.
+
+Do not allow admins to silently change a shop's inventory without an auditable reason.
+
+## 13. Suggested Database Design
+
+First inspect existing database entities and migrations.
+
+Reuse existing tables wherever possible.
+
+Only create missing tables or columns.
+
+Possible entities:
+
+### shop_products
+
+- id
+- shop_id
+- product_name
+- slug
+- category_id
+- brand
+- description
+- selling_price
+- offer_price
+- stock_quantity
+- stock_unit
+- availability_status
+- is_unique_item
+- is_new_arrival
+- new_arrival_until
+- is_featured
+- created_at
+- updated_at
+- stock_updated_at
+
+### shop_product_images
+
+- id
+- product_id
+- image_url or storage_key
+- display_order
+- created_at
+
+### shop_product_categories
+
+- id
+- category_name
+- description
+- is_active
+- created_at
+- updated_at
+
+### shop_product_audit_logs
+
+- id
+- product_id
+- shop_id
+- action
+- previous_values
+- new_values
+- changed_by
+- created_at
+
+These are suggested structures, not instructions to duplicate existing tables.
+
+Use the existing naming conventions, ID strategy, migration framework, and relationships.
+
+Add proper indexes for:
+
+- shop_id
+- category_id
+- availability_status
+- locality-related discovery through existing shop relationships
+- is_new_arrival
+- is_unique_item
+- created_at
+
+Use appropriate decimal precision for monetary values.
+
+Use a suitable numeric type for stock quantities so that fractional units such as 0.5 kg can be supported where needed.
+
+## 14. Suggested API Design
+
+Follow the existing project's API naming conventions.
+
+Possible endpoints:
+
+### Shop owner
+
+POST /api/v1/shops/{shopId}/products
+
+GET /api/v1/shops/{shopId}/products
+
+GET /api/v1/shops/{shopId}/products/{productId}
+
+PUT /api/v1/shops/{shopId}/products/{productId}
+
+PATCH /api/v1/shops/{shopId}/products/{productId}/stock
+
+PATCH /api/v1/shops/{shopId}/products/{productId}/availability
+
+DELETE /api/v1/shops/{shopId}/products/{productId}
+
+POST /api/v1/shops/{shopId}/products/{productId}/images
+
+### Public customer APIs
+
+GET /api/v1/public/shops/{shopId}
+
+GET /api/v1/public/shops/{shopId}/products
+
+GET /api/v1/public/products/search
+
+GET /api/v1/public/products/new-arrivals
+
+GET /api/v1/public/products/unique
+
+GET /api/v1/public/shops/nearby
+
+### Shop website
+
+PATCH /api/v1/shops/{shopId}/website
+
+These endpoints are suggestions. Reuse existing endpoints if they already provide the required functionality.
+
+Add request validation, pagination, consistent responses, and proper error handling.
+
+## 15. Security Requirements
+
+Implement these rules carefully:
+
+1. Only authenticated and approved shop owners can manage products.
+2. A shop owner can manage only their own shop's products.
+3. Never trust shop_id supplied by the frontend without checking ownership.
+4. Validate all product prices and quantities on the backend.
+5. Prevent negative stock.
+6. Validate image uploads.
+7. Protect public APIs from unauthorized access to private information.
+8. Prevent unauthorized product updates and deletions.
+9. Validate external website URLs.
+10. Apply suitable rate limits to public search and upload APIs.
+11. Record important product and admin changes.
+12. Do not expose customer or shop-owner private information.
+
+## 16. Frontend Requirements
+
+Build a clean and responsive interface consistent with the existing CivicX UI.
+
+### Shop owner screens
+
+- Product dashboard.
+- Add product.
+- Edit product.
+- Upload product images.
+- Update stock.
+- Manage new arrivals.
+- Manage unique products.
+- Shop profile and website settings.
+- Product list with availability indicators.
+
+### Customer screens
+
+- Nearby shops.
+- Shop profile.
+- Shop product catalogue.
+- Product details.
+- New arrivals.
+- Unique products.
+- Product search and filters.
+
+Make the UI mobile-friendly because many local shop owners and customers will primarily use smartphones.
+
+Include loading, empty, error, and success states.
+
+## 17. Testing Requirements
+
+Write meaningful automated tests.
+
+Test at least:
+
+- Approved shop owner creates a product.
+- Unapproved shop cannot publish products.
+- Shop owner cannot edit another shop's product.
+- Product images upload successfully.
+- Invalid image formats are rejected.
+- Product price validation works.
+- Fractional stock quantities work.
+- Negative stock is rejected.
+- Stock quantity zero marks product out of stock.
+- Stock update timestamp changes.
+- New-arrival designation works.
+- New-arrival expiry works.
+- Unique-product filtering works.
+- Public customers can view approved shop catalogues.
+- Customers cannot access private shop-owner data.
+- Website URL validation works.
+- Product search and pagination work.
+- Admin product moderation is audited.
+
+Run the existing project tests as well. Do not break existing tests.
+
+## 18. Documentation
+
+Update project documentation with:
+
+- Feature overview.
+- Shop owner workflow.
+- Customer workflow.
+- API documentation.
+- Database changes.
+- Product image storage approach.
+- Security and authorization rules.
+- How to run and test the feature.
+- Any environment variables introduced.
+
+Update Swagger/OpenAPI documentation if the backend uses it.
+
+## 19. Implementation Rules
+
+Follow these rules strictly:
+
+- Do not rewrite the entire CivicX application.
+- Do not duplicate existing shop functionality.
+- Do not introduce unnecessary dependencies.
+- Do not add paid third-party services without justification.
+- Do not store large image files in MySQL.
+- Do not expose private owner information.
+- Do not claim stock is guaranteed when it may be outdated.
+- Do not modify existing applied Flyway migrations; create new migrations for schema changes.
+- Do not remove existing features.
+- Do not hardcode secrets.
+- Do not push or deploy automatically.
+- Do not report tests as passed unless you actually ran them.
+
+If a dependency or external service is unavailable, explain the limitation and implement the cleanest supported alternative.
+
+## 20. Final Deliverables
+
+After implementation, provide:
+
+1. Existing functionality discovered.
+2. New functionality implemented.
+3. Backend files created or modified.
+4. Frontend files created or modified.
+5. Database migrations added.
+6. APIs implemented.
+7. Image storage implementation.
+8. Security and ownership checks.
+9. Tests executed and actual results.
+10. Any remaining limitations.
+11. Manual steps required to run and verify the feature.
+
+Implement this as a production-conscious, junior-developer-friendly module.
+
+**Final objective:** Every local shop in CivicX should be able to create its own digital storefront, upload its products, showcase unique items and new arrivals, maintain reported stock quantities, and allow nearby customers to discover what the shop currently sells — even if the shop does not own a website.

@@ -7,3 +7,6 @@ target/
 .DS_Store
 Thumbs.db
 backend/.mvn/wrapper/maven-wrapper.jar
+data/
+backend/data/
+backend/target/test-storage*/

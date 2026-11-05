@@ -9,7 +9,8 @@ public record AppProperties(
         Jwt jwt,
         Cors cors,
         RateLimit rateLimit,
-        Admin admin
+        Admin admin,
+        Storage storage
 ) {
     public record Jwt(String secret, long accessTokenTtlMinutes, long refreshTokenTtlDays) {
     }
@@ -17,9 +18,12 @@ public record AppProperties(
     public record Cors(List<String> allowedOrigins) {
     }
 
-    public record RateLimit(int authPerMinute, int complaintPerHour) {
+    public record RateLimit(int authPerMinute, int complaintPerHour, int imageUploadPerHour) {
     }
 
     public record Admin(String email, String password) {
+    }
+
+    public record Storage(String localDir, long maxImageSizeBytes, int maxImagesPerComplaint) {
     }
 }

@@ -1,0 +1,170 @@
+# NEW MODULE — CIVICX COMMUNITY SAFETY & POLICE CONNECT
+
+## Objective
+
+Build a Community Safety and Police Connect module inside CivicX.
+
+The objective is to help residents report neighbourhood conflicts, fights, harassment, threats, violence, public disturbances and other safety incidents.
+
+CivicX should securely store submitted incident reports and provide an authorized police dashboard through an approved police partnership or official integration.
+
+## 1. Incident Reporting
+
+Allow residents to report:
+
+- Neighbour disputes.
+- Physical fights.
+- Domestic violence.
+- Harassment.
+- Threats.
+- Property damage.
+- Public disturbances.
+- Suspicious activities.
+- Other community safety incidents.
+
+Allow residents to submit:
+
+- Incident category.
+- Incident description.
+- Date and time.
+- Approximate incident location.
+- Optional GPS coordinates with consent.
+- Photos.
+- Videos.
+- Optional witness details.
+- Optional contact information.
+
+Generate a unique incident reference ID.
+
+## 2. Emergency Assistance
+
+For incidents involving immediate danger:
+
+- Display an emergency call option.
+- Support India's emergency number 112.
+- Allow location sharing with consent.
+- Provide trusted emergency contact notifications.
+- Clearly distinguish emergency calls from ordinary incident reports.
+
+Do not delay emergency calls while waiting for a CivicX report submission or police dashboard response.
+
+## 3. Secure Incident Storage
+
+Store incident reports securely.
+
+Maintain:
+- Incident ID.
+- Reporter ID, where provided.
+- Incident category.
+- Description.
+- Location.
+- Submission timestamp.
+- Evidence references.
+- Review status.
+- Assigned jurisdiction.
+- Access audit history.
+
+Protect uploaded photos and videos.
+
+Do not make sensitive incident reports publicly visible.
+
+## 4. Police Dashboard
+
+Create a separate dashboard for authorized and verified police officials.
+
+Police officials should be able to:
+
+- View reports within their authorized jurisdiction.
+- Search incident records.
+- Filter by incident type and date.
+- View incident locations.
+- Review submitted evidence.
+- Contact the reporter through authorized methods.
+- Record observations.
+- Update review status.
+- Assign reports to relevant officials.
+- Record action taken.
+- Maintain case notes.
+- Refer reports to appropriate authorities.
+
+Police access must require authenticated official accounts and strict role-based permissions.
+
+## 5. Police Integration
+
+Design a modular integration layer for official police systems.
+
+Support official APIs or other approved integration methods where available.
+
+Do not assume police departments have granted access.
+
+Until an official integration exists:
+- Store reports securely in CivicX.
+- Allow CivicX administrators to review them.
+- Provide a secure manual referral process where legally appropriate.
+- Do not claim that a report has reached the police unless delivery is confirmed.
+
+## 6. Incident Status
+
+Support statuses such as:
+
+- SUBMITTED.
+- RECEIVED.
+- UNDER_REVIEW.
+- REFERRED_TO_POLICE.
+- ACKNOWLEDGED_BY_POLICE.
+- ACTION_RECORDED.
+- CLOSED.
+- REJECTED.
+
+Only show police acknowledgement or action status when it has actually been confirmed.
+
+Do not confuse a CivicX report reference with an official police complaint or FIR.
+
+## 7. Privacy and Safety
+
+- Never publicly display private incident reports.
+- Do not expose reporter identities unnecessarily.
+- Protect victim information.
+- Restrict evidence access to authorized personnel.
+- Maintain access audit logs.
+- Implement secure evidence retention and deletion policies.
+- Prevent harassment, false reporting and malicious submissions.
+- Provide a way to report misuse.
+- Avoid automatically identifying or publicly accusing individuals.
+- Do not publish private residential addresses.
+- Ensure that sensitive domestic violence reports receive appropriate restricted access.
+
+## 8. CivicX Admin Dashboard
+
+Authorized administrators should be able to:
+
+- Review submitted reports.
+- Detect spam and duplicate submissions.
+- Verify incident categories.
+- Assign jurisdiction.
+- Manage authorized police accounts.
+- Review integration delivery status.
+- Monitor report handling times.
+- Investigate misuse.
+
+CivicX moderators must not impersonate police officials or independently declare someone guilty.
+
+## 9. Complete Testing
+
+Test:
+
+Resident submits incident → Secure record created → Admin reviews → Authorized police official receives report through approved integration → Police acknowledges → Action status updated.
+
+Also test:
+- Anonymous or limited-identity reports.
+- False or abusive reports.
+- Duplicate reports.
+- Unauthorized dashboard access.
+- Evidence access restrictions.
+- Failed police API integration.
+- Missing location permissions.
+- Emergency calling fallback.
+
+Inspect the existing CivicX architecture before implementation. Reuse existing authentication, RBAC, notifications, maps, file storage and audit logging.
+
+Do not break existing CivicX modules.

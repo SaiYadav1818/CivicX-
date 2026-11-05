@@ -1,0 +1,364 @@
+# CIVICX — PHASE 7: FRONTEND, PRODUCTION DEPLOYMENT AND CI/CD
+
+You are a Senior Full-Stack Engineer and DevOps Engineer.
+
+Repository:
+https://github.com/SaiYadav1818/CivicX-
+
+Your task is to implement the CivicX frontend and prepare the complete application for a secure production deployment.
+
+## 1. FIRST: PROJECT AUDIT
+
+Inspect the actual repository.
+
+Verify completion of:
+- Phase 1: Backend foundation.
+- Phase 2: Complaint management.
+- Phase 3: AI and duplicate detection.
+- Phase 4: Authority mapping.
+- Phase 5: Admin dashboard.
+- Phase 6: Notifications and public tracking.
+
+Do not assume a feature exists because it appears in the roadmap.
+
+Identify:
+- Backend APIs.
+- Authentication flow.
+- Database configuration.
+- File storage.
+- Notification providers.
+- Environment variables.
+- Existing frontend files.
+- Docker configuration.
+- Test commands.
+
+Prepare an implementation plan before making changes.
+
+## 2. FRONTEND TECHNOLOGY
+
+Use:
+
+- React.
+- TypeScript.
+- Vite.
+- Tailwind CSS.
+- React Router.
+- Axios or an existing approved API client.
+- React Query or TanStack Query.
+- Form validation.
+- Responsive layouts.
+
+Reuse existing dependencies where possible.
+
+Do not introduce unnecessary libraries.
+
+## 3. CIVICX BRANDING
+
+Application name: CivicX.
+
+Brand positioning:
+
+"Report problems. Track action. Improve your community."
+
+Create a modern, trustworthy civic-tech design.
+
+Design requirements:
+- Clean layout.
+- Professional dashboard.
+- Responsive mobile-first design.
+- Accessible controls.
+- Clear status indicators.
+- Consistent typography.
+- Useful empty states.
+- Loading indicators.
+- Error messages.
+- Confirmation dialogs.
+
+Do not copy another company's branding.
+
+## 4. CITIZEN APPLICATION
+
+Build these pages:
+
+A. Landing page
+- CivicX introduction.
+- How it works.
+- Report an issue.
+- Public complaint tracking.
+- Login and registration.
+
+B. Registration and login
+- Citizen registration.
+- Login.
+- Token refresh.
+- Logout.
+- Protected routes.
+
+C. Citizen dashboard
+- Total complaints submitted.
+- Open complaints.
+- Resolved complaints.
+- Recent complaint activity.
+
+D. Submit complaint
+- Category selection.
+- Title.
+- Description.
+- Photograph upload.
+- GPS location.
+- Address and landmark.
+- Image preview.
+- Validation.
+- Submission confirmation.
+
+E. My complaints
+- Complaint reference.
+- Category.
+- Submission date.
+- Current status.
+- Search and filters.
+
+F. Complaint details
+- Images.
+- Location map.
+- Status timeline.
+- Official acknowledgement reference.
+- Publicly available updates.
+
+G. Notifications
+- Notification list.
+- Read/unread status.
+- Notification preferences.
+
+## 5. ADMIN APPLICATION
+
+Create protected admin pages:
+
+- Admin login.
+- Dashboard.
+- Complaint list.
+- Complaint details.
+- Image review.
+- AI classification results.
+- Duplicate candidates.
+- Authority mapping review.
+- Department assignment.
+- Status management.
+- Audit history.
+- Reports and exports.
+- User and department management.
+
+Only display functions authorized for the logged-in role.
+
+## 6. DEPARTMENT APPLICATION
+
+Create department-facing pages:
+
+- Assigned complaints.
+- Complaint details.
+- Status updates.
+- Work progress notes.
+- Resolution evidence upload.
+- Assignment history.
+
+Department users must only access their authorized department scope.
+
+## 7. PUBLIC TRACKING PAGE
+
+Allow a visitor to enter a CivicX complaint reference.
+
+Show only information approved by the backend public API.
+
+Do not expose citizen personal details or internal administrative information.
+
+## 8. API INTEGRATION
+
+Use actual backend endpoints.
+
+Requirements:
+- Centralized API client.
+- JWT authorization.
+- Secure refresh-token handling.
+- Proper 401 and 403 handling.
+- Error handling.
+- Loading states.
+- Pagination.
+- Form validation.
+- Upload progress where supported.
+
+Do not hardcode fake complaint records as production data.
+
+Mock data may only be used in clearly identified development/demo mode.
+
+Never put backend secrets or provider API keys in frontend environment variables.
+
+Do not store long-lived sensitive credentials in localStorage.
+
+Follow the backend's actual authentication and refresh-token contract.
+
+## 9. MAP AND LOCATION
+
+Integrate a map provider only after inspecting available configuration.
+
+Support:
+- User location permission.
+- Map marker selection.
+- Latitude and longitude.
+- Address display.
+- Manual location correction.
+
+Handle location permission denial gracefully.
+
+Do not assume GPS is always accurate.
+
+Do not expose private citizen locations on public pages.
+
+## 10. FRONTEND TESTING
+
+Add:
+- Component tests.
+- Form validation tests.
+- Authentication tests.
+- Protected route tests.
+- Complaint submission tests.
+- Image upload tests.
+- Admin authorization tests.
+- API error tests.
+- Responsive layout checks.
+- End-to-end citizen complaint workflow.
+
+## 11. BACKEND CONTAINERIZATION
+
+Inspect existing Docker configuration.
+
+Implement or improve:
+- Backend Dockerfile.
+- Frontend Dockerfile.
+- Docker Compose configuration.
+- MySQL service.
+- Redis service.
+- RabbitMQ service.
+- Persistent volumes.
+- Health checks.
+- Internal service networking.
+
+Use multi-stage builds where appropriate.
+
+Do not expose database ports publicly by default.
+
+Do not bake credentials into Docker images.
+
+Use environment variables and secure secret configuration.
+
+## 12. CI/CD
+
+Create GitHub Actions workflows.
+
+On pull requests:
+- Compile backend.
+- Run backend tests.
+- Build frontend.
+- Run frontend tests.
+- Run lint checks.
+- Perform appropriate security checks.
+
+On approved deployments:
+- Build production images.
+- Publish versioned images.
+- Deploy using the configured deployment environment.
+- Run health checks.
+- Verify application startup.
+
+Do not deploy to a real production server without explicit authorization and valid credentials.
+
+Do not place secrets in GitHub workflow files.
+
+## 13. PRODUCTION CONFIGURATION
+
+Separate:
+- Local development.
+- Testing.
+- Production.
+
+Configure:
+- Database credentials.
+- JWT secrets.
+- Storage configuration.
+- Redis.
+- RabbitMQ.
+- Notification providers.
+- CORS origins.
+- Logging.
+- Actuator health endpoints.
+
+Ensure:
+- Production does not use default admin passwords.
+- Swagger is appropriately restricted in production.
+- Sensitive data is not logged.
+- Upload directories are protected.
+- HTTPS is required in production.
+- Database backups are planned.
+- Migrations are safely applied.
+
+## 14. FINAL END-TO-END TEST
+
+Demonstrate this complete workflow:
+
+1. Citizen registers.
+2. Citizen logs in.
+3. Citizen reports a garbage issue.
+4. Citizen uploads photographs.
+5. GPS is recorded.
+6. CivicX generates a complaint reference.
+7. Classification processing runs.
+8. Duplicate detection runs.
+9. Authority mapping identifies a possible department.
+10. Admin reviews the complaint.
+11. Admin verifies the complaint.
+12. Admin assigns it internally.
+13. Citizen receives a notification.
+14. Complaint progress is updated.
+15. Public tracking displays approved information.
+16. Resolution evidence is uploaded.
+17. Admin verifies the resolution.
+18. Citizen sees the final status.
+
+Do not simulate successful government action. Internal CivicX processing must remain distinct from actual official acknowledgement and resolution.
+
+## 15. DEFINITION OF DONE
+
+- Citizen frontend works.
+- Admin frontend works.
+- Department frontend works.
+- Public tracking works.
+- Backend integration works.
+- Responsive design works.
+- Authentication and authorization work.
+- Uploads work.
+- Docker builds work.
+- CI pipeline passes.
+- Automated tests pass.
+- Production configuration is documented.
+- End-to-end workflow is verified.
+
+## 16. FINAL REPORT
+
+Provide:
+1. Frontend architecture.
+2. Pages and components created.
+3. API integrations.
+4. Backend changes.
+5. Docker changes.
+6. CI/CD workflows.
+7. Security review.
+8. Test results.
+9. Build results.
+10. Deployment instructions.
+11. Known limitations.
+12. Exact local run commands.
+
+Do not automatically deploy to production.
+Do not push changes to GitHub without review.
+Do not claim production readiness without actual verification.
+
+The final goal is a working CivicX application that real citizens, administrators and authorized department users can use.

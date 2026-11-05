@@ -1,0 +1,1191 @@
+es! I think CivicX already has a strong foundation, but I would add a few features that could make it more useful in people's everyday lives.
+
+My recommendation is to make CivicX more than a neighbourhood information app. Make it an app that people open whenever they need something in their local area.
+10 features I would add to CivicX
+
+
+
+
+
+
+
+
+
+1. Emergency Help
+High priority
+- Emergency contact shortcuts.
+- Find nearby hospitals, pharmacies and police stations.
+- Community emergency alerts.
+- Share location with trusted contacts after consent.
+
+
+
+
+
+
+
+
+
+
+
+
+2. Lost & Found
+- Lost pets, wallets, phones, documents and keys.
+- Upload photo and approximate location.
+- Nearby residents can report found items.
+- Private contact between the owner and finder.
+
+
+
+
+
+
+
+
+
+
+
+
+3. Community Help
+- Request help carrying groceries.
+- Help elderly residents with errands.
+- Request blood donors or urgent community assistance.
+- Volunteers can respond to requests.
+
+
+
+
+
+
+
+
+
+
+
+
+4. Local Transport Updates
+- Local bus and metro information.
+- Traffic and road closure updates.
+- Community-reported road conditions.
+- Useful commute announcements.
+
+
+
+
+
+
+
+
+
+
+
+
+5. Community Notice Board
+- Water and electricity shutdown notices.
+- Apartment announcements.
+- Local meetings and celebrations.
+- Public notices and community information.
+
+
+
+
+
+
+
+
+
+
+
+
+6. Nearby Rentals & Property
+- Houses and rooms for rent.
+- PG accommodation.
+- Shops and commercial spaces.
+- Direct owner contact, with listing verification.
+
+
+
+
+
+
+
+
+
+
+
+
+7. Second-Hand Community Listings
+- Used furniture, cycles, electronics and household items.
+- Residents post photos and asking prices.
+- Interested buyers contact sellers directly.
+- No in-app payment required initially.
+
+
+
+
+
+
+
+
+
+
+
+
+8. Nearby Classes & Activities
+- Tuition and coaching centres.
+- Dance, music and sports classes.
+- Yoga and fitness centres.
+- Children's activities and workshops.
+
+
+
+
+
+
+
+
+
+
+
+
+9. Community Polls
+- Ask residents about local problems.
+- Vote on neighbourhood improvements.
+- Collect feedback about public facilities.
+- Show poll results transparently.
+
+
+
+
+
+
+
+
+
+
+
+
+10. AI Voice Assistant
+- Speak in Telugu, Hindi or English.
+- "Find a plumber near me."
+- "Report garbage near my street."
+- "Find a nearby medical shop."
+- AI converts requests into the appropriate CivicX action.
+
+
+
+My recommended priorities
+I wouldn't build all these features immediately. Too many modules could make CivicX confusing and difficult to maintain.
+Priority	Feature	Reason
+1	Lost & Found	Simple and useful locally
+2	Community Help	Builds neighbourhood connections
+3	Emergency Help	Important real-world value
+4	Community Notice Board	Frequent everyday usage
+5	Community Polls	Encourages participation
+6	AI Voice Assistant	Makes the app easier to use
+
+One important thing I would add to the entire app
+CivicX Trust & Verification System
+
+
+
+
+
+
+
+kommo.com
+
+
+Every module should have a trust mechanism.
+- Verified shop owners.
+- Verified service providers.
+- Verified community administrators.
+- Report misleading posts and fraudulent listings.
+- Admin moderation and user reporting.
+- Clearly distinguish verified information from community-submitted information.
+
+This is important because CivicX will connect strangers in the real world.
+My biggest recommendation
+I would organize CivicX into five main discovery areas:
+Community
+
+News, Moments, announcements, polls
+
+
+Civic Services
+
+Complaints, emergencies, public updates
+
+
+Local Discovery
+
+Shops, products, workers, classes
+
+
+Local Exchange
+
+Pickup, second-hand, lost & found, help
+
+
+AI Assistant
+
+Voice search, smart discovery and assistance across CivicX
+
+
+
+
+My advice: Don't try to compete with every individual app. Make CivicX the place where someone can solve a neighbourhood problem, find a local service, discover what's happening and connect with nearby people.
+
+That is a much stronger product identity than simply creating another social media app.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+give me all this in one promt
+
+
+
+
+
+
+
+
+
+
+
+
+
+Here is one complete master prompt for OpenCode covering all existing CivicX modules and the 10 additional features. It instructs the AI to integrate everything into one consistent application without breaking your existing architecture.
+CivicX — Complete Neighbourhood Super-App: Master Development & UI/UX Prompt
+1. Your Role
+Act as a Senior Product Architect, UI/UX Designer, Full-Stack Developer and Software Engineer.
+
+Your task is to improve and expand CivicX — Your Neighbourhood, Connected into a complete neighbourhood platform for Indian communities.
+
+CivicX should connect residents, local businesses, service providers, community organizations and civic authorities through one easy-to-use application.
+
+The application should help people:
+- Stay informed about their neighbourhood.
+- Report local problems.
+- Discover nearby shops and services.
+- Find products in nearby shops.
+- Discover events and activities.
+- Request help from their community.
+- Find lost belongings.
+- Access emergency information.
+- Connect with trusted local people.
+Important: CivicX is not just a social media application. It is a practical neighbourhood utility platform.
+
+2. IMPORTANT DEVELOPMENT INSTRUCTIONS
+Before making any changes:
+1. Inspect the complete existing repository.
+2. Understand the current frontend and backend architecture.
+3. Identify implemented features, partially implemented features and missing features.
+4. Understand existing database tables, API endpoints, authentication, roles and permissions.
+5. Reuse existing components, services, APIs and database structures wherever possible.
+6. Do not create duplicate functionality.
+7. Do not unnecessarily rewrite existing working modules.
+8. Do not assume that a feature is implemented just because its UI exists.
+9. Check whether existing features actually work end to end.
+10. Maintain backward compatibility wherever possible.
+If a feature requires backend APIs, database migrations or external integrations, implement them according to the existing architecture.
+
+Do not use fake functionality in production. If an API is unavailable, clearly separate mock data from real functionality.
+
+Do not automatically push code to GitHub or deploy anything.
+
+Run available tests and report actual results.
+
+3. COMPLETE CIVICX MODULES
+Organize CivicX into the following functional areas.
+MODULE 1 — COMMUNITY
+A. Local News
+Residents should be able to:
+- Publish neighbourhood news.
+- Upload photos and videos.
+- Add descriptions and categories.
+- Select their locality.
+- Browse nearby news.
+- Like, comment and share posts.
+- Report inappropriate content.
+Categories:
+- Roads and traffic.
+- Water problems.
+- Electricity problems.
+- Garbage and sanitation.
+- Public safety.
+- Community announcements.
+- Local celebrations.
+- General neighbourhood news.
+AI may suggest headlines and descriptions, but must not invent facts. Users must approve AI-generated content before publishing.
+B. CivicX Moments
+Create an event-based photo and video sharing experience.
+
+Support:
+- Festivals.
+- Cultural programmes.
+- Political rallies.
+- Concerts.
+- Sports events.
+- Movie celebrations.
+- College events.
+- Community gatherings.
+- Local celebrations.
+Features:
+- Event-based media feeds.
+- Photo and video uploads.
+- Event discovery.
+- Locality-based filtering.
+- Event descriptions and hashtags.
+- Likes, comments and sharing.
+- Reporting and moderation.
+Keep Moments separate from Local News because they serve different purposes.
+C. Nearby Announcements
+Allow residents and authorized community administrators to publish announcements such as:
+- Annadanam and food distribution.
+- Community gatherings.
+- Local celebrations.
+- Water supply shutdowns.
+- Electricity maintenance.
+- Traffic diversions.
+- Public meetings.
+- Local activities.
+Include locality, date, time, description and optional photos.
+
+Automatically expire outdated announcements where appropriate.
+
+Clearly distinguish verified announcements from unverified community submissions.
+D. Community Notice Board
+Provide a centralized neighbourhood notice board.
+
+Support:
+- Apartment announcements.
+- Local community meetings.
+- Public notices.
+- Water and electricity schedules.
+- Local maintenance notices.
+- Community programmes.
+- Important neighbourhood information.
+Allow authorized administrators to manage official notices.
+E. Community Polls
+Residents should be able to:
+- Create neighbourhood polls.
+- Vote on local issues.
+- View poll results.
+- Participate in community discussions.
+- Report misleading or abusive polls.
+Example:
+
+"Should our locality request additional streetlights?"
+
+Support poll expiry dates and prevent duplicate voting where appropriate.
+
+MODULE 2 — CIVIC SERVICES
+A. Civic Complaints
+Allow residents to report:
+- Potholes.
+- Garbage.
+- Drainage problems.
+- Water leakage.
+- Streetlight failures.
+- Road damage.
+- Public sanitation issues.
+- Other civic problems.
+Complaint submission should support:
+- Description.
+- Photo and video evidence.
+- Approximate location or GPS with permission.
+- Complaint category.
+- Locality.
+- Submission date.
+- Tracking ID.
+Complaint lifecycle:
+
+SUBMITTED → UNDER REVIEW → ASSIGNED → IN PROGRESS → RESOLVED
+
+Include rejected or reopened states where appropriate.
+
+Residents should be able to:
+- Track complaints.
+- View status updates.
+- Receive notifications.
+- Add additional information.
+- Confirm whether an issue is resolved.
+B. AI Complaint Intelligence
+Introduce AI-assisted complaint management.
+
+Capabilities:
+- Analyze complaint descriptions.
+- Suggest categories.
+- Detect potential duplicate complaints.
+- Analyze uploaded images where supported.
+- Identify similar complaints.
+- Recommend relevant departments.
+- Generate summaries for administrators.
+Do not automatically close or reject complaints based only on AI predictions.
+C. Authority Mapping
+Map complaints to appropriate departments and responsible authorities.
+
+Examples:
+- Road damage → Roads department.
+- Garbage → Sanitation department.
+- Water leakage → Water department.
+- Streetlight failure → Electrical department.
+Allow administrators to configure department mappings.
+D. Emergency Help
+Create an easily accessible Emergency Help section.
+
+Include:
+- Emergency contact shortcuts.
+- Nearby hospitals.
+- Nearby pharmacies.
+- Nearby police stations.
+- Nearby fire stations.
+- Emergency service information.
+- Trusted emergency contacts.
+- Optional location sharing.
+Allow users to share their location with trusted contacts after explicit consent.
+
+Do not claim to provide an emergency response service unless a real integration exists.
+
+Display emergency information clearly and make it accessible quickly.
+
+MODULE 3 — LOCAL DISCOVERY
+A. Local Shops
+Create a local shop discovery platform similar to Google Business Profiles.
+
+Shop owners can manage:
+- Business name.
+- Business category.
+- Shop description.
+- Address.
+- Map location.
+- Contact number, with consent.
+- Opening hours.
+- Logo.
+- Cover photo.
+- Shop exterior and interior gallery.
+- Product photos.
+- Optional external website.
+Customers can:
+- Search nearby shops.
+- Filter by category.
+- Browse shop photos.
+- View shop information.
+- View map location.
+- Get directions.
+- Contact the shop.
+- Visit the shop's external website.
+Only approved shops should be publicly visible.
+
+Important: This is NOT an e-commerce platform.
+
+Do not implement:
+- Shopping cart.
+- Online checkout.
+- Online payments.
+- Order processing.
+- Inventory management.
+- Stock quantity management.
+- Delivery management.
+B. Digital Shopfront and Product Gallery
+Allow shop owners to showcase products.
+
+Product display fields:
+- Product name.
+- Product photo.
+- Description.
+- Optional brand.
+- Optional price.
+- New arrival label.
+- Unique item label.
+Customers can browse products inside a shop profile.
+
+Product information is display-only. Prices and availability are owner-provided and must not be presented as guaranteed live stock.
+C. Smart Product Finder — Ask Nearby Shops
+Create a separate product discovery and request-response module.
+
+Customer workflow:
+1. Search for a product by name or upload an image.
+2. Select a product category.
+3. Choose locality.
+4. Select search radius.
+5. Send a product availability request.
+6. Nearby approved shops receive the request.
+7. Shops respond with availability and optional price.
+8. Customers compare responses.
+9. Customers contact the shop directly.
+Shop responses may include:
+- Available.
+- Alternative available.
+- Currently unavailable.
+- Can arrange.
+- Not available.
+Display the response timestamp.
+
+Never guarantee that an item remains available. Encourage customers to confirm before visiting.
+
+Do not expose customer private addresses publicly.
+D. Nearby Classes and Activities
+Help residents discover:
+- Tuition centres.
+- Coaching centres.
+- Dance classes.
+- Music classes.
+- Sports academies.
+- Yoga classes.
+- Fitness centres.
+- Children's activities.
+- Workshops and training centres.
+Providers can publish profiles, locations, schedules, descriptions and contact information.
+
+Customers can discover and contact them.
+
+MODULE 4 — LOCAL EXCHANGE
+A. Doorstep Pickup
+Allow residents to request collection of:
+- Old newspapers.
+- Cardboard.
+- Plastic.
+- Scrap metal.
+- E-waste.
+- Old furniture.
+- Other recyclable materials.
+Customer workflow:
+1. Select material category.
+2. Upload photos.
+3. Enter approximate quantity.
+4. Select locality.
+5. Select preferred pickup time.
+6. Submit request.
+7. Nearby verified providers send offers.
+8. Customer selects a provider.
+9. Provider visits and checks the material.
+10. Provider submits the final price.
+11. Customer approves or rejects the final price.
+Initial payments can happen directly between customer and provider through cash or UPI.
+
+Do not build payment processing unless explicitly required.
+
+Protect exact customer addresses until a provider has been selected and the customer confirms the arrangement.
+
+Prevent multiple providers from claiming the same request.
+B. Local Workers and Services
+Help residents discover local workers such as:
+- Plumbers.
+- Electricians.
+- Carpenters.
+- Painters.
+- Auto drivers.
+- Mechanics.
+- Construction workers.
+- Cleaning workers.
+- Appliance repair technicians.
+Worker profiles should support:
+- Name.
+- Profile photo.
+- Skills.
+- Experience.
+- Languages.
+- Service areas.
+- Optional rates.
+- Availability.
+- Contact options.
+Availability statuses:
+
+AVAILABLE / BUSY / UNAVAILABLE / EXPIRED
+
+Customers should be able to:
+- Search workers.
+- Filter by skill.
+- Filter by locality.
+- View profiles.
+- Check availability.
+- Contact workers.
+- Submit service requests.
+Do not automatically assign jobs.
+
+Do not implement continuous worker or vehicle tracking.
+C. Community Help
+Create a neighbourhood assistance feature.
+
+Residents can request help with:
+- Carrying groceries.
+- Helping elderly residents.
+- Small household assistance.
+- Urgent community support.
+- Local errands.
+- Other voluntary assistance.
+Other residents can respond as volunteers.
+
+Support:
+- Help request descriptions.
+- Approximate locality.
+- Preferred assistance time.
+- Volunteer responses.
+- Request status.
+- Private communication.
+For sensitive requests, protect the resident's personal information.
+D. Lost and Found
+Create a dedicated Lost and Found module.
+
+Support:
+- Lost pets.
+- Lost wallets.
+- Lost phones.
+- Lost keys.
+- Lost documents.
+- Lost bags.
+- Found belongings.
+Users can:
+- Upload images.
+- Add descriptions.
+- Select locality.
+- Add approximate location.
+- Specify lost or found status.
+- View nearby reports.
+- Contact the owner or finder privately.
+- Mark an item as recovered.
+Do not publicly display sensitive personal details from documents or identity cards.
+E. Second-Hand Community Listings
+Allow residents to list second-hand items such as:
+- Furniture.
+- Electronics.
+- Bicycles.
+- Household equipment.
+- Books.
+- Other reusable goods.
+Listing fields:
+- Item name.
+- Description.
+- Photos.
+- Condition.
+- Optional asking price.
+- Locality.
+- Contact method.
+Customers can browse and contact sellers directly.
+
+Keep this as a simple local classified listing feature.
+
+No cart, checkout or payment processing is required initially.
+F. Nearby Rentals and Property
+Allow property owners and authorized agents to list:
+- Houses for rent.
+- Rooms for rent.
+- PG accommodation.
+- Commercial shops.
+- Office spaces.
+Listing details:
+- Property type.
+- Description.
+- Photos.
+- Locality.
+- Approximate location.
+- Rent.
+- Facilities.
+- Availability.
+- Contact information.
+Include reporting, listing verification and expiry.
+
+Avoid publicly exposing exact residential addresses without permission.
+
+MODULE 5 — AI ASSISTANT
+A. CivicX AI Voice Assistant
+Build an AI-powered assistant that helps residents use CivicX through natural language.
+
+Support Telugu, Hindi and English where technically feasible.
+
+Example requests:
+
+"Find a plumber near me."
+
+"Report garbage near my street."
+
+"Find a nearby medical shop."
+
+"Show events happening this weekend."
+
+"Find a shop selling mobile chargers."
+
+"Are there any water shutdown announcements?"
+
+The assistant should:
+- Understand user intent.
+- Identify the relevant CivicX module.
+- Suggest or perform the appropriate action.
+- Ask for missing information.
+- Use existing CivicX APIs.
+- Request confirmation before publishing or submitting important actions.
+Do not invent nearby businesses, complaints, events or announcements.
+
+Use actual backend data wherever available.
+
+If voice support is unavailable, provide a text-based assistant first and keep voice integration modular.
+
+MODULE 6 — LOCAL BUSINESS ADVERTISEMENTS
+Create a local advertising platform.
+
+Businesses can create advertisements for:
+- Restaurants.
+- Bakeries.
+- Grocery shops.
+- Clothing stores.
+- Salons.
+- Tuition centres.
+- Local services.
+- Events and promotions.
+Advertisement details:
+- Business name.
+- Image or creative.
+- Description.
+- Target locality.
+- Duration.
+- Call-to-action.
+- Optional external link.
+Features:
+- Sponsored feed placements.
+- Featured local businesses.
+- Advertisement approval.
+- Expiry management.
+- Impression and click reporting, where supported.
+- Advertiser dashboard.
+Clearly label sponsored content.
+
+Control advertisement frequency so the application does not become cluttered.
+
+Protect user location and personal data.
+
+4. COMMON PLATFORM FEATURES
+These features should work across all modules.
+User Profiles and Roles
+Support:
+- CITIZEN.
+- ADMIN.
+- MODERATOR.
+- SHOP_OWNER.
+- SERVICE_PROVIDER.
+- WORKER.
+- COMMUNITY_ADMIN.
+- Other roles required by the existing architecture.
+Use role-based access control.
+
+Users must only manage content they own or have permission to manage.
+Notifications
+Implement notification support for:
+- Complaint status changes.
+- Product requests and shop responses.
+- Worker service requests.
+- Pickup offers.
+- Community help responses.
+- Lost and found updates.
+- Nearby announcements.
+- Event updates.
+- Important safety notifications.
+Support in-app notifications first and push notifications where configured.
+
+Allow users to control notification preferences.
+Search and Discovery
+Create a consistent search experience across CivicX.
+
+Users should be able to search:
+- News.
+- Events.
+- Shops.
+- Products.
+- Workers.
+- Classes.
+- Property.
+- Lost and found.
+- Community help.
+- Announcements.
+Support locality, category and radius filters where relevant.
+Maps and Location
+Use maps where they provide real value.
+
+Support:
+- Nearby discovery.
+- Shop locations.
+- Worker service areas.
+- Civic complaints.
+- Events.
+- Pickup requests.
+- Local announcements.
+Ask permission before accessing location.
+
+Use approximate location wherever possible.
+
+Do not continuously track users.
+Trust and Verification System
+Build a common trust and safety layer.
+
+Include:
+- Verified shop owners.
+- Verified service providers.
+- Verified community administrators.
+- User reporting.
+- Content moderation.
+- Fraudulent listing detection where supported.
+- Admin review.
+- User blocking.
+- Spam prevention.
+- Audit logs.
+Clearly distinguish verified information from unverified community submissions.
+
+5. COMPLETE UI/UX DESIGN SYSTEM
+Create one consistent, polished and modern application.
+
+The design should feel like a professional Indian neighbourhood super-app.
+
+Avoid making each module look like a completely different application.
+Brand Identity
+Brand: CivicX
+
+Tagline: Your Neighbourhood, Connected.
+Main Colour Palette
+- Primary Navy: #142B55
+- Primary Blue: #2878F0
+- Secondary Teal: #13B8A6
+- Accent Coral: #FF765E
+- Events Purple: #8B5CF6
+- Complaints Red: #EF5350
+- Shops Green: #13A889
+- Product Finder Amber: #F5A623
+- Workers Dark Teal: #0D9488
+- Advertisements Pink: #E85D91
+- Background: #F3F6FB
+- Cards: #FFFFFF
+- Main Text: #202B3C
+Use feature-specific accent colours consistently.
+
+Avoid excessive gradients.
+
+Use gradients selectively for banners, highlights and important promotional sections.
+Visual Style
+- Modern cards.
+- Rounded corners.
+- Subtle shadows.
+- Clear typography.
+- Consistent icons.
+- Beautiful image layouts.
+- Good whitespace.
+- Smooth transitions.
+- Attractive empty states.
+- Loading skeletons.
+- Clear error states.
+- Responsive layouts.
+- Accessible contrast and touch targets.
+The design should look premium but remain simple enough for everyday users.
+
+6. MAIN NAVIGATION
+Create a clear navigation system.
+Mobile Bottom Navigation
+Use five main navigation items:
+1. Home
+2. Explore
+3. Create (+)
+4. Nearby
+5. Profile
+The central Create button should open a contextual creation menu.
+
+Creation options should include:
+- Create Local News.
+- Upload Moment.
+- Report Civic Problem.
+- Create Announcement.
+- Create Poll.
+- Add Shop Listing.
+- Add Product Request.
+- Create Worker Profile.
+- Request Pickup.
+- Request Community Help.
+- Report Lost or Found Item.
+- Create Second-Hand Listing.
+- Add Property Listing.
+Only show options the current user has permission to use.
+Desktop Navigation
+Use:
+- Left sidebar navigation.
+- Main content feed.
+- Optional right sidebar for trending news, nearby events, announcements and sponsored listings.
+Maintain responsive behaviour for tablets and mobile devices.
+
+7. HOME SCREEN DESIGN
+The home screen should provide an overview of the neighbourhood.
+
+Suggested layout:
+Header
+- CivicX logo.
+- Current locality selector.
+- Search.
+- Notifications.
+- User profile.
+Welcome Section
+"Good Morning! What's happening in your neighbourhood?"
+Quick Actions
+- Report Problem.
+- Find a Shop.
+- Find a Worker.
+- Find a Product.
+- Emergency Help.
+- Community Help.
+Main Feed
+- Trending Local News.
+- Nearby Announcements.
+- Upcoming Events.
+- Community Moments.
+- Important Civic Updates.
+Discovery Sections
+- Popular Shops.
+- Available Workers.
+- Nearby Classes.
+- Lost and Found.
+- Community Requests.
+- Local Promotions.
+Use personalized and location-relevant content only when the user has allowed the required permissions.
+
+Do not overcrowd the home screen. Use clear sections and "See All" navigation.
+
+8. EXPLORE SCREEN
+Build a central discovery screen with category cards.
+
+Suggested categories:
+- Local News.
+- Events & Moments.
+- Civic Complaints.
+- Emergency Help.
+- Local Shops.
+- Find Products.
+- Local Workers.
+- Classes & Activities.
+- Doorstep Pickup.
+- Community Help.
+- Lost & Found.
+- Second-Hand Listings.
+- Rentals & Property.
+- Community Polls.
+- Advertisements.
+Provide search and filters.
+
+9. ADMIN DASHBOARD
+Create a centralized administration dashboard.
+
+Administrators should be able to manage:
+- Users and roles.
+- Complaints.
+- Departments.
+- Authority mapping.
+- Shop approvals.
+- Worker verification.
+- Advertisements.
+- News moderation.
+- Moments moderation.
+- Announcements.
+- Polls.
+- Lost and found reports.
+- Community help requests.
+- Property listings.
+- Second-hand listings.
+- Reports and complaints against users.
+- Notifications.
+- Localities and service areas.
+Include useful analytics:
+- Total registered users.
+- Active users.
+- Complaints by status.
+- Most reported localities.
+- Popular shops.
+- Active workers.
+- Product requests.
+- Community engagement.
+- Advertisement performance.
+Only expose analytics supported by actual data.
+
+10. SECURITY, PRIVACY AND MODERATION
+Security is mandatory.
+
+Implement:
+- Secure authentication.
+- Role-based authorization.
+- Input validation.
+- File upload validation.
+- Rate limiting.
+- Secure API handling.
+- Audit logging.
+- Privacy controls.
+- User reporting and blocking.
+- Content moderation.
+- Protection against spam and fake listings.
+Location privacy:
+- Ask for location permission.
+- Avoid unnecessary precise location storage.
+- Do not publicly expose residential addresses.
+- Share exact locations only when required and authorized.
+- Never implement hidden location tracking.
+Media:
+- Validate uploaded files.
+- Restrict file sizes and formats.
+- Remove sensitive EXIF metadata where appropriate.
+- Support moderation and reporting.
+- Use suitable object storage rather than storing large media directly in relational database fields.
+
+11. TECHNICAL ARCHITECTURE
+Follow the repository's existing technology stack.
+
+Do not introduce a new framework or database without a clear technical reason.
+
+Maintain:
+- Modular architecture.
+- Reusable frontend components.
+- Reusable backend services.
+- Clear API boundaries.
+- Database migrations.
+- Proper validation.
+- Centralized error handling.
+- Logging.
+- API documentation.
+- Automated tests.
+Design modules so they can be developed and maintained independently while sharing authentication, notifications, search, location and moderation infrastructure.
+
+Avoid unnecessary microservices. Prefer the existing modular architecture unless there is a strong reason to change it.
+
+12. IMPLEMENTATION STRATEGY
+Do not attempt to implement every module blindly in one large change.
+
+First produce a complete repository audit.
+
+Then divide implementation into manageable phases.
+
+Suggested order:
+Phase 1 — Existing Foundation
+- Authentication.
+- User roles.
+- Shared UI.
+- Navigation.
+- Location.
+- Notifications.
+- Search.
+- Trust and verification.
+Phase 2 — Core Civic and Community
+- Complaints.
+- AI complaint intelligence.
+- Authority mapping.
+- Local News.
+- Moments.
+- Announcements.
+- Notice Board.
+Phase 3 — Local Discovery
+- Local Shops.
+- Digital Shopfront.
+- Smart Product Finder.
+- Local Workers.
+- Classes and Activities.
+Phase 4 — Community Exchange
+- Doorstep Pickup.
+- Community Help.
+- Lost and Found.
+- Second-Hand Listings.
+- Rentals and Property.
+Phase 5 — Additional Community Tools
+- Emergency Help.
+- Community Polls.
+- Local Transport Updates.
+Phase 6 — Intelligence and Monetization
+- AI Voice Assistant.
+- Local Advertisements.
+- Analytics.
+- Advanced discovery.
+Phase 7 — Testing and Quality
+- Full integration testing.
+- User journey testing.
+- Security testing.
+- Performance testing.
+- Responsive UI testing.
+- Accessibility testing.
+- Deployment readiness.
+Adjust the order according to actual repository dependencies and existing implementation.
+
+13. REAL-WORLD USER JOURNEY TESTING
+Verify these complete journeys.
+1. A resident registers, reports a pothole and tracks its resolution.
+2. A resident uploads a local festival video.
+3. A resident discovers a nearby grocery shop.
+4. A shop owner registers and publishes a digital shopfront.
+5. A customer requests a mobile charger from nearby shops and receives responses.
+6. A resident finds an available plumber.
+7. A family requests scrap pickup and accepts a provider's offer.
+8. A resident reports a lost pet and receives a response.
+9. A resident requests community help.
+10. A resident finds a nearby tuition centre.
+11. A resident views an emergency contact.
+12. A resident participates in a community poll.
+13. A property owner publishes a rental listing.
+14. A customer discovers a second-hand item.
+15. A business creates a sponsored advertisement.
+16. A resident uses the AI assistant to find a local service.
+17. An administrator verifies a shop.
+18. An administrator moderates a reported post.
+Verify frontend, backend, database, permissions and notifications wherever applicable.
+
+Do not report a journey as working unless it has actually been tested.
+
+14. FINAL EXPECTED OUTPUT
+Before coding, provide:
+1. Existing repository architecture summary.
+2. Implemented features.
+3. Partially implemented features.
+4. Missing features.
+5. Existing API and database reuse opportunities.
+6. Potential conflicts and dependencies.
+7. Recommended implementation phases.
+8. UI/UX improvements required.
+After each implementation phase, provide:
+1. Features implemented.
+2. Files created or modified.
+3. Database migrations added.
+4. APIs created or modified.
+5. Frontend screens created or modified.
+6. Security and permission changes.
+7. Tests executed and actual results.
+8. Known limitations.
+9. Remaining work.
+FINAL PRODUCT VISION
+CivicX should become:
+
+One neighbourhood. One platform. Everything local.
+
+A resident should be able to open CivicX and answer:
+- What's happening near me?
+- What problems exist in my area?
+- Where can I find a nearby shop?
+- Who can help me with household work?
+- Where can I find a product?
+- Are there any upcoming events?
+- Can someone help me?
+- Have I lost something?
+- What services are available nearby?
+Build CivicX around real-world usefulness, simplicity, trust, safety and community participation.
+
+The final application must feel like one unified product, not a collection of unrelated mini-applications.
+
+
+
+
+My advice before running this prompt
+Give this prompt to OpenCode in planning/audit mode first. Ask it to inspect your current CivicX repository and produce the implementation plan before allowing major code changes.
+
+This will help prevent it from rewriting working features or creating duplicate modules.
+
+The most important principle: build a unified neighbourhood platform, but implement it in phase

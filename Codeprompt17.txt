@@ -1,0 +1,587 @@
+# ✦ CIVICX
+## MASTER UI/UX DESIGN & DEVELOPMENT PROMPT
+
+**Product:** CivicX – Your Neighbourhood, Connected.  
+**Design Goal:** Modern • Premium • Minimal • User-Friendly • Mobile-First
+
+---
+
+# 01. 🌟 PRODUCT VISION
+
+Design CivicX as a modern neighbourhood super app that brings citizens, local businesses, workers, events and community information together in one platform.
+
+Users should be able to discover what is happening around them, report local problems, explore businesses, find workers and connect with their neighbourhood.
+
+**Core concept: One neighbourhood. One platform. Multiple possibilities.**
+
+# 02. 🎨 BRAND IDENTITY & VISUAL DIRECTION
+
+Create a premium and recognizable CivicX brand.
+
+**Suggested colour palette**
+
+| Element | Colour |
+|---|---|
+| Primary | Deep Navy Blue |
+| Secondary | Teal |
+| Background | Soft White |
+| Cards | White |
+| Main Text | Dark Charcoal |
+| Secondary Text | Muted Grey |
+| Success | Green |
+| Warning | Amber |
+| Error | Soft Red |
+
+**Design inspiration:**
+- Google Maps – location discovery.
+- Instagram – photos and visual feeds.
+- Google Business Profiles – local shops.
+- Modern news platforms – readable news.
+- Premium service applications – worker discovery.
+
+Do not copy their interfaces. Develop a unique CivicX visual identity.
+
+Use:
+- Modern typography.
+- Consistent spacing.
+- Beautiful icons.
+- Rounded cards.
+- Subtle shadows.
+- High-quality imagery.
+- Smooth but restrained interactions.
+
+# 03. 📱 MAIN APPLICATION STRUCTURE
+
+Create a responsive interface for mobile, tablet and desktop.
+
+**Mobile bottom navigation**
+
+| Navigation | Purpose |
+|---|---|
+| 🏠 Home | Neighbourhood feed |
+| 🔍 Explore | Discover all features |
+| ➕ Create | Publish or submit content |
+| 📍 Nearby | Local information and services |
+| 👤 Profile | Personal account |
+
+**Desktop layout**
+- Left sidebar navigation.
+- Central content feed.
+- Right sidebar for trending news, nearby updates and sponsored content.
+- Top bar for search, locality, notifications and profile.
+
+# 04. 🏠 HOME — NEIGHBOURHOOD DASHBOARD
+
+Design the main screen as the heart of CivicX.
+
+**Header**
+- CivicX logo.
+- Selected locality.
+- Location selector.
+- Global search.
+- Notifications.
+- Profile avatar.
+
+**Quick access**
+- Report a Problem.
+- Local News.
+- Events.
+- Find Workers.
+- Find Products.
+- Discover Shops.
+
+**Neighbourhood feed**
+
+Display:
+- Latest local news.
+- Community announcements.
+- Upcoming events.
+- Nearby shop updates.
+- New arrivals.
+- Available workers.
+- Local promotions.
+
+Feed filters:
+- For You.
+- My Street.
+- Nearby.
+- Latest.
+- Popular.
+
+# 05. 📰 CIVICX LOCAL — NEWS & COMMUNITY UPDATES
+
+Create a modern neighbourhood news feed.
+
+**Categories**
+- Roads and Traffic.
+- Water Problems.
+- Electricity.
+- Garbage and Sanitation.
+- Public Safety.
+- Celebrations.
+- Community Announcements.
+
+**News card**
+- Headline.
+- Photo or video.
+- Description.
+- Street/locality.
+- Contributor.
+- Published time.
+- Like, comment and share.
+
+Allow residents to upload photos/videos with a short description.
+
+AI can suggest headlines and descriptions, but users must review and approve them before publication. Clearly label unverified reports.
+
+# 06. 🎉 CIVICX MOMENTS — EVENTS & CELEBRATIONS
+
+Create a visually attractive event discovery experience.
+
+**Event categories**
+- Festivals.
+- Political Rallies.
+- Concerts.
+- Sports.
+- Movie Celebrations.
+- College Events.
+- Community Gatherings.
+- Cultural Events.
+
+**Event experience**
+- Event discovery cards.
+- Cover photos.
+- Event dates and locations.
+- Join or follow event.
+- Event photo/video gallery.
+- Timeline of uploads.
+- Share event.
+
+Users should discover celebrations happening across different localities.
+
+# 07. 🚧 CIVIC COMPLAINTS
+
+Design a clean complaint management interface.
+
+**Complaint categories**
+- Potholes.
+- Garbage.
+- Drainage.
+- Water Leakage.
+- Streetlights.
+- Roads.
+- Electricity.
+- Public Infrastructure.
+
+**Screens**
+- Submit Complaint.
+- My Complaints.
+- Nearby Issues.
+- Track Complaint.
+
+**Complaint creation**
+- Category selection.
+- Description.
+- Photo upload.
+- Location selection.
+- Submit button.
+
+**Status timeline**
+Submitted → Under Review → Assigned → In Progress → Resolved.
+
+Display only statuses actually supported by the backend. Resolution must not be claimed without verification.
+
+# 08. 🏪 CIVICX LOCAL SHOPS — BUSINESS DISCOVERY
+
+Create a Google Business Profile-inspired shop discovery experience.
+
+**Shop categories**
+- Grocery.
+- Restaurants.
+- Bakeries.
+- Clothing.
+- Electronics.
+- Medical Stores.
+- Vegetables and Fruits.
+- Mobile Accessories.
+- Hardware.
+- Other Local Shops.
+
+**Shop listing**
+- Shop image.
+- Name.
+- Category.
+- Locality.
+- Distance, if available.
+- Opening hours.
+- Contact.
+- Directions.
+
+**Digital shop profile**
+- Shop logo.
+- Cover photo.
+- Description.
+- Location and map.
+- Opening hours.
+- Contact details.
+- External website.
+- Photo gallery.
+- Product showcase.
+- Unique items.
+- New arrivals.
+
+Shop owners can upload images of their shop, interior, products and new collections.
+
+**IMPORTANT:** CivicX is a discovery and digital listing platform, not an e-commerce platform. Do not add cart, checkout, payments, stock management or delivery management to this module.
+
+# 09. 🔍 SMART PRODUCT FINDER — ASK NEARBY SHOPS
+
+Design a simple product discovery interface.
+
+**Customer actions**
+- Search product name.
+- Upload product photo.
+- Select category.
+- Choose locality.
+- Select search radius.
+- Send request.
+
+**Shop responses**
+- Available.
+- Alternative product.
+- Out of stock.
+- Can arrange.
+- Not available.
+
+**Comparison screen**
+- Shop name.
+- Product/brand.
+- Reported price.
+- Availability confirmation time.
+- Contact option.
+- Directions.
+
+Do not guarantee stock based on old responses.
+
+# 10. 🔧 LOCAL WORKERS & SERVICES
+
+Create a professional local worker discovery platform.
+
+**Categories**
+- Plumbers.
+- Electricians.
+- Auto Drivers.
+- Carpenters.
+- Painters.
+- Construction Workers.
+- Cleaning Services.
+- Other Local Services.
+
+**Worker cards**
+- Profile image.
+- Name.
+- Profession.
+- Locality.
+- Experience.
+- Availability.
+- Service area.
+- Contact action.
+
+**Worker profile**
+- Skills.
+- Experience.
+- Languages.
+- Expected charges.
+- Availability schedule.
+- Service areas.
+
+Allow workers to update their availability easily.
+
+# 11. ♻️ DOORSTEP PICKUP & LOCAL SERVICES
+
+Design an easy-to-use pickup request interface.
+
+**Categories**
+- Old Newspapers.
+- Cardboard.
+- Plastic.
+- Scrap Iron.
+- E-waste.
+- Old Furniture.
+- Old Appliances.
+
+**Request form**
+- Select category.
+- Upload photos.
+- Enter approximate quantity.
+- Choose preferred time.
+- Select locality.
+- Submit request.
+
+**Provider cards**
+- Provider details.
+- Service area.
+- Estimated offer.
+- Availability.
+- Contact action.
+
+**Request status**
+Posted → Offers Received → Provider Selected → Pickup Scheduled → Completed.
+
+Keep the customer's exact home address private until it is appropriate to share.
+
+# 12. 📢 CIVICX LOCAL ADS — BUSINESS PROMOTIONS
+
+Create a dedicated sponsored promotion experience.
+
+**Advertisement categories**
+- Restaurants.
+- Bakeries.
+- Grocery Stores.
+- Clothing Shops.
+- Salons.
+- Tuition Centres.
+- Local Services.
+- New Business Openings.
+
+**Advertisement card**
+- Business image.
+- Business name.
+- Offer title.
+- Description.
+- Locality.
+- Validity.
+- Contact or Visit Shop.
+
+Clearly mark paid advertisements as **Sponsored**.
+
+**Advertiser dashboard**
+- Business profile.
+- Create advertisement.
+- Upload banner.
+- Select locality.
+- Choose campaign duration.
+- View impressions and clicks, if available.
+
+# 13. 📍 CIVICX NEARBY — LOCAL ANNOUNCEMENTS
+
+Create a location-based community information page.
+
+**Categories**
+- Food and Annadanam.
+- Events.
+- Traffic Updates.
+- Local News.
+- Community Announcements.
+- Nearby Services.
+
+**Example announcement**
+
+"Annadanam happening near Street 9 from 12 PM."
+
+Display:
+- Announcement.
+- Locality.
+- Time.
+- Contributor.
+- Approximate location.
+- Validity or expiry.
+
+Allow users to choose their preferred localities and notification categories.
+
+# 14. ➕ CREATE — QUICK PUBLISHING CENTRE
+
+When users tap the central Create button, display a beautiful action sheet.
+
+**Available actions**
+1. Post Local News.
+2. Upload Event Moments.
+3. Report Civic Problem.
+4. Add Local Announcement.
+5. Register a Shop.
+6. Upload Shop Photos.
+7. Showcase Products.
+8. Post Worker Availability.
+9. Request Doorstep Pickup.
+10. Ask Nearby Shops.
+
+Every action should open its own dedicated form.
+
+# 15. 🔎 EXPLORE — DISCOVERY CENTRE
+
+Create a central page for discovering all CivicX features.
+
+Use visual category cards for:
+- News.
+- Events.
+- Shops.
+- Products.
+- Workers.
+- Services.
+- Advertisements.
+- Complaints.
+- Announcements.
+
+Add global search, category filters and locality selection.
+
+# 16. 🔔 NOTIFICATION CENTRE
+
+Create a clean notification screen.
+
+Examples:
+- Complaint status updated.
+- New event nearby.
+- Worker available in your locality.
+- Shop uploaded new arrivals.
+- Shop responded to product request.
+- New community announcement.
+
+Allow users to control notification preferences.
+
+# 17. 👤 USER PROFILE
+
+Create a modern personal profile.
+
+Include:
+- Profile image.
+- Name.
+- Locality.
+- Contact preferences.
+- My Posts.
+- My Complaints.
+- My Events.
+- My Product Requests.
+- Saved Shops.
+- Saved Events.
+- Privacy Settings.
+- Notification Settings.
+
+Provide separate dashboard experiences for shop owners, workers and admins according to their roles.
+
+# 18. 🛡️ ADMIN DASHBOARD
+
+Create a professional administration interface.
+
+**Sections**
+- Overview.
+- User Management.
+- Complaint Management.
+- News Moderation.
+- Event Management.
+- Shop Verification.
+- Gallery Moderation.
+- Worker Verification.
+- Service Requests.
+- Advertisement Approval.
+- Reports.
+- Audit Logs.
+
+Use clean tables, filters, charts and status indicators.
+
+# 19. 🧩 REUSABLE DESIGN COMPONENTS
+
+Build reusable components:
+
+- Navigation Bar.
+- Sidebar.
+- Bottom Navigation.
+- Search Bar.
+- Location Selector.
+- News Card.
+- Event Card.
+- Shop Card.
+- Worker Card.
+- Product Card.
+- Advertisement Card.
+- Complaint Card.
+- Announcement Card.
+- Photo Gallery.
+- Status Timeline.
+- Filter Chips.
+- Category Grid.
+- Empty States.
+- Loading Skeletons.
+- Dialogs.
+- Toast Notifications.
+
+Maintain the same design language across all modules.
+
+# 20. ✨ UI QUALITY CHECKLIST
+
+The final interface must have:
+
+- Responsive mobile, tablet and desktop layouts.
+- Beautiful and consistent typography.
+- Realistic sample content.
+- Proper image sizing.
+- Clear visual hierarchy.
+- Functional navigation.
+- Loading and error states.
+- Empty-state illustrations or messaging.
+- Accessible controls.
+- Form validation.
+- Subtle interactions.
+- No unnecessary animations.
+- No overcrowded screens.
+- No inconsistent design patterns.
+
+Every screen should feel like part of one application.
+
+# 21. ⚙️ DEVELOPMENT INSTRUCTIONS
+
+Before implementation:
+
+1. Inspect the existing CivicX frontend.
+2. Identify its framework and styling system.
+3. Inspect existing routes and components.
+4. Reuse the existing architecture.
+5. Inspect available backend APIs.
+6. Identify missing backend functionality.
+7. Separate real API integration from mock data.
+
+Do not rewrite the entire application.
+
+Do not invent APIs and claim they work.
+
+Do not break existing modules.
+
+Do not introduce unnecessary dependencies.
+
+Use mock data only where APIs are not yet available, and clearly separate it from production data.
+
+# 22. 🎯 FINAL DELIVERABLE
+
+Deliver a complete, consistent CivicX user experience covering:
+
+| No. | Module |
+|---|---|
+| 01 | Home Dashboard |
+| 02 | Local News |
+| 03 | Events & Moments |
+| 04 | Civic Complaints |
+| 05 | Local Shops |
+| 06 | Shop Galleries |
+| 07 | Smart Product Finder |
+| 08 | Local Workers |
+| 09 | Doorstep Pickup |
+| 10 | Local Advertisements |
+| 11 | Nearby Announcements |
+| 12 | Explore |
+| 13 | Notifications |
+| 14 | User Profiles |
+| 15 | Admin Dashboard |
+
+**FINAL DESIGN STATEMENT**
+
+CivicX should look and feel like a premium, modern neighbourhood platform.
+
+It should make everyday local activities easier:
+
+Discover what's happening.  
+Find what you need.  
+Connect with nearby people.  
+Support local businesses.  
+Report community problems.
+
+# CIVICX
+### Your Neighbourhood, Connected. ✦

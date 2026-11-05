@@ -27,15 +27,18 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final AuthRateLimitFilter authRateLimitFilter;
+    private final ComplaintRateLimitFilter complaintRateLimitFilter;
     private final AppProperties properties;
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
                           JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
                           AuthRateLimitFilter authRateLimitFilter,
+                          ComplaintRateLimitFilter complaintRateLimitFilter,
                           AppProperties properties) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.authRateLimitFilter = authRateLimitFilter;
+        this.complaintRateLimitFilter = complaintRateLimitFilter;
         this.properties = properties;
     }
 
@@ -52,7 +55,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(authRateLimitFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(complaintRateLimitFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

@@ -1,0 +1,150 @@
+# TASK: Verify the Complete Real-World User Journey of CivicX
+
+Act as a senior full-stack developer and QA engineer.
+
+I want you to verify the complete real-world user journey of my CivicX application.
+
+The application has two independent features:
+
+1. Civic Complaints.
+2. CivicX Moments.
+
+They may share authentication and common infrastructure, but their business logic, data, APIs, frontend pages and permissions must remain separate.
+
+IMPORTANT:
+Do not assume that previously planned functionality has been implemented. Inspect the actual repository and test the actual code.
+
+## JOURNEY 1 — Citizen registers and logs in
+
+1. A new citizen opens CivicX.
+2. The citizen registers an account.
+3. The citizen logs in.
+4. The application opens the home screen.
+5. The citizen can access Civic Complaints and CivicX Moments separately.
+
+Verify authentication, token handling and authorization.
+
+## JOURNEY 2 — Citizen reports a civic issue
+
+1. Citizen opens Civic Complaints.
+2. Clicks Report a Problem.
+3. Selects a category such as Garbage.
+4. Captures or uploads an image.
+5. Optionally provides location.
+6. Enters a description.
+7. Submits the complaint.
+8. Receives a unique complaint reference.
+9. Opens My Complaints.
+10. Views complaint status and details.
+
+Verify that the complaint is saved correctly and that another citizen cannot access private complaint information.
+
+## JOURNEY 3 — Admin manages a complaint
+
+1. Admin logs in.
+2. Opens the complaint dashboard.
+3. Reviews submitted complaints.
+4. Verifies or rejects a complaint.
+5. Checks the location and responsible authority.
+6. Assigns it to the appropriate department.
+7. Updates the status.
+8. Adds internal notes where permitted.
+9. Tracks resolution.
+
+Verify role permissions, status transitions and audit history.
+
+## JOURNEY 4 — Citizen discovers a public event
+
+1. Citizen opens CivicX Moments.
+2. Opens Discover Events.
+3. Sees approved events.
+4. Searches for an event.
+5. Opens event details.
+6. Checks date, location and description.
+7. Joins or follows the event.
+
+Verify that pending or rejected events are not visible publicly.
+
+## JOURNEY 5 — Citizen captures and uploads media
+
+1. Citizen opens an event.
+2. Selects Capture Photo or Record Video.
+3. Grants camera or microphone permission when required.
+4. Captures media or selects an existing file.
+5. Previews the file.
+6. Adds a caption.
+7. Optionally allows approximate location sharing.
+8. Uploads the media.
+9. Receives upload confirmation.
+
+Verify media ownership, file validation, storage and event association.
+
+## JOURNEY 6 — Other citizens explore event media
+
+1. Another citizen opens the same event.
+2. Sees approved photos and videos.
+3. Opens a photo or video.
+4. Filters media by locality.
+5. Views event activity.
+6. Opens the event map.
+7. Explores approximate upload locations.
+8. Views the event timeline.
+
+Verify that media is displayed under the correct event and that private location data is not exposed.
+
+## JOURNEY 7 — Moderation and safety
+
+1. A user reports inappropriate media.
+2. Admin opens the Moments moderation dashboard.
+3. Reviews the report.
+4. Takes an appropriate moderation action.
+5. The media is hidden or restored according to the decision.
+6. The action is recorded in moderation history.
+
+Verify that reported media is not automatically treated as proven misconduct and that moderation actions are auditable.
+
+## JOURNEY 8 — Regression and separation testing
+
+Verify:
+
+- Civic Complaints does not use Moments media tables.
+- Moments does not use complaint attachment workflows.
+- Complaint statuses are unaffected by Moments.
+- Moments event statuses are independent.
+- Citizen permissions are correct.
+- Admin permissions are correct.
+- Shared login still works.
+- Existing APIs continue working.
+- Database migrations do not damage existing data.
+- Frontend navigation is clear.
+- Error messages are understandable.
+
+## TESTING INSTRUCTIONS
+
+Run real automated tests and API tests.
+
+Where possible, perform an end-to-end test with a real local database and local media storage.
+
+Do not fake successful uploads or use hardcoded dashboard counts.
+
+Do not claim a journey works unless you have tested it.
+
+If a feature is missing, identify it rather than silently implementing unrelated functionality.
+
+## FINAL REPORT
+
+Provide:
+
+1. Citizen journey results.
+2. Admin journey results.
+3. Complaint module test results.
+4. Moments module test results.
+5. Security and privacy issues.
+6. Missing functionality.
+7. Bugs discovered.
+8. Exact files requiring changes.
+9. Test commands executed and actual results.
+
+Do not automatically push changes to GitHub.
+
+Do not deploy to production without explicit permission.

@@ -1,0 +1,441 @@
+# CIVICX — PHASE 2: CITIZEN COMPLAINT MANAGEMENT
+
+You are a Senior Java Backend Engineer working on the existing CivicX project.
+
+GitHub repository:
+https://github.com/SaiYadav1818/CivicX-
+
+## 1. PROJECT CONTEXT
+
+Phase 1 is COMPLETE and pushed to the main branch.
+
+Existing technology stack:
+- Java 21
+- Spring Boot 3.4
+- MySQL 8
+- Flyway database migrations
+- Spring Security
+- JWT authentication
+- BCrypt password hashing
+- Role-Based Access Control (RBAC)
+- Redis
+- RabbitMQ
+- Swagger / OpenAPI
+- Docker Compose
+
+Existing roles:
+- CITIZEN
+- ADMIN
+- SUPERVISOR
+- DEPARTMENT
+
+Existing database:
+- 27 tables already created through Flyway.
+- Complaint-related tables and supporting tables already exist.
+- Hyderabad zones, wards, departments and 13 complaint categories have seed data.
+
+Phase 1 verification:
+- Application compiles successfully.
+- 10/10 existing tests pass.
+- Authentication APIs work against real MySQL.
+- Register, login, refresh and duplicate registration handling have been tested.
+
+IMPORTANT:
+Do not recreate the project.
+Do not replace the existing architecture.
+Do not break authentication or existing APIs.
+Do not blindly create duplicate database tables.
+
+First inspect the actual repository and understand the existing implementation.
+
+## 2. PHASE 2 OBJECTIVE
+
+Implement a complete citizen complaint submission and management workflow.
+
+A citizen should be able to:
+
+1. Log in.
+2. Report a civic issue.
+3. Select a complaint category.
+4. Enter a description.
+5. Upload complaint photographs.
+6. Provide GPS coordinates.
+7. Submit the complaint.
+8. Receive a unique CivicX complaint ID.
+9. View their submitted complaints.
+10. View individual complaint details and status.
+
+An administrator should be able to:
+
+1. View submitted complaints.
+2. Review complaint details and photographs.
+3. Verify or reject complaints.
+4. Add an internal review note.
+5. Update complaint status according to permitted workflow.
+6. View complaint history.
+
+## 3. FIRST: AUDIT EXISTING DATABASE
+
+Before writing code:
+
+- Inspect all 27 existing tables.
+- Identify complaint-related tables.
+- Inspect their columns, primary keys, foreign keys and indexes.
+- Inspect Flyway migration history.
+- Inspect existing entities, repositories, services and controllers.
+- Identify existing category, ward, zone and department relationships.
+- Identify existing audit logging functionality.
+
+Prepare a short database mapping report.
+
+Reuse existing tables wherever possible.
+
+If changes are necessary:
+- Create a new Flyway migration.
+- Never modify an already-applied migration.
+- Never drop existing production data.
+- Add indexes and constraints where necessary.
+
+Do not assume a table or column exists based only on its name. Inspect it.
+
+## 4. CITIZEN COMPLAINT SUBMISSION
+
+Implement:
+
+POST /api/v1/complaints
+
+Authentication: Required.
+
+Role: CITIZEN.
+
+Request should support:
+
+- Category ID
+- Complaint title
+- Description
+- Latitude
+- Longitude
+- Address
+- Landmark
+- Ward ID, if available
+- Zone ID, if available
+- Photo attachment references
+
+Validation:
+
+- Category must exist and be active.
+- Title and description must not be blank.
+- Description must have a reasonable maximum length.
+- Latitude must be between -90 and 90.
+- Longitude must be between -180 and 180.
+- Validate all referenced IDs.
+- Reject invalid or missing mandatory information.
+- Do not trust citizen-provided user IDs. Obtain the citizen identity from the authenticated JWT principal.
+
+Generate a unique complaint reference:
+
+CX-000001
+
+Use a concurrency-safe generation strategy. Do not rely on an unsafe count-based approach.
+
+The complaint must record:
+- Citizen ID
+- Creation timestamp
+- Initial status
+- Location
+- Category
+- Description
+- Reference number
+
+## 5. IMAGE UPLOAD
+
+Implement secure complaint image upload.
+
+Endpoint:
+
+POST /api/v1/complaints/{complaintId}/images
+
+Requirements:
+
+- Accept JPEG, PNG and WebP.
+- Validate actual file content, not just filename or MIME type.
+- Configure maximum file size.
+- Allow a reasonable maximum number of images per complaint.
+- Generate random storage filenames.
+- Prevent path traversal.
+- Reject executable files and unsupported formats.
+- Do not expose filesystem paths publicly.
+- Save image metadata in the database.
+- Store original filenames only as sanitized metadata.
+- Ensure users can upload images only to complaints they own.
+- Admin and supervisor access must follow RBAC.
+
+Storage architecture:
+
+Create an abstraction such as:
+
+ComplaintFileStorageService
+
+Implement local storage for development.
+
+Keep the design ready for S3-compatible object storage in a future phase.
+
+Do not claim S3 integration unless it is actually implemented and tested.
+
+Provide secure image retrieval through an authenticated endpoint or controlled access mechanism.
+
+## 6. COMPLAINT APIs
+
+Implement these endpoints, adapting paths if equivalent existing APIs already exist.
+
+Citizen APIs:
+
+POST   /api/v1/complaints
+GET    /api/v1/complaints/my
+GET    /api/v1/complaints/{complaintId}
+POST   /api/v1/complaints/{complaintId}/images
+
+Admin APIs:
+
+GET    /api/v1/admin/complaints
+GET    /api/v1/admin/complaints/{complaintId}
+PATCH  /api/v1/admin/complaints/{complaintId}/status
+POST   /api/v1/admin/complaints/{complaintId}/verify
+POST   /api/v1/admin/complaints/{complaintId}/reject
+
+Requirements:
+
+- Pagination.
+- Sorting.
+- Filtering by status.
+- Filtering by category.
+- Filtering by date range.
+- Filtering by ward and zone where supported.
+- Appropriate HTTP status codes.
+- Consistent API response format.
+- Request validation.
+- Swagger documentation.
+
+Do not expose private citizen information unnecessarily.
+
+## 7. COMPLAINT STATUS WORKFLOW
+
+Implement a controlled workflow.
+
+Suggested statuses:
+
+SUBMITTED
+UNDER_REVIEW
+VERIFIED
+REJECTED
+ASSIGNED
+IN_PROGRESS
+RESOLVED
+CLOSED
+REOPENED
+
+Important:
+
+- A citizen must not be able to mark their own complaint VERIFIED or RESOLVED.
+- Only authorized roles may perform administrative transitions.
+- Invalid status transitions must return HTTP 409 or another appropriate conflict response.
+- Rejection must require a reason.
+- Every status change must record who changed it and when.
+- Store status history.
+- Do not overwrite history when status changes.
+
+Keep the workflow extensible for department assignment in a later phase.
+
+## 8. AUTHORIZATION AND SECURITY
+
+Enforce ownership and role checks at the service layer.
+
+CITIZEN:
+- Submit complaints.
+- View their own complaints.
+- Upload images to their own complaints.
+- View their own complaint history.
+
+ADMIN:
+- View all complaints.
+- Verify and reject complaints.
+- Update permitted statuses.
+
+SUPERVISOR:
+- Follow the existing supervisor permission model.
+- Do not grant unrestricted access without justification.
+
+DEPARTMENT:
+- Do not introduce department assignment functionality prematurely.
+- Preserve existing role definitions.
+
+Security:
+- Prevent IDOR vulnerabilities.
+- Prevent mass assignment.
+- Validate all user inputs.
+- Keep JWT authentication unchanged.
+- Never expose password hashes, refresh tokens or internal security data.
+- Use existing exception handling.
+- Add appropriate rate limits to complaint submission and image upload.
+
+## 9. AUDIT LOGGING
+
+Use the existing audit infrastructure if available.
+
+Record:
+- Complaint created.
+- Image uploaded.
+- Complaint verified.
+- Complaint rejected.
+- Status changed.
+- Administrative review notes.
+
+Capture:
+- Actor ID
+- Action
+- Entity ID
+- Timestamp
+- Relevant metadata
+
+Do not log passwords, JWTs, refresh tokens or sensitive personal information.
+
+## 10. TESTING REQUIREMENTS
+
+Write meaningful automated tests.
+
+At minimum, test:
+
+A. Citizen:
+- Successfully submits a complaint.
+- Cannot submit with invalid category.
+- Cannot submit without mandatory description.
+- Cannot submit invalid GPS coordinates.
+- Can view their own complaints.
+- Cannot view another citizen's private complaint.
+- Cannot upload an image to another citizen's complaint.
+
+B. Image upload:
+- Valid JPEG accepted.
+- Valid PNG accepted.
+- Unsupported file rejected.
+- Oversized file rejected.
+- Invalid image content rejected.
+- Path traversal attempt rejected.
+
+C. Admin:
+- Can list complaints.
+- Can verify a complaint.
+- Can reject a complaint with a reason.
+- Cannot perform invalid status transitions.
+
+D. Security:
+- Unauthenticated requests rejected.
+- CITIZEN cannot access admin endpoints.
+- ADMIN permissions work.
+- Ownership checks work.
+
+E. Regression:
+- Existing authentication tests still pass.
+- Existing Phase 1 tests still pass.
+
+Use the project's existing testing conventions.
+
+Use Testcontainers if already configured. Do not weaken tests merely to make them pass.
+
+## 11. API DOCUMENTATION
+
+Update Swagger/OpenAPI documentation.
+
+Provide:
+- Endpoint descriptions.
+- Authentication requirements.
+- Request examples.
+- Response examples.
+- Validation error examples.
+- Multipart upload documentation.
+- Status workflow explanation.
+
+## 12. DEVELOPER DOCUMENTATION
+
+Update README with:
+
+- Phase 2 functionality.
+- Database changes.
+- Configuration properties.
+- Local image storage setup.
+- API endpoints.
+- Example curl commands.
+- How to run tests.
+- How to test complaint submission in Swagger.
+
+Never document real production credentials.
+
+## 13. IMPLEMENTATION RULES
+
+Follow this implementation order:
+
+1. Repository audit.
+2. Database mapping report.
+3. Required migration design.
+4. Domain entities and enums.
+5. Repositories.
+6. DTOs and validation.
+7. Complaint service.
+8. Image storage service.
+9. Controllers.
+10. Security and ownership checks.
+11. Audit logging.
+12. Automated tests.
+13. Swagger documentation.
+14. README updates.
+
+Do not generate fake integrations.
+
+Do not claim a feature is completed without implementing and testing it.
+
+Do not hardcode API secrets.
+
+Do not silently ignore failed tests.
+
+Do not introduce unnecessary dependencies.
+
+Keep the modular monolith architecture.
+
+## 14. DEFINITION OF DONE
+
+Phase 2 is complete only when:
+
+- A real citizen can register and log in using Phase 1 authentication.
+- The citizen can submit a complaint.
+- A unique CivicX ID is generated.
+- The complaint is persisted in MySQL.
+- The citizen can upload real complaint photographs.
+- GPS coordinates are stored and validated.
+- The citizen can view their own complaints.
+- Admin can review and verify or reject complaints.
+- Status history is persisted.
+- Authorization and ownership checks work.
+- Swagger documents all new endpoints.
+- All existing and new tests pass.
+- Application builds successfully.
+- Docker-based development workflow remains functional.
+- Changes are documented.
+
+At the end, provide:
+
+1. Files created.
+2. Files modified.
+3. Database migration details.
+4. API endpoint list.
+5. Example requests and responses.
+6. Test execution results.
+7. Build result.
+8. Security considerations.
+9. Known limitations.
+10. Exact commands to run and manually verify Phase 2.
+
+Do not start Phase 3.
+
+Do not push to GitHub automatically. First finish implementation, run all tests and present the results for review.
+
+Your priority is a secure, working Phase 2 implementation that fits the actual existing CivicX codebase.

@@ -1,0 +1,591 @@
+# PROMPT 10 — CivicX Local Shops & Local Delivery Module
+
+You are a senior full-stack engineer working on my existing **CivicX** project.
+
+Your task is to inspect the actual repository and implement a new module called **CivicX Local Shops**.
+
+Do not assume anything about the existing code. First inspect the project architecture, database, authentication, APIs, frontend, existing modules, and development conventions.
+
+## 1. Product Vision
+
+CivicX should help people discover shops and businesses in their own local areas.
+
+For example, a person living in Street 9 should be able to open CivicX, select Local Shops, and discover nearby:
+
+- Grocery stores and supermarkets
+- Restaurants and hotels
+- Bakeries
+- Vegetable and fruit shops
+- Medical stores
+- Tiffin centres
+- Meat and chicken shops
+- Tea and snacks shops
+- Clothing stores
+- Other local businesses
+
+Shop owners should be able to register their shops, manage their business information, update availability, and eventually accept local orders.
+
+Customers should be able to discover shops, check whether they are open, browse products, and order from nearby shops.
+
+This must be a separate business module within CivicX.
+
+## 2. Architecture Requirements
+
+Before implementing:
+
+1. Inspect the existing backend and frontend structure.
+2. Identify the existing authentication and role-based access control.
+3. Inspect the existing database schema and Flyway migration history.
+4. Identify existing locality, ward, zone, and address structures.
+5. Identify existing image/file upload infrastructure.
+6. Inspect existing API response formats and error-handling conventions.
+7. Identify the existing admin dashboard architecture.
+
+Reuse existing shared infrastructure wherever appropriate.
+
+Important:
+- Do not create another authentication system.
+- Do not duplicate existing user or locality tables.
+- Do not modify existing modules unnecessarily.
+- Do not break existing APIs.
+- Do not modify previously applied Flyway migrations.
+- Create new migrations for all new database changes.
+- Follow the existing project's coding standards.
+
+If an existing feature already provides the required functionality, reuse it instead of creating a duplicate.
+
+## 3. Shop Owner Registration
+
+Create a shop owner registration workflow.
+
+A shop owner should be able to submit:
+
+- Shop name
+- Owner name
+- Mobile number
+- Email address (optional if supported)
+- Shop description
+- Shop category
+- Shop address
+- Locality
+- Street name or number
+- Ward/zone, if supported by the existing system
+- Shop location or map coordinates
+- Shop opening time
+- Shop closing time
+- Shop photos
+- Business documents, if required by admin policy
+
+Shop registration must go through admin verification.
+
+Shop statuses:
+
+- PENDING_APPROVAL
+- APPROVED
+- REJECTED
+- SUSPENDED
+
+Only approved shops should appear in the public Local Shops directory.
+
+A shop owner must only manage shops they own or are authorized to manage.
+
+## 4. Local Shops Discovery — Customer Side
+
+Create a separate Local Shops section in the CivicX application.
+
+Users should be able to:
+
+1. Select their locality.
+2. View shops in that locality.
+3. Browse shops in nearby localities.
+4. Search by shop name.
+5. Filter by shop category.
+6. Filter by Open or Closed status.
+7. View shop distance where reliable location data is available.
+8. Open a shop profile.
+9. View shop contact details and business hours.
+
+Example:
+
+A user selects Street 9.
+
+CivicX displays:
+
+- Sai Grocery Store
+- Sri Lakshmi Bakery
+- Local Vegetable Shop
+- Fresh Chicken Centre
+- Sai Tiffin Centre
+
+Do not show unapproved or suspended shops.
+
+Do not expose private owner information.
+
+Location permission must be optional. Users should also be able to select a locality manually.
+
+## 5. Shop Open / Closed Controls
+
+This is an important feature.
+
+The shop owner must have a simple ON/OFF control to update shop availability.
+
+Example:
+
+Shop availability: ON = OPEN
+
+Shop availability: OFF = CLOSED
+
+The shop owner dashboard should display:
+
+- Shop Open/Closed toggle
+- Accept Orders toggle
+- Delivery Available toggle
+- Pickup Available toggle
+
+When the owner changes the shop status, customers should see the updated status.
+
+Important business rules:
+
+1. Only authorized shop owners can change their shop status.
+2. A closed shop must not accept new orders.
+3. A shop can be open but temporarily stop accepting orders.
+4. A shop can be open but have delivery disabled.
+5. A shop can offer pickup without delivery.
+6. Admin can suspend a shop regardless of owner availability settings.
+7. A suspended shop must not appear as an active shop.
+8. Record status changes with timestamps and the responsible user.
+
+Do not rely only on frontend controls. Validate every status change on the backend.
+
+### Stale status handling
+
+If a shop owner has not updated the shop availability for a configured period, show:
+
+"Status not recently updated"
+
+Do not automatically promise customers that a shop is open based only on its usual opening hours.
+
+Opening hours and live availability must be treated as separate information.
+
+## 6. Shop Profile
+
+Every approved shop should have its own public profile.
+
+Display:
+
+- Shop name
+- Shop image
+- Description
+- Category
+- Address
+- Locality
+- Opening hours
+- Current availability
+- Delivery availability
+- Pickup availability
+- Contact information
+- Product catalogue
+- Available offers, if implemented
+
+The profile must clearly distinguish:
+
+- Open
+- Closed
+- Temporarily not accepting orders
+- Delivery unavailable
+- Pickup unavailable
+- Status not recently updated
+
+## 7. Product Catalogue
+
+Allow approved shop owners to manage their products.
+
+Each product should support:
+
+- Product name
+- Product description
+- Product category
+- Product image
+- Selling price
+- Unit (kg, gram, litre, piece, packet, etc.)
+- Product availability
+- Optional discount price
+- Active/inactive status
+
+Examples:
+
+Grocery:
+- Rice — ₹60/kg
+- Sugar — ₹45/kg
+- Cooking Oil — ₹150/litre
+
+Bakery:
+- Cake — ₹350
+- Bread — ₹40
+- Biscuits — ₹30
+
+Prices above are examples only.
+
+Shop owners should be able to:
+
+- Add products
+- Edit products
+- Delete or deactivate products
+- Change prices
+- Mark products as out of stock
+- Upload product images
+
+Customers must not be able to modify shop products or prices.
+
+Validate prices and product information on the backend.
+
+## 8. Local Ordering System — Prepare the Architecture
+
+Design the ordering system so that CivicX can support local purchases.
+
+Customer flow:
+
+1. Customer opens Local Shops.
+2. Selects a locality.
+3. Opens a shop.
+4. Views products and prices.
+5. Adds products to cart.
+6. Selects delivery or pickup.
+7. Enters or selects a delivery address.
+8. Reviews the order summary.
+9. Places the order.
+10. Shop owner receives the order.
+11. Shop owner accepts or rejects it.
+12. Customer can track order status.
+
+Order statuses:
+
+- PLACED
+- ACCEPTED
+- REJECTED
+- PREPARING
+- READY_FOR_PICKUP
+- OUT_FOR_DELIVERY
+- DELIVERED
+- CANCELLED
+
+Important rules:
+
+- A customer cannot order from a closed shop.
+- A customer cannot order unavailable products.
+- A shop cannot accept orders when Accept Orders is OFF.
+- A shop cannot accept delivery orders when Delivery Available is OFF.
+- Product prices must be validated using backend data.
+- Store the product name, quantity and price as an order-item snapshot.
+- Do not trust totals or prices sent by the frontend.
+- Prevent unauthorized access to another customer's orders.
+- Prevent a shop owner from accessing orders belonging to another shop.
+- Support order cancellation according to defined business rules.
+- Keep an order status history.
+
+For the first implementation, prepare the architecture and implement the core ordering flow only if it can be done safely within this phase.
+
+Do not integrate a real payment gateway without a separate implementation and security review.
+
+## 9. Local Delivery
+
+CivicX should initially support delivery within the shop's local service area.
+
+For example:
+
+Sai Grocery Store:
+- Delivery enabled
+- Delivery radius: 3 km
+- Minimum order: configurable
+- Delivery charge: configurable
+
+Shop owners should be able to configure:
+
+- Delivery ON/OFF
+- Pickup ON/OFF
+- Service radius or selected localities
+- Minimum order amount
+- Delivery charge
+
+Validate whether the customer's delivery address is within the shop's supported delivery area.
+
+Do not claim that a delivery is available if the location cannot be validated.
+
+### Delivery partner support — Future-ready
+
+Keep the architecture extensible for future delivery partners.
+
+Do not build a complicated delivery partner application in this phase.
+
+For now, support shop-managed delivery and pickup.
+
+Future possibilities:
+- Delivery partner registration
+- Delivery assignment
+- Delivery partner availability
+- Delivery tracking
+- Delivery earnings
+
+## 10. Admin Dashboard
+
+Create the necessary admin functionality.
+
+Admins should be able to:
+
+- View shop registrations.
+- Approve or reject shops.
+- View shop details.
+- Suspend or reactivate shops.
+- View shop owners.
+- Review reported shops.
+- View product listings.
+- Manage shop categories.
+- Review suspicious listings.
+- View shop and order activity.
+
+Maintain audit logs for important admin actions.
+
+Do not allow normal citizens to access admin functionality.
+
+## 11. Notifications
+
+Reuse the existing notification infrastructure if available.
+
+Support notifications for:
+
+Shop owners:
+- New order received.
+- Order cancelled.
+- Shop approval or rejection.
+- Admin suspension.
+
+Customers:
+- Order accepted.
+- Order rejected.
+- Order preparing.
+- Order ready for pickup.
+- Order out for delivery.
+- Order delivered.
+
+Avoid sending duplicate notifications.
+
+If the existing notification infrastructure is not yet implemented, document the integration points rather than introducing an unrelated notification system.
+
+## 12. Database Design
+
+Inspect the current schema before deciding table names.
+
+Create only the required new tables.
+
+Possible entities:
+
+- local_shops
+- local_shop_categories
+- local_shop_products
+- local_shop_product_images
+- local_shop_availability_history
+- local_shop_delivery_settings
+- local_shop_orders
+- local_shop_order_items
+- local_shop_order_status_history
+- local_shop_reports
+
+These are proposed names, not mandatory names. Follow existing naming conventions and avoid duplicating existing tables.
+
+Database requirements:
+
+- Proper foreign keys.
+- Appropriate indexes.
+- Created and updated timestamps.
+- Correct ownership relationships.
+- Unique constraints where necessary.
+- Soft deletion where appropriate.
+- Audit history for important actions.
+
+Store image references or object-storage keys in the database, not large image binaries.
+
+Use the existing file storage abstraction if available.
+
+## 13. API Design
+
+Follow existing API conventions.
+
+Proposed API groups:
+
+Shop owner:
+- POST /api/v1/local-shops
+- GET /api/v1/local-shops/my-shops
+- PUT /api/v1/local-shops/{shopId}
+- PATCH /api/v1/local-shops/{shopId}/availability
+- PATCH /api/v1/local-shops/{shopId}/accept-orders
+- PATCH /api/v1/local-shops/{shopId}/delivery-settings
+
+Customer:
+- GET /api/v1/local-shops
+- GET /api/v1/local-shops/{shopId}
+- GET /api/v1/local-shops/{shopId}/products
+- GET /api/v1/local-shops/categories
+- GET /api/v1/local-shops/nearby
+
+Products:
+- POST /api/v1/local-shops/{shopId}/products
+- PUT /api/v1/local-shops/{shopId}/products/{productId}
+- DELETE /api/v1/local-shops/{shopId}/products/{productId}
+
+Orders:
+- POST /api/v1/local-orders
+- GET /api/v1/local-orders/my-orders
+- GET /api/v1/local-orders/{orderId}
+- GET /api/v1/local-shops/{shopId}/orders
+- PATCH /api/v1/local-orders/{orderId}/status
+
+Admin:
+- GET /api/v1/admin/local-shops
+- PATCH /api/v1/admin/local-shops/{shopId}/approve
+- PATCH /api/v1/admin/local-shops/{shopId}/reject
+- PATCH /api/v1/admin/local-shops/{shopId}/suspend
+
+These are suggested endpoints. Adapt them to the actual project architecture.
+
+Document every implemented endpoint in Swagger/OpenAPI.
+
+## 14. Security and Validation
+
+Implement:
+
+- Existing JWT authentication.
+- Existing role-based access control.
+- Shop ownership verification.
+- Backend validation for prices and order totals.
+- Upload file type and size validation.
+- Safe image storage.
+- Rate limiting for sensitive endpoints.
+- Protection against unauthorized shop and order access.
+- Audit logging.
+- Input validation.
+- Proper exception handling.
+
+Never expose private customer addresses publicly.
+
+Do not expose exact customer locations to other users.
+
+## 15. Frontend Requirements
+
+Inspect the existing frontend framework and design system.
+
+Create separate screens or sections for:
+
+Customer:
+- Local Shops landing page.
+- Locality selector.
+- Shop category filters.
+- Shop listing.
+- Shop profile.
+- Product catalogue.
+- Cart.
+- Order placement.
+- My Orders.
+- Order details/status.
+
+Shop owner:
+- Shop registration.
+- Shop dashboard.
+- Edit shop details.
+- Open/Closed toggle.
+- Accept Orders toggle.
+- Delivery/Pickup controls.
+- Product management.
+- Order management.
+
+Admin:
+- Shop verification list.
+- Shop details.
+- Approve/Reject/Suspend actions.
+
+The UI should be mobile-friendly, simple, clean, and consistent with CivicX's existing design.
+
+Use loading states, empty states, validation messages, and error states.
+
+Do not create fake frontend data as a replacement for real API integration.
+
+## 16. Testing Requirements
+
+Write tests for:
+
+1. Shop registration.
+2. Shop approval and rejection.
+3. Only approved shops appear publicly.
+4. Shop owner can update their own shop.
+5. Another owner cannot update the shop.
+6. Open/Closed status updates correctly.
+7. Closed shops cannot accept orders.
+8. Accept Orders OFF prevents new orders.
+9. Delivery OFF prevents delivery orders.
+10. Out-of-stock products cannot be ordered.
+11. Backend validates product prices and order totals.
+12. Customers cannot access other customers' orders.
+13. Shop owners cannot access another shop's orders.
+14. Admin-only actions are protected.
+15. Delivery radius or locality validation works correctly.
+
+Run existing tests too. Do not break existing CivicX modules.
+
+## 17. Documentation
+
+Create or update documentation covering:
+
+- Local Shops module architecture.
+- Database migrations.
+- API endpoints.
+- Shop owner registration workflow.
+- Shop approval workflow.
+- Shop availability workflow.
+- Product management.
+- Ordering workflow.
+- Delivery configuration.
+- Security and permissions.
+- How to run and test the module.
+
+Include example API requests and responses.
+
+## 18. Implementation Rules
+
+Follow these rules strictly:
+
+1. Read the actual source code before changing anything.
+2. Do not guess existing classes, tables, endpoints, or frontend components.
+3. Do not rewrite the entire application.
+4. Do not break existing authentication.
+5. Do not modify previously applied migrations.
+6. Do not introduce unnecessary dependencies.
+7. Do not hardcode secrets.
+8. Do not create fake payment or delivery integrations.
+9. Do not claim a feature is implemented unless it works.
+10. Run relevant backend and frontend tests.
+11. Fix compilation errors and test failures caused by your changes.
+12. Update Swagger and documentation.
+13. Do not push to GitHub automatically.
+
+## 19. Final Report
+
+When finished, provide:
+
+1. Existing architecture discovered.
+2. New files and folders created.
+3. Database migrations added.
+4. APIs implemented.
+5. Frontend screens implemented.
+6. Shop owner functionality implemented.
+7. Customer functionality implemented.
+8. Admin functionality implemented.
+9. Ordering and delivery functionality implemented.
+10. Security measures implemented.
+11. Tests executed and their actual results.
+12. Features not implemented.
+13. Known limitations.
+14. Exact commands to run the application.
+15. A manual testing guide for a junior developer.
+
+**Most important:** Implement this as an independent CivicX Local Shops module. Reuse shared infrastructure, but do not mix its business logic with Civic Complaints, CivicX Moments, or Local News.
+
+Work in small, verifiable steps. Prioritize correct shop registration, admin approval, shop discovery, and Open/Closed status before expanding into ordering and delivery.

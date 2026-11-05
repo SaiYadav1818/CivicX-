@@ -49,8 +49,9 @@ class AuthServiceTest {
     private final AppProperties properties = new AppProperties(
             new AppProperties.Jwt("test-secret-key-that-is-long-enough-for-hs256-signing", 30, 7),
             new AppProperties.Cors(java.util.List.of("http://localhost:3000")),
-            new AppProperties.RateLimit(10, 20),
-            new AppProperties.Admin("admin@test.local", "Admin@123")
+            new AppProperties.RateLimit(10, 20, 30),
+            new AppProperties.Admin("admin@test.local", "Admin@123"),
+            new AppProperties.Storage("./target/test-storage", 5_242_880L, 5)
     );
 
     @BeforeEach
