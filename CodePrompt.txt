@@ -1,0 +1,655 @@
+# MASTER AI DEVELOPMENT PROMPT — JANSEVA
+## AI-Powered Civic Issue Detection, Duplicate Prevention, GPS Tracking & Complaint Management
+
+Act as a **Senior Java Backend Architect, Spring Boot Developer, AI/ML Engineer, Database Architect and Security Engineer**.
+
+I want to build a real-world, production-ready civic issue reporting platform called **JanSeva**. Build the project with clean architecture, scalable database design, AI-powered image analysis, GPS-based location tracking, duplicate detection and complete complaint lifecycle management.
+
+Do not build this as a basic CRUD application. Design it as a real-world platform that can eventually support thousands of citizens and complaints.
+
+---
+
+# 1. Technology Stack
+
+Use the following technologies:
+
+- Java 21
+- Spring Boot 3.x
+- Spring Security
+- JWT authentication and authorization
+- Spring Data JPA / Hibernate
+- MySQL 8
+- Flyway database migrations
+- React + TypeScript for frontend (if frontend is in scope)
+- Python AI microservice or an appropriate Java-compatible AI integration
+- OpenCV for image processing where useful
+- AI image classification model for issue detection
+- Image embeddings for visual similarity detection
+- AWS S3-compatible object storage for uploaded photos
+- Redis for caching and temporary processing
+- RabbitMQ for asynchronous image processing
+- Google Maps or OpenStreetMap for maps and geolocation
+- Swagger / OpenAPI
+- Docker and Docker Compose
+- JUnit 5, Mockito and integration testing
+
+Use a **modular monolith** initially. Keep AI processing in a separately deployable service if that makes the architecture cleaner.
+
+# 2. Main Application Workflow
+
+Implement this complete workflow:
+
+1. Citizen registers and logs in.
+2. Citizen uploads one or more photos of a civic issue.
+3. Application captures GPS coordinates and location details.
+4. Backend validates the uploaded image and metadata.
+5. AI analyzes the image and identifies the possible issue.
+6. System checks whether the issue has already been reported nearby.
+7. System calculates a duplicate probability.
+8. System identifies the responsible department or local authority based on the location.
+9. Complaint and image metadata are stored in MySQL.
+10. Original images are stored in object storage.
+11. Complaint appears in the citizen and admin dashboards.
+12. Admin verifies, rejects or merges duplicate reports.
+13. Complaint status and location-based progress can be tracked.
+14. Citizen receives notifications about important updates.
+
+# 3. AI Image Detection
+
+When a citizen uploads a photo, automatically analyze it using an AI image classification model.
+
+The system should identify civic issues such as:
+
+- Garbage accumulation
+- Road potholes
+- Damaged roads
+- Water leakage
+- Drainage blockage
+- Overflowing manholes
+- Streetlight failures
+- Open drains
+- Broken footpaths
+- Fallen trees
+- Public property damage
+- Waterlogging
+- Other civic infrastructure issues
+
+AI should return structured results:
+
+```json
+{
+  "detected": true,
+  "category": "GARBAGE",
+  "subcategory": "GARBAGE_ACCUMULATION",
+  "confidence": 0.94,
+  "severity": "HIGH",
+  "description": "Garbage accumulated near a roadside",
+  "detectedObjects": [
+    "garbage",
+    "plastic waste"
+  ],
+  "requiresHumanReview": false
+}
+```
+
+Requirements:
+
+- Return a confidence score.
+- Support multiple possible issue categories.
+- Identify unclear or irrelevant images.
+- Detect screenshots, documents and non-civic photographs where possible.
+- Detect blurry, dark or low-quality images.
+- Identify whether the image contains insufficient evidence.
+- Never automatically reject a complaint solely because AI confidence is low.
+- Send uncertain cases to manual admin review.
+- Allow admins to correct the AI-generated category.
+- Store the original AI result and any human correction separately.
+
+Important: AI must not claim that an issue is definitely present when the model is uncertain. Use configurable confidence thresholds.
+
+# 4. Advanced Duplicate Complaint Detection
+
+This is one of the most important features.
+
+When a new complaint is submitted, compare it with existing complaints to determine whether the same civic issue has already been reported.
+
+Use multiple comparison conditions.
+
+### A. GPS proximity
+
+Compare the new complaint's latitude and longitude with existing complaints.
+
+Example:
+
+- Complaint A: 17.4840, 78.3910
+- Complaint B: 17.4842, 78.3912
+
+These reports may refer to the same physical issue.
+
+Use a geospatial distance calculation such as the Haversine formula or MySQL spatial functions.
+
+Make the search radius configurable by issue category. For example, a pothole and a large garbage dump may need different proximity thresholds.
+
+### B. Image similarity
+
+Use an image embedding model to convert each image into a numerical vector.
+
+Compare embeddings using cosine similarity or another appropriate similarity metric.
+
+Example:
+
+- Similarity above 0.95: very strong visual match.
+- Similarity between 0.85 and 0.95: possible match.
+- Similarity below 0.85: weaker match.
+
+These values are initial configuration examples, not universal thresholds. Calibrate them using real JanSeva images.
+
+Also use perceptual hashing to detect identical or resized copies of uploaded images.
+
+### C. Category matching
+
+Compare:
+
+- AI-detected category
+- Citizen-selected category
+- Existing complaint category
+
+For example, a new garbage complaint should be compared primarily with nearby garbage complaints, not every issue in the area.
+
+### D. Time comparison
+
+Compare when the previous complaint was submitted.
+
+A complaint about a pothole reported three months ago may still be relevant if it remains unresolved.
+
+Do not automatically ignore older unresolved complaints.
+
+Consider:
+
+- Complaint creation time
+- Last status update
+- Resolution status
+- Latest evidence
+- Whether the issue is still active
+
+### E. Description similarity
+
+Use text similarity or semantic embeddings to compare complaint descriptions.
+
+Example:
+
+- "Garbage dumped beside the main road."
+- "Waste is accumulating near the roadside."
+
+These descriptions may refer to the same problem.
+
+### F. Combined duplicate score
+
+Create a configurable duplicate detection algorithm using:
+
+- GPS distance
+- Image similarity
+- Perceptual hash
+- Issue category
+- Description similarity
+- Complaint status
+- Submission time
+
+Return a structured result:
+
+```json
+{
+  "duplicateCheckCompleted": true,
+  "possibleDuplicate": true,
+  "duplicateScore": 0.93,
+  "matchingComplaints": [
+    {
+      "complaintNumber": "JS-2026-00125",
+      "distanceMeters": 18.5,
+      "imageSimilarity": 0.94,
+      "categoryMatch": true,
+      "status": "IN_PROGRESS"
+    }
+  ],
+  "recommendedAction": "ADMIN_REVIEW"
+}
+```
+
+### G. Duplicate handling rules
+
+Implement these rules:
+
+- Very high match: ask the citizen whether they want to view the existing complaint and submit additional evidence.
+- Possible match: allow submission but flag it for admin review.
+- No match: create a normal complaint.
+- Existing complaint resolved: do not automatically merge a new report; the issue may have returned.
+- Existing complaint rejected: do not automatically merge.
+- Multiple matching complaints: show the most relevant matches to the admin.
+- Admin can confirm duplicate, reject duplicate suggestion or link complaints.
+
+**Important:** Never silently delete or discard a citizen's complaint. Preserve the original report and its audit history.
+
+Support linking duplicate reports to a primary complaint while retaining each citizen's contribution and evidence.
+
+# 5. GPS and Location Tracking
+
+Capture the user's location when submitting a complaint.
+
+Store:
+
+- Latitude
+- Longitude
+- GPS accuracy in meters
+- Address
+- Street or locality
+- Area
+- City
+- State
+- Postal code
+- Capture timestamp
+- Location source
+- Reverse-geocoding result
+
+Example:
+
+```json
+{
+  "latitude": 17.4840,
+  "longitude": 78.3910,
+  "accuracyMeters": 12,
+  "address": "Kukatpally, Hyderabad, Telangana",
+  "city": "Hyderabad",
+  "state": "Telangana",
+  "postalCode": "500072",
+  "locationSource": "DEVICE_GPS"
+}
+```
+
+Implement:
+
+- GPS permission handling on the frontend.
+- Manual map pin selection if GPS is unavailable.
+- Address search.
+- Reverse geocoding.
+- GPS accuracy validation.
+- Invalid coordinate rejection.
+- Location correction by an authorized admin.
+- Location history for complaint reassignment.
+- Map-based complaint visualization.
+- Nearby complaint search.
+
+Do not assume GPS coordinates are always genuine. Treat them as user-provided evidence, validate reasonable accuracy and allow authorized review. Do not expose a citizen's precise home location publicly.
+
+# 6. Responsible Authority Detection
+
+Use location-based jurisdiction mapping to identify the appropriate local authority.
+
+Create database-driven mapping for:
+
+- City
+- Municipality
+- Corporation
+- Ward
+- Zone
+- Department
+- Service area
+- Official social media accounts
+
+Do not hardcode government account names or jurisdiction rules.
+
+For Hyderabad, the system should support configurable jurisdiction and department mappings. Use verified boundary data and allow an admin to correct the suggested authority.
+
+The AI must not independently invent which government department is responsible.
+
+# 7. Database Design
+
+Design a normalized MySQL database with proper foreign keys, indexes, unique constraints and audit fields.
+
+Create entities and migrations for:
+
+### Authentication and users
+- users
+- roles
+- user_roles
+- user_profiles
+
+### Civic complaint management
+- complaints
+- complaint_media
+- complaint_categories
+- complaint_history
+- complaint_locations
+- complaint_assignments
+- complaint_feedback
+
+### AI processing
+- ai_analysis_results
+- ai_detected_objects
+- image_embeddings
+- image_hashes
+- duplicate_detection_results
+- duplicate_complaint_links
+
+### Geography and authorities
+- service_areas
+- wards
+- zones
+- departments
+- authority_service_areas
+- authority_social_accounts
+
+### Administration
+- admin_users or admin role assignments
+- audit_logs
+- notifications
+- escalation_rules
+
+Every complaint must have a unique reference number, for example:
+
+`JS-2026-000001`
+
+Use appropriate relationships. Avoid storing uploaded image binary data directly in MySQL. Store the object-storage key and metadata instead.
+
+Use `DECIMAL` for geographic coordinates and appropriate timestamp types. Store timestamps consistently in UTC.
+
+Store AI results with model name, model version, confidence, processing status and creation timestamp.
+
+# 8. Complaint Status Management
+
+Implement a controlled complaint lifecycle:
+
+```text
+SUBMITTED
+    |
+AI_PROCESSING
+    |
+UNDER_REVIEW
+    |
+VERIFIED
+    |
+ASSIGNED
+    |
+IN_PROGRESS
+    |
+RESOLVED
+    |
+CLOSED
+```
+
+Additional statuses:
+
+- REJECTED
+- POSSIBLE_DUPLICATE
+- CONFIRMED_DUPLICATE
+- REOPENED
+- ESCALATED
+- ON_HOLD
+
+Implement valid state transitions.
+
+Every status change must create a complaint history record containing:
+
+- Previous status
+- New status
+- Changed by
+- Reason
+- Timestamp
+- Supporting evidence
+
+Do not allow arbitrary status updates from the frontend.
+
+# 9. Image Storage and Processing
+
+Implement a secure image upload system.
+
+Requirements:
+
+- Support JPEG, PNG and WebP.
+- Enforce configurable maximum file size.
+- Validate actual file content, not just filename extension.
+- Generate unique storage filenames.
+- Reject executable and unsupported files.
+- Strip unnecessary EXIF metadata from public image copies.
+- Preserve the original privately when there is a legitimate operational need.
+- Generate thumbnails.
+- Store images in AWS S3 or compatible object storage.
+- Store object keys and image metadata in MySQL.
+- Use signed URLs for private images.
+- Prevent unauthorized access to citizen images.
+
+Process images asynchronously using RabbitMQ so a slow AI model does not make complaint submission time out.
+
+Track processing states:
+
+`PENDING`, `PROCESSING`, `COMPLETED`, `FAILED`.
+
+Retry temporary failures safely. Do not create duplicate complaints or AI records during retries.
+
+# 10. REST API Design
+
+Implement REST APIs with proper request/response DTOs.
+
+### Authentication
+
+```http
+POST /api/v1/auth/register
+POST /api/v1/auth/login
+POST /api/v1/auth/refresh
+```
+
+### Complaint submission
+
+```http
+POST /api/v1/complaints
+POST /api/v1/complaints/{id}/media
+GET  /api/v1/complaints/{id}
+GET  /api/v1/complaints/my
+GET  /api/v1/complaints/{id}/history
+```
+
+### AI analysis
+
+```http
+GET  /api/v1/complaints/{id}/ai-analysis
+GET  /api/v1/complaints/{id}/duplicate-check
+POST /api/v1/admin/complaints/{id}/reanalyze
+```
+
+### Duplicate management
+
+```http
+GET  /api/v1/admin/duplicates
+GET  /api/v1/admin/complaints/{id}/possible-duplicates
+POST /api/v1/admin/duplicates/{id}/confirm
+POST /api/v1/admin/duplicates/{id}/reject
+POST /api/v1/admin/complaints/{id}/link-primary
+```
+
+### Location
+
+```http
+GET /api/v1/complaints/nearby
+GET /api/v1/locations/reverse-geocode
+GET /api/v1/locations/authorities
+```
+
+### Admin
+
+```http
+GET  /api/v1/admin/complaints
+PUT  /api/v1/admin/complaints/{id}/verify
+PUT  /api/v1/admin/complaints/{id}/reject
+PUT  /api/v1/admin/complaints/{id}/assign
+PUT  /api/v1/admin/complaints/{id}/status
+```
+
+Use pagination, sorting, filtering, validation and consistent API response structures.
+
+# 11. Security Requirements
+
+Implement:
+
+- JWT authentication.
+- Role-based access control.
+- Citizen, admin, supervisor and department roles.
+- Ownership checks for citizen complaints.
+- Secure image access.
+- Input validation.
+- SQL injection protection.
+- Rate limiting.
+- Upload abuse protection.
+- Audit logging.
+- Secure secrets management.
+- CORS configuration.
+- Protection against unauthorized complaint modification.
+
+Do not expose personal information or private location information through public APIs.
+
+# 12. Admin Dashboard Requirements
+
+Build an admin dashboard with:
+
+- Total complaints
+- New complaints
+- Complaints under review
+- Verified complaints
+- Duplicate suggestions
+- Assigned complaints
+- Resolved complaints
+- Pending complaints
+- Complaints by category
+- Complaints by ward or locality
+- Map visualization
+- AI confidence scores
+- Image previews
+- Duplicate comparison view
+- Complaint history
+- Manual category correction
+- Authority mapping
+- Excel export of verified complaints
+
+When reviewing a duplicate, show both images side by side, distance between coordinates, similarity scores, descriptions and current status.
+
+# 13. Notifications
+
+Notify citizens when:
+
+- Complaint is submitted.
+- AI processing finishes.
+- Admin requests more information.
+- Complaint is verified.
+- Complaint is marked as a possible duplicate.
+- Complaint is assigned.
+- Work starts.
+- Complaint is resolved.
+- Complaint is reopened.
+
+Use Firebase Cloud Messaging or another appropriate notification service.
+
+Do not send repeated notifications for duplicate webhook events or repeated processing attempts.
+
+# 14. Testing Requirements
+
+Write unit and integration tests for:
+
+- Successful image upload.
+- Invalid image upload.
+- AI detection success and failure.
+- Low-confidence AI detection.
+- Exact duplicate image.
+- Similar image with different size or compression.
+- Same issue reported from nearby GPS coordinates.
+- Same category but different locations.
+- Same location but different issue categories.
+- Old unresolved complaint matching a new report.
+- Previously resolved issue reported again.
+- Multiple possible duplicates.
+- Invalid GPS coordinates.
+- Poor GPS accuracy.
+- Manual location correction.
+- Citizen access to another citizen's complaint.
+- Unauthorized admin operations.
+- Duplicate processing message retries.
+- Database transaction failures.
+
+Use realistic test data and avoid relying only on mocked happy paths.
+
+# 15. Development Instructions
+
+Build this project in phases.
+
+**Phase 1 — Foundation**
+- Create Spring Boot project.
+- Configure MySQL and Flyway.
+- Implement users, roles, JWT and security.
+- Create the database schema.
+- Add Swagger.
+
+**Phase 2 — Complaint submission**
+- Implement image upload.
+- Implement GPS capture.
+- Implement complaint creation.
+- Save complaint metadata.
+- Store images in object storage.
+- Generate complaint reference numbers.
+
+**Phase 3 — AI detection**
+- Integrate image classification.
+- Implement confidence thresholds.
+- Save AI analysis results.
+- Add asynchronous processing.
+- Implement admin review for uncertain images.
+
+**Phase 4 — Duplicate detection**
+- Implement GPS proximity search.
+- Implement perceptual hashing.
+- Implement image embeddings.
+- Implement category and text similarity.
+- Combine signals into a configurable duplicate score.
+- Implement admin duplicate review and complaint linking.
+
+**Phase 5 — Tracking and authority mapping**
+- Implement status history.
+- Implement map visualization.
+- Implement location-based authority mapping.
+- Implement department assignment.
+- Implement notifications.
+
+**Phase 6 — Admin dashboard**
+- Implement complaint review.
+- Implement duplicate comparison.
+- Implement analytics.
+- Implement Excel export.
+
+**Phase 7 — Production readiness**
+- Add integration tests.
+- Add Docker.
+- Add logging and monitoring.
+- Add API documentation.
+- Add security checks.
+- Add deployment configuration.
+
+# 16. Important Rules for the AI Coding Assistant
+
+1. First inspect the existing repository before modifying anything.
+2. Do not assume files, packages, APIs or configurations already exist.
+3. Do not generate the entire application in one response.
+4. Start by presenting the architecture, ER diagram and development plan.
+5. Then implement one phase at a time.
+6. Generate complete, compilable Java code, not pseudocode.
+7. Use DTOs rather than exposing JPA entities directly.
+8. Follow clean code and SOLID principles.
+9. Keep controllers thin and business logic in services.
+10. Use database transactions where required.
+11. Implement centralized exception handling.
+12. Add proper validation and logging.
+13. Never hardcode API keys, AI credentials or payment secrets.
+14. Never automatically merge or discard citizen complaints.
+15. Never claim an issue is resolved without verified evidence.
+16. Include unit and integration tests.
+17. Explain each major architectural decision in simple English.
+18. After each phase, provide the files created or modified, API endpoints, SQL migrations and commands to run and test the application.
+19. Do not move to the next phase until the current phase compiles and its tests pass.
+20. If an external AI model, map provider or object-storage service requires credentials, create a clean integration interface and document the configuration needed. Do not pretend an integration works without credentials.
+
+**Final objective:** Build JanSeva as a reliable AI-powered civic complaint platform that can detect real-world civic issues from uploaded photographs, identify possible duplicate reports, associate complaints with verified geographic locations, store all records securely in MySQL and provide transparent tracking from initial submission to verified resolution.

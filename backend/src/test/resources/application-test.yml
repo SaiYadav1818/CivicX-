@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/janseva_test?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: janseva
+    password: janseva
+  flyway:
+    clean-disabled: false

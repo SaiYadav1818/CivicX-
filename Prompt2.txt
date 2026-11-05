@@ -1,0 +1,1420 @@
+another agenda also lets say my team clean the garbage that should go to nearest peeple to pay us 10 rupess
+That's an interesting addition! You're now thinking about making JanSeva a community-powered cleanliness and civic action platform, not just a complaint-reporting application.
+
+I understand your idea:
+
+Suppose a citizen reports garbage in a public area. Your team takes responsibility for cleaning it. Nearby people can contribute ₹10 each to support the cleanup.
+
+The person reporting the problem gets a solution, your team gets funding, and the community participates in keeping its surroundings clean.
+
+1. New module: Community Cleanup Funding
+New JanSeva feature
+One day, one hour together... Shramdaan campaign was carried out in the city | नगर में चला एक दिन, एक घंटे एक साथ... श्रमदान अभियान - Bettiah (West Champaran) News | Dainik Bhaskar
+Swachh Bharat: A public health crisis is upon us; here is how to avert it
+Swachh Bharat Abhiyan - Kankot Village | Swaminarayan Gurukul Rajkot Sansthan
+Example scenario
+A garbage complaint is registered in Kukatpally.
+
+Detail
+
+Example
+
+Complaint ID
+
+JS-2026-00128
+
+Location
+
+Kukatpally
+
+Problem
+
+Garbage accumulation
+
+Cleanup team
+
+JanSeva volunteers
+
+Contribution
+
+₹10 per person
+
+Target
+
+₹500
+
+Contributors needed
+
+50 people
+
+Nearby residents receive a notification:
+
+"Help make your neighbourhood clean! Contribute just ₹10 towards cleaning the reported garbage spot."
+
+2. How the contribution system works
+JanSeva community contribution
+Kukatpally Cleanup Campaign
+
+Active
+MCD Sanitation Workers End Strike After Delhi HC Intervenes
+₹320 / ₹500
+32 contributors
+
+64% funded
+
+Support this cleanup
+
+₹10
+Voluntary contribution per person
+
+Illustrative campaign, not a live payment request.
+Complete workflow
+Citizen reports garbage.
+
+Admin verifies the complaint.
+
+JanSeva team creates a cleanup campaign.
+
+System identifies nearby residents who opted into local notifications.
+
+Residents receive the cleanup request.
+
+They voluntarily contribute ₹10.
+
+Payment gateway confirms contributions.
+
+Once the target is reached, the team schedules cleanup.
+
+Team uploads before-and-after photographs.
+
+Admin marks the campaign completed and publishes the result.
+
+3. Additional database tables
+Table
+
+Purpose
+
+cleanup_campaigns
+
+Cleanup campaign details
+
+campaign_contributions
+
+Individual ₹10 contributions
+
+campaign_expenses
+
+Actual cleanup expenses
+
+cleanup_teams
+
+Volunteer and worker details
+
+cleanup_tasks
+
+Assigned cleaning tasks
+
+campaign_media
+
+Before-and-after photographs
+
+payment_transactions
+
+Payment gateway references
+
+campaign_notifications
+
+Nearby resident notifications
+
+Keep financial transactions separate from complaint records.
+
+4. Important features
+Nearby campaigns based on geographical radius.
+
+Voluntary ₹10 contributions.
+
+UPI payment integration.
+
+Live contribution tracking.
+
+Campaign funding target.
+
+Expense transparency.
+
+Before-and-after photographs.
+
+Digital contribution receipts.
+
+Refund handling if a campaign is cancelled.
+
+Campaign completion verification.
+
+Very important: Never automatically debit nearby residents. They must explicitly choose to contribute. Also, keep campaign money in an appropriate payment-provider-supported flow, with clear accounting and settlement rules. Get the necessary permissions for public waste collection and disposal, and don't allow untrained volunteers to handle hazardous waste.
+
+5. JanSeva is now becoming three connected products
+SpotFix.ca — Report potholes & civic issues in your city
+1. Civic Issue Reporting
+
+Citizens report problems with photographs and GPS locations.
+
+CEDAM: Tax Prep Volunteer Recruitment | Redhead Creative Consultancy
+2. Public Accountability
+
+Your team creates X and Instagram posts, tags the relevant government authority and tracks responses.
+
+One day, one hour together... Shramdaan campaign was carried out in the city | नगर में चला एक दिन, एक घंटे एक साथ... श्रमदान अभियान - Bettiah (West Champaran) News | Dainik Bhaskar
+3. Community Cleanup Funding
+
+Nearby residents voluntarily contribute money to support verified cleanup activities.
+
+6. One important question about your ₹10 model
+Who will receive the ₹10 contributions?
+
+
+JanSeva team receives the pooled amount and manages cleanup.
+
+Directly pay local cleaning workers.
+
+Fund an NGO or local cleaning organization.
+
+Other arrangement
+My vision for JanSeva is that people should not just complain about their surroundings. They should also have a practical way to participate in improving them.
+
+For JanSeva, my cleanup contribution model is: Directly pay local cleaning workers.  Design the complete payment flow, database schema, accounting and refund process.
+
+Worked for 33s
+JanSeva – Community Cleanup Payment & Worker Settlement System
+Payment model selected
+Your selected model is:
+
+Nearby residents voluntarily contribute ₹10, and JanSeva uses the collected funds to pay local cleaning workers directly.
+
+This is a good community-funded service model because the money is connected to a specific cleanup activity, and workers receive compensation for their work.
+
+I recommend building this as a separate financial module inside JanSeva, with strict transaction tracking.
+
+1. Complete payment flow
+Let's take a practical example.
+
+A citizen reports garbage accumulation in Kukatpally, Hyderabad. JanSeva verifies the complaint and creates a cleanup campaign.
+
+Example cleanup campaign
+Garbage Problem: ಆನೇಕಲ್: ಚಂದಾಪುರ ಚಂದಕ್ಕೆ ‘ಕಸ’ದ ದೃಷ್ಟಿಬೊಟ್ಟು!
+Kukatpally Garbage Cleanup
+
+Item
+
+Amount
+
+Target contributions
+
+₹500
+
+Contribution per person
+
+₹10
+
+Contributors required
+
+50
+
+Worker payment budget
+
+₹400
+
+Supplies and disposal budget
+
+₹100
+
+Illustrative budget. Actual expenses must be recorded and approved.
+
+End-to-end workflow
+Complaint verification
+
+Admin verifies the garbage complaint and creates a cleanup campaign.
+
+Campaign approval
+
+Admin approves the budget, worker requirements and campaign target.
+
+Nearby residents notified
+
+Residents who opted into local notifications receive a campaign invitation.
+
+Residents contribute ₹10
+
+Citizen chooses to contribute using UPI or another supported payment method.
+
+Payment confirmation
+
+Payment gateway confirms the transaction through a verified server-side webhook.
+
+Campaign funding
+
+Successfully collected funds are tracked against the campaign's target.
+
+Worker assignment
+
+JanSeva assigns verified local cleaning workers.
+
+Cleanup completed
+
+Workers upload before-and-after evidence, and an admin verifies completion.
+
+Worker payment
+
+JanSeva transfers the approved worker compensation to the worker's verified bank account or supported UPI payout destination.
+
+Financial closure
+
+Campaign expenses, worker payments, unused balances and receipts are reconciled.
+
+Important payment design: A payment gateway collecting contributions and a payout provider paying workers are two separate operations. Do not assume the gateway balance can be directly transferred to any worker. Choose a provider and settlement arrangement that explicitly supports your intended marketplace/community collection and beneficiary payout model. Obtain the required legal, tax and payment-provider approvals before launching real-money collection.
+
+2. Financial architecture
+I recommend separating the payment system into five components.
+
+JanSeva financial architecture
+Citizen application
+
+Contribute ₹10 voluntarily
+
+Payment Service
+
+Create order • Verify payment • Webhooks
+
+Approved Payment Provider
+
+Collect and settle funds under an approved arrangement
+
+Campaign Fund Ledger
+
+Track each campaign's available, committed and refundable balance
+
+Worker payout
+
+Verified beneficiary
+
+Refund service
+
+Return eligible contributions
+
+Recommended payment approach
+Use a payment provider that supports an approved marketplace or service-provider settlement arrangement.
+
+For example, Razorpay Route supports linked accounts, transfers, reversals and refunds. However, its current eligibility and payer-payee requirements must be reviewed for JanSeva's exact model before implementation. 
+
+Razorpay
++2
+
+Also, India's RBI issued its Payment Aggregator Directions in September 2025. Your company should obtain payment-provider and legal advice on whether its collection and payout model requires any specific authorization or structure. Don't operate an informal pooled wallet or collect contributions into a personal bank account. 
+
+FIDC
++2
+
+3. Payment lifecycle
+Every ₹10 contribution must have an independent transaction record.
+
+Status
+
+Meaning
+
+CREATED
+
+Payment order generated
+
+PENDING
+
+Waiting for payment
+
+SUCCESS
+
+Payment confirmed
+
+FAILED
+
+Payment failed
+
+REFUND_PENDING
+
+Refund initiated
+
+REFUNDED
+
+Refund completed
+
+PARTIALLY_REFUNDED
+
+Partial amount returned
+
+Contribution API flow
+Step 1 – Create contribution
+
+POST /api/v1/campaigns/{campaignId}/contributions
+Request:
+
+{
+  "amount": 10,
+  "paymentMethod": "UPI"
+}
+
+Backend responsibilities:
+
+Verify campaign is active.
+
+Verify contribution amount.
+
+Check campaign funding limit.
+
+Generate a unique contribution reference.
+
+Create payment order with the provider.
+
+Save the payment order reference.
+
+Return checkout details to the frontend.
+
+Step 2 – Payment confirmation
+
+The payment provider sends a webhook to your backend.
+
+POST /api/v1/payments/webhook
+Your backend must:
+
+Verify webhook signature.
+
+Check provider payment reference.
+
+Prevent duplicate processing.
+
+Verify the amount and currency.
+
+Update the contribution status.
+
+Record the accounting entries.
+
+Update the campaign's collected total.
+
+Send a contribution receipt.
+
+Never mark a contribution successful just because the frontend displays a success message.
+
+Step 3 – Campaign funding
+
+Example:
+
+Target: ₹500.
+
+Contributions: 50 × ₹10.
+
+Confirmed collected amount: ₹500.
+
+The campaign becomes FUNDED only when the actual successful, eligible contributions meet the funding requirement.
+
+4. Worker registration and payout
+Before paying anyone, JanSeva should have a worker onboarding process.
+
+Worker registration
+Collect:
+
+Full name.
+
+Mobile number.
+
+Address.
+
+Bank account or supported payout beneficiary details.
+
+Identity and KYC information as required by the payout provider.
+
+Emergency contact.
+
+Worker agreement and consent.
+
+Sensitive documents and bank details must be encrypted and access restricted.
+
+Worker payment workflow
+Worker registers and completes verification.
+Admin assigns a cleanup task.
+Worker accepts the assignment.
+Worker performs cleanup and uploads evidence.
+Supervisor verifies completion and working hours.
+Admin approves the worker's payable amount.
+Backend creates a payout request.
+Payment provider transfers money to the worker.
+Webhook confirms successful payout.
+Example worker payout
+Particular
+
+Amount
+
+Total collected
+
+₹500
+
+Worker A
+
+₹250
+
+Worker B
+
+₹150
+
+Supplies/disposal budget
+
+₹100
+
+Remaining balance
+
+₹0
+
+The workers receive ₹400 collectively. The ₹100 for supplies and disposal should only be paid against approved expenses.
+
+Important: Worker wages should be agreed before the job starts. Do not reduce their agreed compensation because fewer residents contributed than expected. JanSeva should fund any shortfall or postpone the cleanup transparently before work begins.
+
+5. Complete database design
+I recommend these tables for the financial module.
+
+A. Campaign management
+cleanup_campaigns
+
+Column
+
+Type
+
+Purpose
+
+id
+
+BIGINT
+
+Primary key
+
+complaint_id
+
+BIGINT
+
+Related complaint
+
+campaign_number
+
+VARCHAR
+
+Unique reference
+
+target_amount
+
+DECIMAL(12,2)
+
+Funding target
+
+collected_amount
+
+DECIMAL(12,2)
+
+Successful contributions
+
+status
+
+VARCHAR
+
+Campaign status
+
+start_date
+
+DATETIME
+
+Campaign start
+
+end_date
+
+DATETIME
+
+Campaign deadline
+
+approved_by
+
+BIGINT
+
+Admin ID
+
+cleanup_campaign_budgets
+
+Column
+
+Type
+
+Purpose
+
+id
+
+BIGINT
+
+Primary key
+
+campaign_id
+
+BIGINT
+
+Campaign
+
+worker_budget
+
+DECIMAL(12,2)
+
+Worker compensation
+
+supplies_budget
+
+DECIMAL(12,2)
+
+Cleaning materials
+
+disposal_budget
+
+DECIMAL(12,2)
+
+Waste disposal
+
+gateway_fee_budget
+
+DECIMAL(12,2)
+
+Payment fees
+
+approved_total
+
+DECIMAL(12,2)
+
+Approved budget
+
+B. Contributions and payment
+campaign_contributions
+
+Column
+
+Type
+
+Purpose
+
+id
+
+BIGINT
+
+Primary key
+
+campaign_id
+
+BIGINT
+
+Campaign reference
+
+citizen_id
+
+BIGINT
+
+Contributor
+
+amount
+
+DECIMAL(12,2)
+
+₹10
+
+payment_id
+
+BIGINT
+
+Payment reference
+
+status
+
+VARCHAR
+
+Contribution status
+
+created_at
+
+DATETIME
+
+Created time
+
+payment_transactions
+
+Column
+
+Type
+
+Purpose
+
+id
+
+BIGINT
+
+Primary key
+
+contribution_id
+
+BIGINT
+
+Contribution reference
+
+provider_order_id
+
+VARCHAR
+
+Gateway order ID
+
+provider_payment_id
+
+VARCHAR
+
+Gateway payment ID
+
+amount
+
+DECIMAL(12,2)
+
+Payment amount
+
+currency
+
+VARCHAR
+
+INR
+
+status
+
+VARCHAR
+
+Payment status
+
+idempotency_key
+
+VARCHAR
+
+Duplicate prevention
+
+paid_at
+
+DATETIME
+
+Confirmation time
+
+C. Worker management
+cleanup_workers
+
+Column
+
+Type
+
+Purpose
+
+id
+
+BIGINT
+
+Primary key
+
+name
+
+VARCHAR
+
+Worker name
+
+mobile
+
+VARCHAR
+
+Mobile number
+
+verification_status
+
+VARCHAR
+
+KYC status
+
+provider_account_id
+
+VARCHAR
+
+Beneficiary reference
+
+bank_reference
+
+VARCHAR
+
+Protected bank details reference
+
+active
+
+BOOLEAN
+
+Worker availability
+
+cleanup_assignments
+
+Column
+
+Type
+
+Purpose
+
+id
+
+BIGINT
+
+Primary key
+
+campaign_id
+
+BIGINT
+
+Campaign
+
+worker_id
+
+BIGINT
+
+Assigned worker
+
+agreed_amount
+
+DECIMAL(12,2)
+
+Agreed compensation
+
+work_status
+
+VARCHAR
+
+Assignment status
+
+before_photo
+
+VARCHAR
+
+Evidence URL
+
+after_photo
+
+VARCHAR
+
+Completion URL
+
+approved_by
+
+BIGINT
+
+Supervisor
+
+completed_at
+
+DATETIME
+
+Completion date
+
+D. Payout and refunds
+worker_payouts
+
+Column
+
+Type
+
+Purpose
+
+id
+
+BIGINT
+
+Primary key
+
+assignment_id
+
+BIGINT
+
+Assignment
+
+worker_id
+
+BIGINT
+
+Worker
+
+amount
+
+DECIMAL(12,2)
+
+Payout amount
+
+provider_transfer_id
+
+VARCHAR
+
+Transfer reference
+
+status
+
+VARCHAR
+
+Payout status
+
+approved_by
+
+BIGINT
+
+Approver
+
+paid_at
+
+DATETIME
+
+Payment confirmation
+
+contribution_refunds
+
+Column
+
+Type
+
+Purpose
+
+id
+
+BIGINT
+
+Primary key
+
+contribution_id
+
+BIGINT
+
+Original contribution
+
+amount
+
+DECIMAL(12,2)
+
+Refund amount
+
+reason
+
+VARCHAR
+
+Refund reason
+
+provider_refund_id
+
+VARCHAR
+
+Gateway reference
+
+status
+
+VARCHAR
+
+Refund status
+
+processed_at
+
+DATETIME
+
+Completion date
+
+E. Accounting and audit
+Additional tables:
+
+ledger_accounts
+
+journal_entries
+
+journal_lines
+
+provider_settlements
+
+campaign_expenses
+
+payment_webhook_events
+
+payout_webhook_events
+
+financial_audit_logs
+
+These tables make the financial records traceable.
+
+6. Accounting design – very important
+I strongly recommend double-entry accounting.
+
+This means every financial movement has a debit and a credit.
+
+You should never calculate the available campaign balance just by subtracting two columns without maintaining financial transaction records.
+
+Example: ₹500 collected
+When ₹500 is successfully collected:
+
+Account
+
+Debit
+
+Credit
+
+Payment provider receivable
+
+₹500
+
+—
+
+Campaign funds payable
+
+—
+
+₹500
+
+When ₹400 is approved for worker payments:
+
+Account
+
+Debit
+
+Credit
+
+Campaign funds payable
+
+₹400
+
+—
+
+Worker payout payable
+
+—
+
+₹400
+
+When the ₹400 is successfully transferred:
+
+Account
+
+Debit
+
+Credit
+
+Worker payout payable
+
+₹400
+
+—
+
+Payment provider / bank balance
+
+—
+
+₹400
+
+The remaining ₹100 stays allocated to the campaign for approved expenses.
+
+Financial dashboard
+Your admin should be able to see:
+
+Campaign financial overview
+Collected
+
+₹500
+Worker payouts
+
+₹400
+Other expenses
+
+₹100
+Unallocated
+
+₹0
+Illustrative campaign reconciled
+Accounting rules:
+
+Never delete successful payment records.
+
+Never overwrite financial amounts after payment.
+
+Corrections must happen through reversal entries.
+
+Every payout must reference an approved assignment.
+
+Every refund must reference its original contribution.
+
+Reconcile provider statements against your internal ledger.
+
+Keep provider fees and taxes separately recorded.
+
+7. Refund process
+Refunds are especially important because residents are contributing money for a specific cleanup activity.
+
+I recommend defining refund rules before accepting the first payment.
+
+Refund scenarios
+Situation
+
+Refund policy
+
+Campaign cancelled
+
+Refund eligible contributions in full
+
+Funding target not reached
+
+Refund if campaign uses all-or-nothing funding
+
+Payment succeeded but campaign not started
+
+Refund if campaign is cancelled
+
+Worker unavailable
+
+Reassign worker or cancel and refund
+
+Cleanup completed
+
+No automatic refund; handle genuine disputes under published policy
+
+Duplicate payment
+
+Refund duplicate transaction
+
+Payment failed
+
+No refund needed unless money was actually debited
+
+Example: campaign cancelled
+Suppose 30 people contribute ₹10 each.
+
+Cancelled cleanup campaign
+
+₹300
+Total successful contributions
+
+Refund eligible
+
+₹300
+
+Worker payout
+
+₹0
+
+Full refund process initiated
+Refund API:
+
+POST /api/v1/contributions/{id}/refund
+Request:
+
+{
+  "amount": 10,
+  "reason": "CAMPAIGN_CANCELLED"
+}
+
+Backend should:
+
+Check the original payment.
+
+Check whether it is refundable.
+
+Check whether a refund has already been initiated.
+
+Initiate the refund through the payment provider.
+
+Record the provider refund reference.
+
+Wait for confirmation.
+
+Update the refund status.
+
+Notify the contributor.
+
+Never mark a refund completed immediately after sending the refund request. Wait for the provider's confirmation.
+
+If funds have already been transferred to a worker, a customer refund may require a separate recovery or reversal process. Your platform must not assume that money can always be recovered from a worker. This is why campaign cancellation and refund decisions should happen before payouts whenever possible.
+
+8. Spring Boot API design
+I would create a separate package named finance.
+
+finance/
+│
+├── contribution/
+│   ├── ContributionController.java
+│   ├── ContributionService.java
+│   ├── ContributionRepository.java
+│   └── Contribution.java
+│
+├── payment/
+│   ├── PaymentController.java
+│   ├── PaymentService.java
+│   ├── PaymentGatewayService.java
+│   ├── PaymentWebhookController.java
+│   └── PaymentTransaction.java
+│
+├── payout/
+│   ├── WorkerPayoutController.java
+│   ├── WorkerPayoutService.java
+│   ├── PayoutProviderService.java
+│   └── WorkerPayout.java
+│
+├── refund/
+│   ├── RefundController.java
+│   ├── RefundService.java
+│   └── ContributionRefund.java
+│
+├── ledger/
+│   ├── LedgerService.java
+│   ├── JournalEntry.java
+│   ├── JournalLine.java
+│   └── LedgerAccount.java
+│
+└── reconciliation/
+    ├── ReconciliationService.java
+    └── ReconciliationScheduler.java
+API list
+Method
+
+Endpoint
+
+Purpose
+
+POST
+
+/api/v1/campaigns/{id}/contributions
+
+Create contribution
+
+GET
+
+/api/v1/contributions/{id}
+
+Payment details
+
+POST
+
+/api/v1/payments/webhook
+
+Payment confirmation
+
+POST
+
+/api/v1/workers/register
+
+Worker registration
+
+POST
+
+/api/v1/assignments
+
+Assign worker
+
+POST
+
+/api/v1/assignments/{id}/complete
+
+Submit completion
+
+POST
+
+/api/v1/payouts/{id}/approve
+
+Approve payout
+
+POST
+
+/api/v1/payouts/{id}/process
+
+Initiate transfer
+
+POST
+
+/api/v1/payouts/webhook
+
+Payout confirmation
+
+POST
+
+/api/v1/contributions/{id}/refund
+
+Request refund
+
+GET
+
+/api/v1/campaigns/{id}/finance
+
+Financial summary
+
+GET
+
+/api/v1/admin/finance/reconciliation
+
+Reconciliation report
+
+Important backend engineering considerations
+Because payment systems can receive duplicate callbacks, you need:
+
+Idempotency keys.
+
+Unique provider transaction IDs.
+
+Webhook signature verification.
+
+Database transactions.
+
+Optimistic locking or appropriate row locking for concurrent contributions.
+
+Retry handling for temporary provider failures.
+
+Scheduled reconciliation.
+
+Separate payment and payout status machines.
+
+For example, if a provider sends the same successful payment webhook three times, JanSeva must record only one successful contribution and one set of accounting entries.
+
+9. Admin dashboard design
+Your admin dashboard should have a separate financial section.
+
+JanSeva – Finance Management
+Contributions
+
+₹25,400
+Worker payouts
+
+₹18,000
+Pending payouts
+
+₹2,400
+Refunds
+
+₹500
+Finance operations
+
+Worker verification
+
+5 pending
+Payout approvals
+
+3 pending
+Refund requests
+
+2 pending
+Provider reconciliation
+
+Up to date
+Illustrative dashboard data only.
+Your admin should be able to export:
+
+Contribution statements.
+
+Worker payment statements.
+
+Campaign expense reports.
+
+Refund reports.
+
+Payment gateway reconciliation reports.
+
+10. Development roadmap
+Don't implement the entire financial system at once. Build it in phases.
+
+Phase
+
+Development work
+
+1
+
+Worker registration and verification
+
+2
+
+Cleanup campaign and budget management
+
+3
+
+₹10 contribution and payment gateway
+
+4
+
+Webhook handling and payment reconciliation
+
+5
+
+Worker assignment and completion verification
+
+6
+
+Worker payout integration
+
+7
+
+Refund and cancellation system
+
+8
+
+Double-entry ledger and finance dashboard
+
+9
+
+Security testing and real-money pilot
+
+I would estimate around 5–7 additional weeks for this financial module, depending on payment-provider onboarding and integration access.
+
+11. Important rules before real-world launch
+Since this involves collecting money from the public and paying workers in India, address these points before going live:
+
+Legal structure: Get professional advice on the company's legal role in collecting campaign contributions and arranging paid cleanup services.
+
+Payment compliance: Confirm the payment provider supports this exact flow. RBI's 2025 Payment Aggregator Directions are an important starting point. 
+
+FIDC
++1
+
+Worker compliance: Establish worker agreements, wage terms, safety equipment, insurance and applicable labour-law obligations.
+
+Tax: Get a CA to determine applicable GST, TDS and accounting treatment.
+
+Transparency: Publish the campaign budget and how contributions will be used.
+
+Data protection: Protect contributors' payment references and workers' identity and bank details.
+
+Public permissions: Coordinate with the relevant municipal authority for waste collection, transportation and disposal.
+
+12. My recommended final JanSeva architecture
+You now have five major business modules:
+
+JanSeva
+Citizen Reporting • Public Accountability • Community Action
+
+1. Complaint Management
+
+Photos, GPS, verification and tracking.
+
+2. Social Media Management
+
+AI-generated posts, authority tagging and response tracking.
+
+3. Community Contributions
+
+Voluntary ₹10 contributions and campaign funding.
+
+4. Worker Management
+
+Registration, assignment, evidence and compensation.
+
+5. Financial Management
+
+Payments, payouts, refunds, ledger and reconciliation.
+
+One design decision I recommend
+Keep the following three things completely separate in your backend:
+
+Complaint: What problem needs to be solved?
+
+Campaign: How will the community fund the solution?
+
+Worker assignment: Who will perform the actual work and get paid?
+
+One complaint can have multiple cleanup campaigns, and one campaign can have multiple workers.
+
+This separation will make your database, APIs, accounting and future expansion much easier.
+
+My suggested next development milestone is the complete MySQL ER diagram and SQL schema for all five JanSeva modules, so we can establish the database correctly before writing Spring Boot code
